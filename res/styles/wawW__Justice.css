@@ -1,0 +1,110 @@
+@CHARSET "UTF-8";
+
+.Main_Content__Info__DETAIL_IMG.section__Justice {
+	background-image: url("../images/Scales_of_justice.png");
+	background-repeat: no-repeat;
+	background-clip: content-box;
+	background-position: 35px 15px;
+	background-size: 74%;
+}
+
+.Topic_Thumbnail__IMG.section__Justice {
+
+	background-image:  url("../images/Scales_of_justice.png");
+}
+
+.Topic_Thumbnail__Container.SuperTopic .Topic_Thumbnail__IMG.section__Justice {
+	background-image:  url("../images/Scales_of_justice.png");
+	background-position: 13px 13px;
+}
+
+.Main_Content__Info.section__Justice .Main_Content__Info__Blogs .Topic_Thumbnail__Container.SuperTopic .Topic_Thumbnail__IMG {
+  background-position: 16px 23px;
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.HumanRights {
+	background-image:  url("../images/tall12.png");
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.SocialGroups {
+	background-image:  url("../images/group58.png");
+}
+
+
+.Topic_Thumbnail__IMG.sectionTopic.Family {
+	background-image:  url("../images/family4.png");"
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.Community {
+	background-image:  url("../images/people5.png");
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.Law {
+	background-image:  url("../images/law.png");
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.Society {
+	background-image:  url("../images/group44.png");
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.Defense {
+
+	background-image:  url("../images/shield54.png");
+}
+
+
+
+
+/* Tablet Portrait (768px) */
+/* @media only screen and (min-width: 321px) and (max-width: 1024px) and (orientation: portrait) { */
+@media only screen and (max-width: 1000px) {
+	
+	.Main_Content__Info.section__Justice .Main_Content__Info__Blogs .Topic_Thumbnail__Container.SuperTopic .Topic_Thumbnail__IMG {
+		background-position: 17px 26px;
+		background-size: 45%;
+	}
+	
+}
+
+@media only screen and (max-width: 700px) {
+	
+	.Topic_Thumbnail__Container.SuperTopic .Topic_Thumbnail__IMG.section__Justice {
+	  background-position: 8px 8px;
+	}
+	
+	
+	.Main_Content__Info.section__Justice .Main_Content__Info__Blogs .Topic_Thumbnail__Container.SuperTopic .Topic_Thumbnail__IMG {
+		background-position: 8px 15px;
+		background-size: 37%;
+	}
+}
+
+
+/* Phone Landscape (480px) */
+/* @media only screen and (min-width: 321px) and (max-width: 480px) and (orientation: landscape) { */
+@media only screen and (max-width: 480px) {
+	
+
+	.Main_Content__Info.section__Justice .Main_Content__Info__Blogs .Topic_Thumbnail__Container.SuperTopic .Topic_Thumbnail__IMG {
+		background-position: 8px 15px;
+		background-size: 37%;
+	}
+}
+
+
+
+/* Phone Portrait (320px) */
+@media only screen and (max-width: 320px) {
+}
+
+/* iPhone 2G-3GS Landscape */
+@media only screen and (width: 569px) and (width: 480px) and (orientation: landscape) {
+}
+
+/* iPhone 5 Landscape */
+@media only screen and (width: px) and (width: 568px) and (orientation: landscape) {
+}
+
+/* iPhone 5 Portrait */
+@media only screen and (width: px) and (width: 568px) and (orientation: portrait) {
+}

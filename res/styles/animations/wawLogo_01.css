@@ -1,0 +1,87 @@
+@CHARSET "UTF-8";
+
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+    }
+    body {
+      -webkit-transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+      -webkit-transform-style: preserve-3d;
+      background-color: transparent;
+    }
+    .waw_animation__WAW_Logo01 {
+      position: relative;
+      width: 238px;
+      color: rgb(0, 0, 0);
+      left: 0px;
+      top: 0px;
+      height: 101px;
+    }
+    .waw_animation__WAW_Logo01__Text_01 {
+      position: relative;
+      font-family: sans-serif;
+      font-size: 35px;
+      text-align: left;
+      color: rgb(0, 0, 0);
+      height: 36px;
+      width: 93px;
+      top: 19px;
+      left: 95px;
+      -webkit-transform-style: preserve-3d;
+      -webkit-transform: translate3d(-25px, -12px, 0px);
+    }
+    .waw_animation__WAW_Logo01__Text_02 {
+      position: relative;
+      height: 20px;
+      font-family: sans-serif;
+      text-align: left;
+      color: rgb(0, 0, 0);
+      top: 55px;
+      left: 43px;
+      width: 144px;
+      -webkit-transform-style: preserve-3d;
+    }
+    .waw_animation__WAW_Logo01 .waw_animation__WAW_Logo01__Anim_01 {
+      -webkit-animation: waw_animation__WAW_Logo01__Anim_01_gwd-keyframes 8.8s linear 0s infinite normal forwards;
+    }
+    @-webkit-keyframes waw_animation__WAW_Logo01__Anim_01_gwd-keyframes {
+      0% {
+        -webkit-transform: translate3d(-25px, -12px, 0px);
+        -webkit-animation-timing-function: linear;
+      }
+      22% {
+        -webkit-transform: matrix3d(0.5735764364, 0, -0.8191520443, 0, 0, 1, 0, 0, 0.8191520443, 0, 0.5735764364, 0, -25, -12, 0, 1);
+        -webkit-animation-timing-function: linear;
+      }
+      47% {
+        -webkit-transform: translate3d(-25px, -12px, 0px);
+        -webkit-animation-timing-function: linear;
+      }
+      75% {
+        -webkit-transform: matrix3d(0.882947593, 0, 0.4694715626, 0, 0, 1, 0, 0, -0.4694715626, 0, 0.882947593, 0, -25, -12, 0, 1);
+        -webkit-animation-timing-function: linear;
+      }
+      100% {
+        -webkit-transform: translate3d(-25px, -12px, 0px);
+        -webkit-animation-timing-function: linear;
+      }
+    }
+    .waw_animation__WAW_Logo01 .waw_animation__WAW_Logo01__Anim_02 {
+      -webkit-animation: waw_animation__WAW_Logo01__Anim_02_gwd-keyframes 8.8s linear 0s infinite normal forwards;
+    }
+    @-webkit-keyframes waw_animation__WAW_Logo01__Anim_02_gwd-keyframes {
+      0% {
+        -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        -webkit-animation-timing-function: linear;
+      }
+      54% {
+        -webkit-transform: matrix3d(0.9943704249, 0.1045125431, 0.0174524065, 0, -0.0902757183, 0.7493783712, 0.6559591081, 0, 0.0554774986, -0.6538418656, 0.7545946342, 0, 0, 0, 0, 1);
+        -webkit-animation-timing-function: linear;
+      }
+      100% {
+        -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        -webkit-animation-timing-function: linear;
+      }
+    }

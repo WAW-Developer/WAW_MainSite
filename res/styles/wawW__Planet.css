@@ -1,0 +1,90 @@
+@CHARSET "UTF-8";
+
+.Main_Content__Info__DETAIL_IMG.section__Planet {
+	background-image: url("../images/the25.png");
+	background-repeat: no-repeat;
+	background-clip: content-box;
+	background-position: 35px 15px;
+	background-size: 74%;
+}
+
+.Topic_Thumbnail__IMG.section__Planet {
+	background-image:  url("../images/the25.png");
+}
+
+.Topic_Thumbnail__Container.SuperTopic .Topic_Thumbnail__IMG.section__Planet {
+	background-image:  url("../images/the25.png");
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.Planet_Formation {
+	background-image:  url("../images/universe.png");
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.Current_Home {
+	background-image:  url("../images/planet2.png");
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.Water {
+	background-image:  url("../images/small32.png");
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.MoleculesOfLife {
+	background-image:  url("../images/molecule.png");
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.Cell {
+	background-image:  url("../images/nuclear5.png");
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.Bacteria {
+	background-image:  url("../images/bacteria1.png");
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.Plants {
+	background-image:  url("../images/tree101.png");
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.Animals {
+	background-image:  url("../images/monkey3.png");
+}
+
+/* Tablet Portrait (768px) */
+/* @media only screen and (min-width: 321px) and (max-width: 1024px) and (orientation: portrait) { */
+@media only screen and (max-width: 1000px) {
+	
+
+}
+
+@media only screen and (max-width: 700px) {
+	
+
+	
+	
+}
+
+
+/* Phone Landscape (480px) */
+/* @media only screen and (min-width: 321px) and (max-width: 480px) and (orientation: landscape) { */
+@media only screen and (max-width: 480px) {
+	
+
+
+}
+
+
+
+/* Phone Portrait (320px) */
+@media only screen and (max-width: 320px) {
+}
+
+/* iPhone 2G-3GS Landscape */
+@media only screen and (width: 569px) and (width: 480px) and (orientation: landscape) {
+}
+
+/* iPhone 5 Landscape */
+@media only screen and (width: px) and (width: 568px) and (orientation: landscape) {
+}
+
+/* iPhone 5 Portrait */
+@media only screen and (width: px) and (width: 568px) and (orientation: portrait) {
+}

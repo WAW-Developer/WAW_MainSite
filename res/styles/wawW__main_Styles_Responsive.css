@@ -1,0 +1,310 @@
+@CHARSET "UTF-8";
+
+
+/* Big Screeens */
+@media only screen and (min-width: 1200px) {
+	
+	
+	.Main_Content {
+		width: 90%;
+	}
+	
+	.Main_Content_TAB {
+		
+	}
+	
+	.Main_Content__Info {
+		width: 80%;
+		max-width: 1000px;
+	}
+	
+	.Main_Content__Info__DETAIL {
+		min-height: 500px;
+	}
+	
+	.Main_Content__Info__Topics {
+		min-height: 470px;
+	}
+	
+	.Main_Content__Info__Topics .Topic_Thumbnails__Grid_Container {
+		max-height: 470px;
+	}
+	
+	.Main_Content__Info__Topics .Topic_Thumbnails__Grid_Container .Topic_Thumbnails__Grid_Row .SubTopic_Description {
+		font-size: 17px;
+	}
+	
+	.Main_Content__Info__Blogs {
+		min-height: 470px;
+	}
+	
+	.Main_Content__Info__Blogs .Body_Content .Result_Content {
+		max-height: 430px;
+	}
+	
+	.Main_Content__Info__Blogs .Body_Content .Result_Content.Mini {
+		  max-height: 320px;
+	}
+	
+	.Main_Content__Info__Blogs .Topic_Thumbnails__Grid_Row .InfoLabel.Tags {
+		max-width: 480px;
+	}
+	
+	.Main_Content__Info__Blogs .Topic_Thumbnails__Grid_Row h3 {
+		max-width: 520px;
+		
+		background-color: rgba(218, 170, 95, 0.63);
+		
+		font-size: 18px;
+	}
+	
+	.Main_Content__Info__Blogs .Topic_Thumbnails__Grid_Row .SubTopic_Description {
+		font-size: 15px;
+	}
+
+}
+
+
+/* Tablet Portrait (768px) */
+/* @media only screen and (min-width: 321px) and (max-width: 1024px) and (orientation: portrait) { */
+@media only screen and (max-width: 1000px) {
+	
+
+}
+
+@media only screen and (max-width: 700px) {
+	
+
+	.Topic_Thumbnails__Grid_Container {
+		max-height: 259px;
+	
+	}
+	
+	.Topic_Thumbnails__Grid_Container.SubSections .Topic_Thumbnails__Grid_Row .Topic_Thumbnail__IMG {
+  		background-position: 27px 25px;
+	}
+	
+	.Topic_Thumbnails__Grid_Row {
+		min-height: 100px;
+	}
+	
+	.Topic_Thumbnails__Grid_Row .InfoLabel_Group {
+		display: inline-flex;
+		min-width: 200px;
+		max-width: 69%;
+	}
+	
+	
+	.Topic_Thumbnails__Grid_Row .InfoLabel {
+		font-size: 13px;
+		max-width: 344px;
+	}
+	
+	.Topic_Thumbnail__Container.SubTopic {
+		min-width: 80px;
+		min-height: 80px;
+	}
+	
+	.Topic_Thumbnail__Container.SuperTopic {
+		min-width: 20px;
+		min-height: 38px;
+		height: 39px;
+		width: 39px;
+	}
+	
+	.Topic_Thumbnails__Grid_Row .SubTopic_Description {
+		left: 132px;
+	}
+	
+	.Topic_Thumbnail__Container.SuperTopic .Topic_Thumbnail__IMG {
+		background-position: 8px 8px;
+		background-size: 40%;
+	}
+	
+	.Topic_Thumbnail__IMG {
+		background-position: 17px 17px;
+		background-size: 59%;
+	}
+	
+	.Main_Content__Info__Blogs .Option .form-control {  /* Bootstrap CSS  */
+		width: 183px;
+	}
+	
+	.Main_Content__Info__Blogs .Option input {
+		max-width: 140px;
+	}
+	
+	.Main_Content__Info__Blogs .Body_Content .Result_Content {
+	  max-height: 282px;
+	}
+
+	
+	
+	.Main_Content__Info__Blogs .Body_Content .Result_Content.Mini {
+	  max-height: 168px;
+	}
+	
+	.Main_Content__Info__Blogs .Topic_Thumbnail__Container.SuperTopic .Topic_Thumbnail__IMG {
+		background-position: 11px 15px;
+		background-size: 29%;
+	}
+	
+	.Main_Content__Info__Blogs .Topic_Thumbnail__Container.SubTopic .Topic_Thumbnail__IMG.searchResult {
+		background-position: 14px 17px;
+	}
+	
+	.Main_Content__Info__Blogs .Topic_Thumbnails__Grid_Row .InfoLabel.Date {
+		  min-width: 75px;
+	}
+		
+	.Main_Content__Info__Blogs .Topic_Thumbnails__Grid_Row .InfoLabel.Tags {
+	}
+	
+	.Main_Content__Info__Blogs .Topic_Thumbnails__Grid_Row h3 {
+		width: 61%;
+		
+		top: 19px;
+		left: 126px;
+		
+		font-size: 15px;
+	}
+	
+	.Main_Content__Info__Blogs .Topic_Thumbnails__Grid_Row .SubTopic_Description {
+		font-size: 12px;
+		left: 134px;
+		top: 43px;
+	}
+}
+
+/* Phone Landscape (480px) */
+/* @media only screen and (min-width: 321px) and (max-width: 480px) and (orientation: landscape) { */
+@media only screen and (max-width: 480px) {
+	
+	.Main_Content__Info {
+	
+	  width: 100%;
+	  
+	  padding-left: 2px;
+	  padding-right: 2px;
+	  
+	}
+	
+	.Info_Synergy__BUTTON {
+		
+		min-height: 35px;
+	
+		
+		padding-left: 3px;
+		padding-right: 3px;
+		
+		
+		margin-left: 0px;
+		margin-right: 0px;
+	
+		
+	}
+	
+	
+	.Topic_Thumbnails__Grid_Row .InfoLabel_Group {
+		min-width: 90px;
+		max-width: 48%;
+	}
+	
+	.Topic_Thumbnails__Grid_Container {
+		max-height: 370px;
+	}
+
+	.Topic_Thumbnails__Grid_Row .InfoLabel {
+		font-size: 11px;
+	}
+	
+	.Main_Content__Info__Topics .Topic_Thumbnails__Grid_Row .SubTopic_Description {
+		left: 130px;
+	}
+	
+	.Main_Content__Info__Topics .Topic_Thumbnails__Grid_Row h3 {
+		font-size: 15px;
+	}
+
+	.Main_Content__Info__Blogs .Body_Content .Options_Content {
+		height: 143px;
+	}
+	
+		
+	.Main_Content__Info__Blogs .Body_Content .Result_Content {
+	  max-height: 330px;
+	}
+	
+	.Main_Content__Info__Blogs .Option .form-control {  /* Bootstrap CSS  */
+		width: 153px; 
+	}
+	
+	.Main_Content__Info__Blogs .Option input {
+		max-width: 180px;
+	}
+	
+	.Main_Content__Info__Blogs .Body_Content .Result_Content.Mini {
+	  max-height: 191px;
+	}
+	
+	.Main_Content__Info__Blogs .Topic_Thumbnails__Grid_Row h3 {
+		max-width: 139px;
+		
+		top: 20px;
+		left: 121px;
+		
+		font-size: 15px;
+	}
+	
+
+	
+}
+
+
+
+/* Phone Portrait (320px) */
+@media only screen and (max-width: 320px) {
+	
+	.Topic_Thumbnail__Container.SubTopic {
+		min-width: 56px;
+		min-height: 56px;
+	}
+	
+	.Topic_Thumbnail__IMG {
+		max-width: 51px;
+		min-height: 51px;
+		background-position: 14px 11px;
+	}
+	
+
+	.Main_Content__Info__Topics .Topic_Thumbnails__Grid_Row .SubTopic_Description {
+		left: 109px;
+		font-size: 12px;
+	}
+
+	.Main_Content__Info__Blogs .Topic_Thumbnails__Grid_Row h3 {
+		font-size: 15px;
+		top: 20px;
+		left: 99px;
+		width: 55%;
+	}
+	
+	.Main_Content__Info__Blogs .Topic_Thumbnails__Grid_Row .SubTopic_Description {
+		left: 101px;
+		padding-right: 18px;
+	}
+
+
+}
+
+/* iPhone 2G-3GS Landscape */
+@media only screen and (width: 569px) and (width: 480px) and (orientation: landscape) {
+}
+
+/* iPhone 5 Landscape */
+@media only screen and (width: px) and (width: 568px) and (orientation: landscape) {
+}
+
+/* iPhone 5 Portrait */
+@media only screen and (width: px) and (width: 568px) and (orientation: portrait) {
+}

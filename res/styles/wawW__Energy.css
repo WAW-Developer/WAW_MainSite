@@ -1,0 +1,82 @@
+@CHARSET "UTF-8";
+
+.Main_Content__Info__DETAIL_IMG.section__Energy {
+	background-image: url("../images/eco7.png");
+	background-repeat: no-repeat;
+	background-clip: content-box;
+	background-position: 35px 4px;
+	background-size: 73%;
+}
+
+.Topic_Thumbnail__IMG.section__Energy {
+	background-image:  url("../images/eco7.png");
+}
+
+.Topic_Thumbnail__Container.SuperTopic .Topic_Thumbnail__IMG.section__Energy {
+	background-image:  url("../images/eco7.png");
+	background-position: 13px 13px;
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.Acquire {
+	background-image:  url("../images/danger3.png");
+
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.Storage {
+	background-image:  url("../images/battery53.png");
+}
+
+.Topic_Thumbnail__IMG.sectionTopic.Use {
+	background-image:  url("../images/triangular42.png");
+}
+
+.Main_Content__Info.section__Energy .Main_Content__Info__Blogs .Topic_Thumbnail__Container.SuperTopic .Topic_Thumbnail__IMG {
+	background-position: 16px 23px;
+}
+
+/* Tablet Portrait (768px) */
+/* @media only screen and (min-width: 321px) and (max-width: 1024px) and (orientation: portrait) { */
+@media only screen and (max-width: 1000px) {
+	
+
+}
+
+@media only screen and (max-width: 700px) {
+	
+
+	
+	.Main_Content__Info.section__Energy .Main_Content__Info__Blogs .Topic_Thumbnail__Container.SuperTopic .Topic_Thumbnail__IMG {
+		background-position: 11px 16px;
+	}
+	
+	.Topic_Thumbnail__Container.SuperTopic .Topic_Thumbnail__IMG.section__Energy {
+		background-position: 8px 9px;
+	}
+}
+
+
+/* Phone Landscape (480px) */
+/* @media only screen and (min-width: 321px) and (max-width: 480px) and (orientation: landscape) { */
+@media only screen and (max-width: 480px) {
+	
+
+
+}
+
+
+
+/* Phone Portrait (320px) */
+@media only screen and (max-width: 320px) {
+}
+
+/* iPhone 2G-3GS Landscape */
+@media only screen and (width: 569px) and (width: 480px) and (orientation: landscape) {
+}
+
+/* iPhone 5 Landscape */
+@media only screen and (width: px) and (width: 568px) and (orientation: landscape) {
+}
+
+/* iPhone 5 Portrait */
+@media only screen and (width: px) and (width: 568px) and (orientation: portrait) {
+}

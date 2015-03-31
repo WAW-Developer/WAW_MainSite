@@ -1,0 +1,621 @@
+@CHARSET "UTF-8";
+
+
+
+/* Laptop/Tablet (1024px) */
+@media only screen and (min-width: 481px) and (max-width: 1024px) and (orientation: landscape) {
+
+}
+
+/* Tablet Portrait (768px) */
+/* @media only screen and (min-width: 321px) and (max-width: 1024px) and (orientation: portrait) { */
+@media only screen and (max-width: 1000px) {
+
+	
+	.background {
+		
+		width: 686px;
+		
+		
+		margin: 0 auto;
+	}
+		 
+	
+	.big_Header__Items {
+/* 		position: relative; */
+/* 		background-color: #000000; */
+/* 		border-style: solid; */
+/* 		border-width: 1px; */
+/* 		border-color: white; */
+/* 		top: 70px; */
+/* 		left: 150px; */
+/* 		bottom: 56px; */
+/* 		height: 56px; */
+		width: 537px;
+		max-width: 700px;
+		
+		padding-top: 10px;
+	}
+		 
+	 .big_Header__Items_Dinamic {
+		position: fixed;
+		top: -139px !important;
+		
+		width: 100%;
+	}
+	 
+	 
+	
+	.menu_Button {
+		display: inline-block !important;
+	}
+	 
+	 
+	
+
+	 
+	 
+  .side_Menu {
+	
+	display: none;
+	
+	position: absolute;
+	
+	width: 247px;
+	height: 618px;
+	
+		
+	/* 	background-color: #b9b9b9; */
+			
+	}
+	
+	
+			
+	.side_Menu__Title {
+		background-color: rgba(101,101,101,0.91);
+	}
+		
+	
+	
+	.side_Menu__SubSection h2 {
+		background-color: rgba(101,101,101,0.91);
+	}
+	
+	
+	.side_Menu__Item {
+		background-color: rgba(32,111,150,0.91);
+	}
+	
+	
+	.side_Menu__Footer {
+		background-color: rgba(185,185,185,0.91);
+	}
+	
+	#side_Bar__Footer_Button_Close {
+		display: inline-block;
+	}	
+	
+		
+	.Footer_Layer_Dinamic {
+		position: relative !important;
+		float: right;
+		width: 72% !important;
+		height: 152px !important;
+		background-color: black !important;
+		margin-top: 21px;
+		
+		text-align: right;
+		
+	}
+
+	
+	
+	.Footer_Layer {
+		position: fixed;
+		z-index: 1000;
+		
+		width: 60%;
+		
+/* 		bottom: 42px !important; */
+		bottom: 0px;
+		height: 35px;
+		right: 0px;
+		
+		background-color: rgba(0,0,0,0.7);
+		
+	}
+
+
+	
+	
+}
+
+
+@media only screen and (max-width: 700px) {
+	
+		
+	.background {
+		
+		width: 95%;
+		
+		min-width: 500px;
+		min-height: 400px;
+		
+		margin: auto;
+	}
+		 
+	
+	.big_Header__Items {
+
+		width: 100px;
+		min-width: 800px;
+		
+		padding-top: 10px;
+	}
+		 
+	 .big_Header__Items_Dinamic {
+		position: fixed;
+		top: -139px !important;
+		
+		width: 100%;
+		
+	}
+	 
+	.menu_Item {
+		
+		display: inline;
+	
+	/* 	border-style:solid; */
+	/* 	border-width:1px; */
+	/* 	border-color: white; */
+	/* 	border:1px; */
+		
+		margin-left: 10px;
+		margin-right 10px;
+		
+		padding-left: 3px;
+		padding-right: 3px;
+		
+		font-family: "Font_01",sans-serif;
+		font-size: 23px;
+		
+/* 		color: #ffffff; */
+		
+	}
+	 
+	 
+	.menu_Button {
+		display: inline-block;
+	}
+	 
+	 
+  	.side_Menu {
+		
+		display: none;
+		
+		position: absolute;
+		
+		width: 247px;
+		height: 618px;
+		
+			
+		/* 	background-color: #b9b9b9; */
+			
+	}
+
+
+	.side_Menu__Title {
+		min-height: 20px;
+		font-size: 18px;
+		background-color: rgba(101,101,101,0.91);
+		
+		margin-top: -3px;
+	}
+		
+	
+	
+	.side_Menu__SubSection h2 {
+		font-size: 15px;
+		min-height: 20px;
+		padding-top: 2px;
+		background-color: rgba(101,101,101,0.91);
+	}
+	
+	
+	.side_Menu__Item {
+		font-size: 15px;
+		background-color: rgba(32,111,150,0.91);
+	}
+	
+	
+	.side_Menu__Footer {
+		background-color: rgba(185,185,185,0.91);
+	}
+		
+		
+		
+	.Main_Content {
+		display: inline-block;
+		
+		width: 100%;
+/* 		width: 96%; */
+		
+		min-height: 442px;
+		
+		vertical-align: top;
+		
+		margin-left: -3px;
+
+	}
+		
+	
+	
+	.Main_Content__Info {
+	
+		/* position: relative; */
+		width: 94%;
+		min-width: 370px;
+		/* max-width: 410px; */
+		min-height: 250px;
+		height: auto !important;
+		/* padding-left: 22px; */
+		/* padding-right: 22px; */
+		padding-top: 22px;
+		padding-bottom: 0px;
+		padding-left: 3px;
+		padding-right: 3px;
+		margin-left: auto;
+		margin-right: auto;
+		/* margin: 0px; */
+		clip: content-box;
+		
+	}
+	
+	
+		
+	.Main_Content__Info__DETAIL {
+		min-height: 350px;
+	}
+		
+		
+		
+	.Main_Content__Info__DETAIL h2 {
+		margin-bottom: 11px;
+		font-size: 22px;
+	}
+	
+	.Main_Content__Info__DETAIL h3 {
+		margin-bottom: 11px;
+		font-size: 18px;
+	}
+	
+	
+	.Main_Content__Info__DETAIL p {
+		
+		padding-bottom: 8px;
+		
+		font-size: 16px;
+		
+		line-height: 17px;
+
+		z-index: 70;
+		
+	}
+	
+	
+	.Main_Content__Info__DETAIL_IMG {
+	
+		display: inline-block;
+		float: right;
+		
+		width: 40%;
+		height: 40%;
+		
+		min-width: 100px;
+		min-height: 150px;
+		
+		max-width: 200px;
+		max-height: 200px;
+		
+		
+		
+		
+/* 		background-size: 155px 155px; */
+/* 		background-size: 255px 255px; */
+		
+		margin-left: 7px;
+/* 		background: transparent; */
+		
+	}
+	
+	
+	.Option_Button {
+		min-width: 33px;
+		min-height: 33px;
+	}
+	
+		
+	.Footer_Layer_Dinamic {
+		position: relative !important;
+		float: right;
+		width: 72% !important;
+		height: 152px !important;
+		background-color: black !important;
+		margin-top: 21px;
+		
+		text-align: right;
+		
+	}
+	
+	
+	.Footer_Layer {
+		position: fixed;
+		z-index: 1000;
+		
+		width: 60%;
+		
+/* 		bottom: 42px !important; */
+		bottom: 0px;
+		height: 35px;
+		right: 0px;
+		background-color: rgba(0,0,0,0.7);
+	}
+	
+	
+	
+	
+}
+
+
+
+
+/* Phone Landscape (480px) */
+/* @media only screen and (min-width: 321px) and (max-width: 480px) and (orientation: landscape) { */
+@media only screen and (max-width: 480px) {
+	
+		
+	.background {
+
+		width: 100%;
+		min-width: 150px;
+		
+		
+		margin: 0 auto;
+	}
+		 
+		 
+	.logo {
+		font-size: 33px;
+	}
+	
+	
+	.big_Header__Items {
+/* 		left: 101px; */
+		width: 100px;
+		min-width: 700px;
+				
+		
+		padding-top: 9px;
+		z-index: 6;
+	}
+
+		 
+	 .big_Header__Items_Dinamic {
+		position: fixed;
+		top: -149px !important;
+		
+		width: 100%;
+	}
+	 
+	 
+	.menu_Item {
+		
+		display: inline;
+	
+		margin-left: 4px;
+		margin-right 4px;
+		
+		padding-left: 3px;
+		padding-right: 3px;
+		
+		font-size: 22px;
+		
+	}
+	 
+	 
+	.menu_Button {
+		display: inline-block;
+		
+		width: 15px;
+		min-width: 15px;
+		min-height: 15px
+	
+	}
+	 
+	 
+	.menu_Item__Options {
+/* 		width: 70px; */
+		min-width: 21px;
+		min-height: 7px;
+		background-size: 11px;
+		padding: 2px;
+	}
+	 
+	 
+  	.side_Menu {
+		
+		display: none;
+		
+		position: absolute;
+		
+		width: 247px;
+		height: 400px;
+				
+	}
+	
+		
+	.side_Menu__Title {
+		min-height: 20px;
+		font-size: 18px;
+		background-color: rgba(101,101,101,0.91);
+		
+		margin-top: -3px;
+	}
+		
+		
+	.side_Menu__SubSection h2 {
+		font-size: 15px;
+		min-height: 20px;
+		padding-top: 2px;
+		background-color: rgba(101,101,101,0.91);
+	}
+	
+	
+	.side_Menu__Item {
+		font-size: 15px;
+		background-color: rgba(32,111,150,0.91);
+	}
+	
+	
+	.side_Menu__Footer {
+		background-color: rgba(185,185,185,0.91);
+	}
+	
+	
+	
+	.Main_Content {
+/* 		display: inline-block; */
+		
+		min-width: 240px;
+		width: 100%;
+/* 		width: 100%; */
+		
+		min-height: 388px;
+		
+		vertical-align: top;
+		
+		margin-left: -3px;
+	}
+
+	
+	
+	.Main_Content__Info {
+		
+		min-width: 240px;
+		/* width: 640px; */
+		width: 93%;
+		/* max-width: 250px; */
+		height: auto !important;
+		min-height: 200px;
+		padding-left: 6px;
+		padding-right: 6px;
+		padding-top: 6px;
+		padding-bottom: 0px;
+			
+	}
+	
+	
+	.Main_Content__Info__DETAIL {
+		min-height: 250px;
+	}
+		
+		
+	.Main_Content__Info__DETAIL h2 {
+		margin-bottom: 11px;
+		font-size: 18px;
+	}
+	
+	.Main_Content__Info__DETAIL h3 {
+		margin-bottom: 9px;
+		font-size: 15px;
+	}
+	
+	
+	.Main_Content__Info__DETAIL p {
+		
+		padding-bottom: 8px;
+		
+		font-size: 17px;
+		line-height: 16px;
+
+		z-index: 70;
+		
+	}
+
+	
+	.Main_Content__Info__DETAIL_IMG {
+		
+		display: block;
+		float: none;
+		
+		width: 70%;
+		min-width: 50px;
+		max-width: 170px;
+		height: 125px;
+		min-height: 187px;
+		max-height: 187px;
+		
+		background-size: 155px 155px;
+		background-position: 50% 50%;
+		
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 10px;
+		
+		z-index: 60;
+		
+	}
+	
+	
+	.Option_Button {
+		min-width: 29px;
+		min-height: 29px;
+	}
+		
+		
+	.Footer_Layer_Dinamic {
+		position: relative !important;
+		float: right;
+		width: 72% !important;
+		height: 152px !important;
+		background-color: black !important;
+		margin-top: 116px;
+		
+		text-align: right;
+		
+	}
+	
+	
+	.Footer_Layer {
+		position: fixed;
+		z-index: 1000;
+		
+		width: 60%;
+		
+/* 		bottom: 42px !important; */
+		bottom: 0px;
+		height: 35px;
+		right: 0px;
+		
+	}
+	
+	
+	
+	
+}
+
+/* Phone Portrait (320px) */
+@media only screen and (max-width: 320px) {
+}
+
+/* iPhone 2G-3GS Landscape */
+@media only screen and (width: 569px) and (width: 480px) and (orientation: landscape) {
+}
+
+/* iPhone 5 Landscape */
+@media only screen and (width: px) and (width: 568px) and (orientation: landscape) {
+}
+
+/* iPhone 5 Portrait */
+@media only screen and (width: px) and (width: 568px) and (orientation: portrait) {
+}
