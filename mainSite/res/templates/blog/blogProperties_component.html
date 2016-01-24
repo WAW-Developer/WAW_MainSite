@@ -1,0 +1,39 @@
+<div class="panel panel-info">
+	<div class="panel-heading">
+		<h3 class="panel-title">Blog Properties</h3>
+	</div>
+	<div class="panel-body">
+	
+        <ul class="nav nav-tabs" *ngIf="tabsController != undefined">
+           <li role="presentation" *ngFor="#tab of tabsController.tabs" 
+           (click)="activateTab($event, tab.ID)"
+           [class.active]="tab.isActive">
+               <a href="javascript:void(null);">{{tab.ID}}</a>
+           </li>
+
+       </ul>
+	
+		<ngtabs>
+			<ngtab tabName="Labels" isActive="true"> 
+			
+				<div class="panel panel-default">
+				  <div class="panel-body">
+				 	<h4>
+					    <span class="label label-default">Hearth</span>
+					    <span class="label label-default">Humans</span>
+					    <span class="label label-default">Research</span>
+			    	</h4>
+				  </div>
+				</div>
+
+			</ngtab>
+			
+			<ngtab tabName="Search" isActive="false">
+				Search Form
+			</ngtab>
+		</ngtabs>
+	
+	
+	</div>
+	<div class="panel-footer">Panel footer</div>
+</div>
