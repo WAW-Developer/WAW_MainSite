@@ -3,11 +3,13 @@
 		<h3 class="panel-title">Subtopics</h3>
 	</div>
 	<div class="panel-body">
-	Subtopics
+
+
 		<div class="list-group">
 		
 	       <a href="javascript:void(null);" *ngFor="#topic of subtopics"
 	        class="list-group-item"
+	        (click)="selectTopic(topic.ID)"
 	        [class.active]="topic.is_active">
 		    <h4 class="list-group-item-heading">{{topic.name}}</h4>
 		    <p class="list-group-item-text">{{topic.description}}</p>              
@@ -23,6 +25,7 @@
 	<!-- 	    <p class="list-group-item-text">...</p> -->
 	<!-- 	  </a> -->
 		</div>
+		
 	</div>
 	<div class="panel-footer">Panel footer</div>
 </div>

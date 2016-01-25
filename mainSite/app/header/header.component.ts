@@ -34,21 +34,6 @@ export class Header_Component implements OnInit {
     constructor(private _BackBoneService: BackBoneService, private _router: Router) {
         //..get the data
         
-        // Subscribe to _emitterTopicSelected
-//        _BackBoneService._emitterTopicSelected.subscribe((data) => {
-//          this.selectedTopic = data;
-//          console.log("Header_Component{_emitterTopicSelected}", data);
-////            this.load_mainTopics();
-//        });
-
-        
-        // Subscribe to _emitterTopicSelected
-        BackBoneService._emitterTopicSelected.subscribe((data) => {
-            this.selectedTopic = data;
-            console.log("Header_Component{_emitterTopicSelected}", data);
-            //            this.load_mainTopics();
-        });
-        
     }
     
     
@@ -57,7 +42,7 @@ export class Header_Component implements OnInit {
 //        this.mainTopics = [];
 
         this._BackBoneService.getConfig().then(config => {
-        this.mainTopics = config.subtopics;
+           this.mainTopics = config.subtopics;
             });
 
     }
@@ -66,22 +51,31 @@ export class Header_Component implements OnInit {
      * ngOnInit
      */
     ngOnInit() {
+        
+        // Subscribe to _emitterTopicSelected
+        this._BackBoneService.__emitterTopicSelected.subscribe((data) => {
+            this.selectedTopic = data;
+            console.log("Header_Component{_emitterTopicSelected}", data);
+            //            this.load_mainTopics();
+        });
+        
 
         this.load_mainTopics();
 //        this._BackBoneService.getConfig().then(config => this.mainTopics = config.subtopics);
 
 
         //      console.log(config);    // TODO REMOVE DEBUG LOG
-        console.log(this.mainTopics);    // TODO REMOVE DEBUG LOG
+//        console.log(this.mainTopics);    // TODO REMOVE DEBUG LOG
     }
     
     /**
      * activateTopic
      */
     protected activateTopic(topicName: string) {
-        console.log("activateTopic");    // TODO REMOVE DEBUG LOG
+        console.log("Header_Component.activateTopic");    // TODO REMOVE DEBUG LOG
 
-        this._BackBoneService.selectTopic(topicName);
+//        this._BackBoneService.selectTopic(topicName);
+        this._BackBoneService.selectMainTopic(topicName);
     }
 
 

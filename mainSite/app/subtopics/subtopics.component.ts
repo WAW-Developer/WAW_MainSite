@@ -16,7 +16,7 @@ import {BackBoneService} from '../core/backBone.service'
 
 @Component({
     selector: 'subtopics_waw',
-    providers: [BackBoneService], 
+//    providers: [BackBoneService], 
     host: {
 //        'class': 'panel-group'
     }
@@ -35,15 +35,7 @@ export class Subtopic_Component implements OnInit {
     constructor(private _router: Router,
         private _BackBoneService: BackBoneService) {
         
-        // Subscribe to _emitterTopicSelected
-        _BackBoneService.__emitterTopicSelected.subscribe((data) => {
-//            this.selectedTopic = [];
-//            this.selectedTopic = data;
-//            this.subtopics = this.selectedTopic.subtopics;
-            console.log("Subtopic_Component{_emitterTopicSelected}", data);
-            this.load_selectedTopic();
-            //            this.load_mainTopics();
-        });
+
         
         
     }
@@ -67,12 +59,23 @@ export class Subtopic_Component implements OnInit {
 //        console.log("Subtopic_Component.load_selectedTopic", this.subtopics);
 
 
-        this._BackBoneService.getCurrentTopic().then(topic => {
-            this.selectedTopic = topic;
+        this._BackBoneService.getCurrentSubTopics().then(topics => {
+//            this.selectedTopic = topic;
             
 //            this.addSubtopics(topic.subtopics);
             
-            this.subtopics = topic.subtopics;
+//             console.log(topic.subtopics);    // TODO REMOVE DEBUG LOG
+
+            
+            this.subtopics = topics;
+            
+//            if (this.selectedTopic.subtopics.length > 0) {
+////                this.addSubtopics(topic.subtopics);
+//                this.subtopics = topic.subtopics;
+//            }
+            
+            
+            
             console.log("Subtopic_Component.load_selectedTopic");    // TODO REMOVE DEBUG LOG
             console.log(this.selectedTopic);    // TODO REMOVE DEBUG LOG
             console.log(this.subtopics);    // TODO REMOVE DEBUG LOG
@@ -87,12 +90,13 @@ export class Subtopic_Component implements OnInit {
     ngOnInit() {
 
         
-        // Subscribe to _emitterTopicSelected
-        this._BackBoneService.__emitterTopicSelected.subscribe((data) => {
+        // Subscribe to __emitterMainTopicSelected
+        this._BackBoneService.__emitterMainTopicSelected.subscribe((data) => {
 //            this.selectedTopic = [];
 //            this.selectedTopic = data;
-            this.subtopics = data.subtopics. slice(0);
-            console.log("Subtopic_Component{_emitterTopicSelected}", data);
+//            this.subtopics = data.subtopics. slice(0);
+//            this.subtopics = data.subtopics;
+            console.log("Subtopic_Component{__emitterMainTopicSelected}", data);
             this.load_selectedTopic();
             //            this.load_mainTopics();
         });
@@ -106,6 +110,12 @@ export class Subtopic_Component implements OnInit {
 //        console.log(this.mainTopics);    // TODO REMOVE DEBUG LOG
     }
     
+    
+    protected selectTopic(topicName) {
+        this._BackBoneService.selectTopic(topicName);
+        
+        
+    }
     
 }
 

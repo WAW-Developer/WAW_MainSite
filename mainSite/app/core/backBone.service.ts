@@ -26,7 +26,8 @@ export class BackBoneService {
     public static _emitterTopicSelected: EventEmitter = new EventEmitter();
     public __emitterTopicSelected: EventEmitter = BackBoneService._emitterTopicSelected;
     
-    
+    public static _emitterMainTopicSelected: EventEmitter = new EventEmitter();
+    public __emitterMainTopicSelected: EventEmitter = BackBoneService._emitterTopicSelected;    
     
     
     //    rxEmitter: any;
@@ -94,45 +95,95 @@ export class BackBoneService {
 
     }
     
+    
     /**
-     * deactivateTopics
+     * deactivateSubTopics
      */
-    protected deactivateTopics() {
+    protected deactivateSubTopics() {
+        for (var _i=0; _i < this.config.currentSubTopics.length; _i++) {
+            this.config.currentSubTopics[_i].is_active = false;
+        }
+    }
+    
+    /**
+     * deactivateMainTopics
+     */
+    protected deactivateMainTopics() {
         for (var _i=0; _i < this.config.topicStructure.subtopics.length; _i++) {
             this.config.topicStructure.subtopics[_i].is_active = false;
         }
     }
     
-    /**
-     * Select main topic
-     */
-    public selectTopic(topic) {
+    
+    public selectTopic(topicID) {
         
 //        console.log("BackBoneService.selectTopic");    // TODO REMOVE DEBUG LOG
 //        console.log(this.config.currentTopic);    // TODO REMOVE DEBUG LOG
 
-        this.deactivateTopics();
+        this.deactivateSubTopics();
+        
+        var found = false;
+
+        for (var _i = 0; _i < this.config.currentSubTopics.length; _i++) {
+            var subTopic = this.config.currentSubTopics[_i];
+            if (subTopic.ID == topicID) {
+                this.config.currentTopic = subTopic;
+                this.config.currentTopic.is_active = true;
+                
+                if (subTopic.subtopics.length > 1) {
+                    this.config.currentSubTopics = subTopic.subtopics
+                }
+                
+                found = true;
+                
+                // Topic selected
+                this.__emitterTopicSelected.next(this.config.currentTopic);
+
+                break;
+            }
+        }       
+        
+    }
+    
+    
+    
+    /**
+     * Select main topic
+     */
+    public selectMainTopic(topicID) {
+        
+//        console.log("BackBoneService.selectTopic");    // TODO REMOVE DEBUG LOG
+//        console.log(this.config.currentTopic);    // TODO REMOVE DEBUG LOG
+
+        this.deactivateSubTopics();
+        this.deactivateMainTopics();
+        
         
         var found = false;
         
         for (var _i=0; _i < this.config.topicStructure.subtopics.length; _i++) {
             var subTopic = this.config.topicStructure.subtopics[_i];
-            if (subTopic.name == topic) {
+            if (subTopic.ID == topicID) {
                 this.config.currentTopic = subTopic;
                 this.config.currentTopic.is_active = true;
+                
+                if (subTopic.subtopics.length > 1) {
+                    this.config.currentSubTopics = subTopic.subtopics
+                }
+                
                 found = true;
                 
 //                this.rxEmitter.next(data);
                 // Push the new list of todos into the Observable stream
 //                this._configObserver.next(this.config);
-                this.__emitterTopicSelected.next(this.config.currentTopic);
+                this.__emitterMainTopicSelected.next(this.config.currentTopic);
                 
                 break;
                 }
         }
         
         if (!found) {
-            throw "Topic not found";
+            throw "Main Topic not found";
         }
         
 //        console.log(this.config.currentTopic);    // TODO REMOVE DEBUG LOG
@@ -147,6 +198,17 @@ export class BackBoneService {
     public getCurrentTopic(): BlogTopic  {
 //        return this.config.currentTopic;
         return Promise.resolve(this.config.currentTopic);
+
+        
+    }
+    
+    /**
+     * getCurrentSubTopics
+     * 
+     * Returns current subtopics
+     */
+    public getCurrentSubTopics(): BlogTopic[]  {
+        return Promise.resolve(this.config.currentSubTopics);
 
         
     }

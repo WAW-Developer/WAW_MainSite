@@ -2,8 +2,24 @@
 	<div class="panel-heading">
 		<h3 class="panel-title">Blog Posts</h3>
 	</div>
-	<div class="panel-body">
-	Blog Posts
+	<div class="panel-body" style="max-height: 700px; overflow: overlay;">
+	
+		<ul class="list-group">
+		  <li class="list-group-item" *ngFor="#post of posts">
+		  <h3> {{post.name}} </h3>
+		  <h3><small> {{post.publishedDate}} </small></h3>
+		  <p> {{post.summary}} </p>
+		  <!-- Button for show/hidde postDetai -->
+			<button type="button" class="btn btn-info" 
+				(click)="postDetail.hidden = !postDetail.hidden"
+				[class.active]="!postDetail.hidden">
+				Show/Hide Content
+			</button>
+		  <div #postDetail hidden="true" class="panel panel-info">
+		  	<div class="panel-body" [innerHTML]="post.content"></div>
+		  </div>
+		  </li>
+		</ul>
 	
 	</div>
 	<div class="panel-footer">Panel footer</div>
