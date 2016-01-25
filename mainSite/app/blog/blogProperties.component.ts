@@ -6,6 +6,10 @@ import { Router} from 'angular2/router';
 import {NgTab, NgTab_Component} from '../ngTabs/ngTab.component';
 import {NgTabs_Component} from '../ngTabs/ngTabs.component';
 
+import {BlogTopic} from '../blog/blogs';
+
+import {BackBoneService} from '../core/backBone.service'
+
 
 @Component({
     selector: 'blogProperties_waw',
@@ -25,7 +29,8 @@ export class BlogProperties_Component {
     @ViewChild(NgTabs_Component)
     tabsController: NgTabs_Component;
     
-    constructor(private _router: Router) {
+    constructor(private _router: Router,
+        private _BackBoneService: BackBoneService) {
         //..get the data
     }
     
