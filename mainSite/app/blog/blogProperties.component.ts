@@ -1,6 +1,18 @@
 
 import {NgIf, NgFor} from 'angular2/common';
 import {Component,View, Directive, ViewChild, ViewChildren} from 'angular2/core';
+import {
+//  OnChanges, SimpleChange,
+  OnInit,
+  // DoCheck,  // not demonstrated
+//  AfterContentInit,
+//  AfterContentChecked,
+  AfterViewInit
+//  AfterViewChecked,
+//  OnDestroy
+} from 'angular2/core';
+
+
 import { Router} from 'angular2/router';
 
 import {NgTab, NgTab_Component} from '../ngTabs/ngTab.component';
@@ -24,10 +36,12 @@ import {BackBoneService} from '../core/backBone.service'
     directives: [NgIf, NgFor, NgTab_Component, NgTabs_Component]
 
 })
-export class BlogProperties_Component {
+export class BlogProperties_Component implements OnInit, AfterViewInit {
         
     @ViewChild(NgTabs_Component)
     tabsController: NgTabs_Component;
+    
+
     
     constructor(private _router: Router,
         private _BackBoneService: BackBoneService) {
@@ -48,6 +62,34 @@ export class BlogProperties_Component {
         this.tabsController.activateTab(tabName);
 
     }
+    
+    /**
+     * ngOnInit
+     */
+    ngOnInit() {
+
+//        this._BackBoneService.getConfig().then(config => this.mainTopics = config.subtopics);
+
+//        this.tabs = this.tabsController.tabs;
+
+//        console.log("BlogProperties_Component.ngOnInit");    // TODO REMOVE DEBUG LOG
+//        console.log(this.tabsController);    // TODO REMOVE DEBUG LOG
+
+//        console.log(this.tabs);    // TODO REMOVE DEBUG LOG
+    }
+    
+    
+    /**
+     * ngAfterViewInit
+     */
+    ngAfterViewInit() {
+        
+//        this.tabs = this.tabsController.tabs;
+
+//        console.log("BlogProperties_Component.ngAfterViewInit");    // TODO REMOVE DEBUG LOG
+//        console.log(this.tabs);    // TODO REMOVE DEBUG LOG
+        
+        }
 }
 
 

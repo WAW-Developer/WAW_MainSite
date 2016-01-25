@@ -16,6 +16,7 @@ import {BackBoneService} from '../core/backBone.service'
 
 @Component({
     selector: 'header_waw',
+    providers: [BackBoneService],  // Delete this line
     host: {
 //        'class': 'panel-group'
     }
@@ -27,8 +28,6 @@ templateUrl: "res/templates/header/header_component.html"
 })
 export class Header_Component implements OnInit {
     
-    
-    
     protected mainTopics: BlogTopic[];
     protected selectedTopic: any;
 
@@ -36,13 +35,19 @@ export class Header_Component implements OnInit {
         //..get the data
         
         // Subscribe to _emitterTopicSelected
-        _BackBoneService._emitterTopicSelected.subscribe((data) => {
-          this.selectedTopic = data;
-          console.log("Header_Component{_emitterTopicSelected}", data);
-//            this.load_mainTopics();
+//        _BackBoneService._emitterTopicSelected.subscribe((data) => {
+//          this.selectedTopic = data;
+//          console.log("Header_Component{_emitterTopicSelected}", data);
+////            this.load_mainTopics();
+//        });
+
+        
+        // Subscribe to _emitterTopicSelected
+        BackBoneService._emitterTopicSelected.subscribe((data) => {
+            this.selectedTopic = data;
+            console.log("Header_Component{_emitterTopicSelected}", data);
+            //            this.load_mainTopics();
         });
-        
-        
         
     }
     
@@ -57,6 +62,9 @@ export class Header_Component implements OnInit {
 
     }
     
+    /**
+     * ngOnInit
+     */
     ngOnInit() {
 
         this.load_mainTopics();
@@ -67,7 +75,9 @@ export class Header_Component implements OnInit {
         console.log(this.mainTopics);    // TODO REMOVE DEBUG LOG
     }
     
-    
+    /**
+     * activateTopic
+     */
     protected activateTopic(topicName: string) {
         console.log("activateTopic");    // TODO REMOVE DEBUG LOG
 

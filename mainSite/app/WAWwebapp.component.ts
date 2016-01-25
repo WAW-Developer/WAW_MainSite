@@ -3,15 +3,26 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
 //import {DialogService} from './dialog.service';
 
+import {Header_Component} from './header/header.component';
 import {WAW_Home__Component} from './home/home.component';
+import {Subtopic_Component} from './subtopics/subtopics.component';
+import {BlogProperties_Component} from './blog/blogProperties.component';
+import {BlogPosts_Component} from './blog/blogPosts.component';
+import {BlogRecentPosts_Component} from './blog/blogRecentPosts.component';
 
 
 
 @Component({
   selector: 'wawWeb-app',
-  templateUrl: "res/templates/app_template.html",
+  templateUrl: "res/templates/app_template2.html",
 //  providers:  [DialogService],
-  directives: [ROUTER_DIRECTIVES]
+  directives: [ROUTER_DIRECTIVES,
+    Header_Component, 
+    WAW_Home__Component, 
+    Subtopic_Component, 
+    BlogProperties_Component, 
+    BlogPosts_Component, 
+    BlogRecentPosts_Component]
 })
     
 @RouteConfig([
@@ -34,7 +45,7 @@ import {WAW_Home__Component} from './home/home.component';
 
 ])
     
-export class AppComponent { 
+export class WAWwebAppComponent { 
 
 
 

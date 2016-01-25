@@ -20,14 +20,20 @@ export class WAW_Home__Component implements OnInit{
 
 
     public topic: BlogTopic;
+//    private _BackBoneService: BackBoneService;
     
-  constructor(
-    private _router: Router,
-    routeParams: RouteParams,
-    private _BackBoneService: BackBoneService
+    
+    constructor(
+        private _router: Router,
+        routeParams: RouteParams,
+        private _BackBoneService: BackBoneService
     ) {
-      
-  }
+        
+//        this._BackBoneService = BackBoneService.getInstance();
+
+
+
+    }
 
     
   protected doTest() {
@@ -43,6 +49,22 @@ export class WAW_Home__Component implements OnInit{
       this._BackBoneService.getConfig().then(config => this.topic = config);
 
 
+          // Subscribe to _emitterTopicSelected
+        this._BackBoneService.__emitterTopicSelected.subscribe((data) => {
+//            this.selectedTopic = [];
+//            this.selectedTopic = data;
+//            this.subtopics = this.selectedTopic.subtopics;
+            console.log("WAW_Home__Component{_emitterTopicSelected}", data);
+//            this.load_selectedTopic();
+            
+            
+            this._router.navigate( ['Topic', { topicName: data.name }] );
+
+            
+            //            this.load_mainTopics();
+        });
+      
+      
 //      console.log(config);    // TODO REMOVE DEBUG LOG
       console.log(this.topic);    // TODO REMOVE DEBUG LOG
       console.log(this.routeParams);    // TODO REMOVE DEBUG LOG
