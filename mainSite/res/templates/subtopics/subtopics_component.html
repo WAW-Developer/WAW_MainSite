@@ -11,8 +11,19 @@
 	        class="list-group-item"
 	        (click)="selectTopic(topic.ID)"
 	        [class.active]="topic.is_active">
-		    <h4 class="list-group-item-heading">{{topic.name}}</h4>
-		    <p class="list-group-item-text">{{topic.description}}</p>              
+	        
+	        
+			<div class="media">
+			  <div class="media-left media-middle">
+			    
+			      <img src="res/images/{{topic.iconImage}}" class="Subtopic_Icon">
+			    
+			  </div>
+			  <div class="media-body">
+			    <h4 class="media-heading list-group-item-heading">{{topic.name}}</h4>
+			    <p class="list-group-item-text">{{topic.description}}</p>  
+			  </div>
+			</div>            
 	       </a>
 		
 		

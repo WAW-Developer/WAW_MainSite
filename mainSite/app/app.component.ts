@@ -5,12 +5,13 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {WAW_Home__Component} from './home/home.component';
 
-
+import {BackBoneService}     from './core/backBone.service';
+import {BlogService}     from './blog/blogs.service';
 
 @Component({
   selector: 'wawWeb-app',
   templateUrl: "res/templates/app_template.html",
-//  providers:  [DialogService],
+  providers:  [BackBoneService, BlogService],
   directives: [ROUTER_DIRECTIVES]
 })
     

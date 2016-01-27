@@ -13,19 +13,37 @@
 
        </ul>
 	
-		<ngtabs>
-			<ngtab tabName="Labels" isActive="true"> 
-			
-				<div class="panel panel-default">
-				  <div class="panel-body">
-				 	<h4>
-					    <span class="label label-default">Hearth</span>
-					    <span class="label label-default">Humans</span>
-					    <span class="label label-default">Research</span>
-			    	</h4>
-				  </div>
-				</div>
+		<ngtabs> 
+		
+<!-- 		Labels Tab 1 -->
+			<ngtab tabName="Labels" isActive="true">
+	
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<nav class="nav nav-pills">
+<!-- 					  <li role="presentation" class="disabled"><a href="#">Disabled link</a></li> -->
+						<span class="glyphicon glyphicon-tags" aria-hidden="true" style="margin-right: 6px;"> </span>
+						
+						
+					  <button type="button" class="btn btn-default navbar-btn">
+					  	<span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+					  </button>
 
+					  <button type="button" class="btn btn-default navbar-btn">
+					  	<span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+					  </button>
+					  
+					</nav>
+
+					<div class="btn-group btn-group-sm text-justify" role="group" aria-label="...">
+						<button class="btn btn-sm btn-link" type="button" *ngFor="#category of categoriesUnique">
+							{{category.name}} <span class="badge .small">{{category.count}}</span>
+						</button>
+					</div>
+
+				</div>
+			</div>
+	
 			</ngtab>
 			
 			<ngtab tabName="Search" isActive="false">

@@ -27,7 +27,9 @@ export class BackBoneService {
     public __emitterTopicSelected: EventEmitter = BackBoneService._emitterTopicSelected;
     
     public static _emitterMainTopicSelected: EventEmitter = new EventEmitter();
-    public __emitterMainTopicSelected: EventEmitter = BackBoneService._emitterTopicSelected;    
+    public __emitterMainTopicSelected: EventEmitter = BackBoneService._emitterMainTopicSelected;
+    
+    public __emitterSubTopicsChanged: EventEmitter = new EventEmitter();
     
     
     //    rxEmitter: any;
@@ -73,33 +75,29 @@ export class BackBoneService {
     }
     
     
-    getBackBoneConfig(): BackBoneConfig  {
+    /**
+     * getBackBoneConfig
+     */
+    getBackBoneConfig(): Promise<BackBoneConfig>  {
 //        return this.config;
         return Promise.resolve(this.config);
     }
 
-    getConfig()  {
+    
+    /**
+     * getConfig
+     */
+    getConfig(): Promise<BlogTopic>  {
         return Promise.resolve(_BackBoneConfig);
     }
 
-    doSomething(data) {
-        //        this.rxEmitter.next(data);
-    }
-    
-    
-    public test_Message(data) {
-        console.log("test_Message");    // TODO REMOVE DEBUG LOG
-        console.log(data);    // TODO REMOVE DEBUG LOG
-        console.log(this.config);    // TODO REMOVE DEBUG LOG
-
-
-    }
-    
+   
     
     /**
      * deactivateSubTopics
      */
     protected deactivateSubTopics() {
+      
         for (var _i=0; _i < this.config.currentSubTopics.length; _i++) {
             this.config.currentSubTopics[_i].is_active = false;
         }
@@ -115,7 +113,10 @@ export class BackBoneService {
     }
     
     
-    public selectTopic(topicID) {
+    /**
+     * selectTopic
+     */
+    public selectTopic(topicID: string) {
         
 //        console.log("BackBoneService.selectTopic");    // TODO REMOVE DEBUG LOG
 //        console.log(this.config.currentTopic);    // TODO REMOVE DEBUG LOG
@@ -123,6 +124,7 @@ export class BackBoneService {
         this.deactivateSubTopics();
         
         var found = false;
+        
 
         for (var _i = 0; _i < this.config.currentSubTopics.length; _i++) {
             var subTopic = this.config.currentSubTopics[_i];
@@ -130,14 +132,17 @@ export class BackBoneService {
                 this.config.currentTopic = subTopic;
                 this.config.currentTopic.is_active = true;
                 
-                if (subTopic.subtopics.length > 1) {
-                    this.config.currentSubTopics = subTopic.subtopics
+                if (this.config.currentTopic.subtopics.length > 1) {
+                    this.config.currentSubTopics = this.config.currentTopic.subtopics
+                    // Subtopics changued
+                    this.__emitterSubTopicsChanged.emit(this.config.currentSubTopics);
                 }
                 
                 found = true;
                 
                 // Topic selected
-                this.__emitterTopicSelected.next(this.config.currentTopic);
+//                this.__emitterTopicSelected.next(this.config.currentTopic);
+                this.__emitterTopicSelected.emit(this.config.currentTopic) ;
 
                 break;
             }
@@ -169,6 +174,8 @@ export class BackBoneService {
                 
                 if (subTopic.subtopics.length > 1) {
                     this.config.currentSubTopics = subTopic.subtopics
+                    // Subtopics changued
+                    this.__emitterSubTopicsChanged.emit(this.config.currentSubTopics);
                 }
                 
                 found = true;
@@ -176,7 +183,11 @@ export class BackBoneService {
 //                this.rxEmitter.next(data);
                 // Push the new list of todos into the Observable stream
 //                this._configObserver.next(this.config);
-                this.__emitterMainTopicSelected.next(this.config.currentTopic);
+//                this.__emitterMainTopicSelected.next(this.config.currentTopic);
+//                this.__emitterTopicSelected.next(this.config.currentTopic);
+                this.__emitterMainTopicSelected.emit(this.config.currentTopic);
+                this.__emitterTopicSelected.emit(this.config.currentTopic);
+
                 
                 break;
                 }
@@ -195,7 +206,7 @@ export class BackBoneService {
      * 
      * Returns current BlogTopic
      */
-    public getCurrentTopic(): BlogTopic  {
+    public getCurrentTopic(): Promise<BlogTopic>  {
 //        return this.config.currentTopic;
         return Promise.resolve(this.config.currentTopic);
 
@@ -207,7 +218,7 @@ export class BackBoneService {
      * 
      * Returns current subtopics
      */
-    public getCurrentSubTopics(): BlogTopic[]  {
+    public getCurrentSubTopics(): Promise<BlogTopic[]> {
         return Promise.resolve(this.config.currentSubTopics);
 
         

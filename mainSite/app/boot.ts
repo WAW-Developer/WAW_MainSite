@@ -5,6 +5,7 @@ import {AppComponent}     from './app.component';
 import {WAWwebAppComponent}     from './WAWwebapp.component';
 
 import {BackBoneService}     from './core/backBone.service';
+import {BlogService}     from './blog/blogs.service';
 
 //import {Header_Component} from './header/header.component';
 //import {Subtopic_Component} from './subtopics/subtopics.component';
@@ -19,7 +20,7 @@ import {BackBoneService}     from './core/backBone.service';
 //bootstrap(BlogPosts_Component, [ROUTER_PROVIDERS, BackBoneService]);
 //bootstrap(BlogRecentPosts_Component, [ROUTER_PROVIDERS, BackBoneService]);
 
-bootstrap(WAWwebAppComponent, [ROUTER_PROVIDERS,BackBoneService]);
+bootstrap(WAWwebAppComponent, [ROUTER_PROVIDERS,BackBoneService,BlogService]);
 
 
 /*

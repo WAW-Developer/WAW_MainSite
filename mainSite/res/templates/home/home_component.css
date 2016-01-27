@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+
+.Title_Icon {
+	width: 100px;
+	height: 100px;
+	
+	min-width: 30px;
+	min-height: 30px;
+	
+	padding: 2px;
+}

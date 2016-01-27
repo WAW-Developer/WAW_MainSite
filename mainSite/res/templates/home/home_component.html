@@ -9,10 +9,30 @@
 	
 		<div class="panel panel-default" *ngIf="selectedTopic != undefined">
 		  <div class="panel-body">
-		  	<h2>{{selectedTopic.name}}</h2>
-		  	<h3>{{selectedTopic.description}}</h3>
+		  
+  			<div class="media">
+			  <div class="media-left media-middle">
+			    
+			      <img src="res/images/{{selectedTopic.iconImage}}" class="Title_Icon" *ngIf="selectedTopic.iconImage != undefined">
+			    
+			  </div>
+			  <div class="media-body">
+	  		  	<h2>{{selectedTopic.name}}</h2>
+	  			<h3>{{selectedTopic.description}}</h3>
+			  	<button type="button" class="btn btn-info" (click)="moreInfo()">
+					<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+			  		more information
+			  	</button>
+			  </div>
+			</div> 
+		  
+		  
+		  	<h3>{{selectedTopic.name}}</h3>
 		  	<p [innerHTML]="selectedTopic.summary"></p>
-		  	<button type="button" class="btn btn-info" (click)="moreInfo()">more information</button>
+		  	<button type="button" class="btn btn-info" (click)="moreInfo()">
+				<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+		  		more information
+		  	</button>
 		  </div>
 		</div>	
 

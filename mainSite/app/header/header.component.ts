@@ -4,7 +4,8 @@
 /// <reference path="../../lib/x3d_Tools/x3d_Tools.d.ts" />
 
 import {NgIf, NgFor} from 'angular2/common';
-import {Component, View, Directive} from 'angular2/core';
+import {Component, View, Directive, EventEmitter} from 'angular2/core';
+
 //import { RouterLink, ROUTER_DIRECTIVES } from 'angular2/router';
 import {RouterLink, RouteConfig, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 
@@ -16,7 +17,7 @@ import {BackBoneService} from '../core/backBone.service'
 
 @Component({
     selector: 'header_waw',
-    providers: [BackBoneService],  // Delete this line
+//    providers: [BackBoneService],  // Delete this line
     host: {
 //        'class': 'panel-group'
     }
@@ -30,9 +31,21 @@ export class Header_Component implements OnInit {
     
     protected mainTopics: BlogTopic[];
     protected selectedTopic: any;
+    
+//    @Output() maintopicSelected = new EventEmitter();
+    public _emitterMainTopicSelected: EventEmitter = new EventEmitter();
+
 
     constructor(private _BackBoneService: BackBoneService, private _router: Router) {
         //..get the data
+        
+        
+        // Subscribe to _emitterTopicSelected
+        this._BackBoneService.__emitterTopicSelected.subscribe((data) => {
+            this.selectedTopic = data;
+            console.log("Header_Component{_emitterTopicSelected}", data);
+            //            this.load_mainTopics();
+        });
         
     }
     
@@ -51,14 +64,6 @@ export class Header_Component implements OnInit {
      * ngOnInit
      */
     ngOnInit() {
-        
-        // Subscribe to _emitterTopicSelected
-        this._BackBoneService.__emitterTopicSelected.subscribe((data) => {
-            this.selectedTopic = data;
-            console.log("Header_Component{_emitterTopicSelected}", data);
-            //            this.load_mainTopics();
-        });
-        
 
         this.load_mainTopics();
 //        this._BackBoneService.getConfig().then(config => this.mainTopics = config.subtopics);
@@ -75,7 +80,9 @@ export class Header_Component implements OnInit {
         console.log("Header_Component.activateTopic");    // TODO REMOVE DEBUG LOG
 
 //        this._BackBoneService.selectTopic(topicName);
-        this._BackBoneService.selectMainTopic(topicName);
+//        this._BackBoneService.selectMainTopic(topicName);
+        this._emitterMainTopicSelected.emit(topicName) ;
+
     }
 
 

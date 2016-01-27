@@ -28,6 +28,7 @@ import {BlogTopic} from '../blog/blogs'
 })  
 @View({
     templateUrl: "res/templates/home/home_component.html",
+    styleUrls: ["res/templates/home/home_component.css"]
     directives: [NgIf, NgFor]
 
 })
@@ -42,12 +43,13 @@ export class WAW_Home__Component implements OnInit{
     
     constructor(
         private _router: Router,
-        routeParams: RouteParams,
+        private _routeParams: RouteParams,
         private _BackBoneService: BackBoneService
     ) {
         
 //        this._BackBoneService = BackBoneService.getInstance();
 
+        console.log("WAW_Home__Component._routeParams", _routeParams);    // TODO REMOVE DEBUG LOG
 
 
     }
@@ -68,13 +70,7 @@ export class WAW_Home__Component implements OnInit{
 
           // Subscribe to _emitterTopicSelected
         this._BackBoneService.__emitterTopicSelected.subscribe((data) => {
-//            this.selectedTopic = data;
-//            console.log("WAW_Home__Component{_emitterTopicSelected}", data);
-//            console.log("WAW_Home__Component.selectedTopic", this.selectedTopic);
-
             this.load_selectedTopic();
-            
-            
             this._router.navigate( ['Topic', { topicName: data.name }] );
 
             
