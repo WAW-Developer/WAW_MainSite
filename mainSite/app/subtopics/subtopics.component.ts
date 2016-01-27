@@ -2,7 +2,7 @@
 import {NgIf, NgFor} from 'angular2/common';
 //import {Component, View, Directive} from 'angular2/core';
 
-import {Component, View, bootstrap, NgFor, NgIf, Input, ElementRef, Renderer} from 'angular2/core';
+import {Component, View, bootstrap, NgFor, NgIf, Input, ElementRef, Renderer, EventEmitter} from 'angular2/core';
 
 
 //import { Router} from 'angular2/router';
@@ -32,11 +32,36 @@ export class Subtopic_Component implements OnInit {
     public  subtopics: Object[] = [];
 
     
+    public _emitterTopicSelected: EventEmitter = new EventEmitter();
+
+    
+    
     constructor(private _router: Router,
         private _BackBoneService: BackBoneService) {
         
 
+        // Subscribe to __emitterMainTopicSelected
+        this._BackBoneService.__emitterMainTopicSelected.subscribe((data) => {
+//            this.selectedTopic = [];
+//            this.selectedTopic = data;
+//            this.subtopics = data.subtopics. slice(0);
+//            this.subtopics = data.subtopics;
+            console.log("Subtopic_Component{__emitterMainTopicSelected}", data);
+//            this.load_subTopics();
+            //            this.load_mainTopics();
+        });
         
+        // Subscribe to __emitterMainTopicSelected
+        this._BackBoneService.__emitterSubTopicsChanged.subscribe((data) => {
+//            this.selectedTopic = [];
+//            this.selectedTopic = data;
+//            this.subtopics = data.subtopics. slice(0);
+            this.subtopics = [];
+            this.subtopics = data;
+            console.log("Subtopic_Component{__emitterSubTopicsChanged}", data);
+//            this.load_subTopics();
+            //            this.load_mainTopics();
+        });
         
     }
     
@@ -53,30 +78,15 @@ export class Subtopic_Component implements OnInit {
     }
     
     
-    protected load_selectedTopic() {
-//        this.subtopics = this._BackBoneService.getCurrentTopic().subtopics.slice(0);
-        
-//        console.log("Subtopic_Component.load_selectedTopic", this.subtopics);
-
+    protected load_subTopics() {
 
         this._BackBoneService.getCurrentSubTopics().then(topics => {
-//            this.selectedTopic = topic;
-            
-//            this.addSubtopics(topic.subtopics);
-            
-//             console.log(topic.subtopics);    // TODO REMOVE DEBUG LOG
 
-            
+            this.subtopics = [];
             this.subtopics = topics;
-            
-//            if (this.selectedTopic.subtopics.length > 0) {
-////                this.addSubtopics(topic.subtopics);
-//                this.subtopics = topic.subtopics;
-//            }
-            
-            
-            
-            console.log("Subtopic_Component.load_selectedTopic");    // TODO REMOVE DEBUG LOG
+   
+   
+            console.log("Subtopic_Component.load_subTopics");    // TODO REMOVE DEBUG LOG
             console.log(this.selectedTopic);    // TODO REMOVE DEBUG LOG
             console.log(this.subtopics);    // TODO REMOVE DEBUG LOG
 
@@ -89,30 +99,17 @@ export class Subtopic_Component implements OnInit {
      */
     ngOnInit() {
 
-        
-        // Subscribe to __emitterMainTopicSelected
-        this._BackBoneService.__emitterMainTopicSelected.subscribe((data) => {
-//            this.selectedTopic = [];
-//            this.selectedTopic = data;
-//            this.subtopics = data.subtopics. slice(0);
-//            this.subtopics = data.subtopics;
-            console.log("Subtopic_Component{__emitterMainTopicSelected}", data);
-            this.load_selectedTopic();
-            //            this.load_mainTopics();
-        });
-        
-        
-        this.load_selectedTopic();
-//        this._BackBoneService.getConfig().then(config => this.mainTopics = config.subtopics);
+        this.load_subTopics();
 
-
-        //      console.log(config);    // TODO REMOVE DEBUG LOG
-//        console.log(this.mainTopics);    // TODO REMOVE DEBUG LOG
     }
     
     
     protected selectTopic(topicName) {
-        this._BackBoneService.selectTopic(topicName);
+        
+        
+//        this._BackBoneService.selectTopic(topicName);
+        this._emitterTopicSelected.emit(topicName) ;
+
         
         
     }

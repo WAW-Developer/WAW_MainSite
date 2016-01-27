@@ -74,10 +74,29 @@ export class BlogPost implements blogPost_ {
 
 
 
-
+/**
+ * Blogs
+ */
 export class Blogs {
     
+    /**
+     * get_BlogPosts_From_GFeedEntries
+     */
+    public static get_BlogPosts_From_GFeedEntries(entries: Object[]): BlogPost[] {
+        
+        var blogPosts = [];
+        
+        for (var _i = 0; _i < entries.length; _i++) {
+            blogPosts.push(Blogs.get_BlogPost_From_GFeedEntry(entries[_i]));
+        }
+        
+        return blogPosts;
+
+    }    
     
+    /**
+     * get_BlogPost_From_GFeedEntry
+     */
     public static get_BlogPost_From_GFeedEntry(entry: Object): BlogPost  {
 
         var blogPost = new BlogPost();
@@ -89,12 +108,50 @@ export class Blogs {
         blogPost.tasgs = entry.categories;
         blogPost.url_blog = entry.link
         
-        console.log("Blogs.get_BlogPost_From_GFeedEntry", blogPost); // TODO REMOVE DEBUG LOG
-        console.log(entry); // TODO REMOVE DEBUG LOG
+//        console.log("Blogs.get_BlogPost_From_GFeedEntry", blogPost); // TODO REMOVE DEBUG LOG
+//        console.log(entry); // TODO REMOVE DEBUG LOG
 
         return blogPost;
 
     } 
+    
+    /**
+     * getPosts
+     */
+    public static getPosts(topic: BlogTopic, feeds: google.feeds.Feed, _callbackFunction: any): Promise<BlogPost[]>{
+        
+        if ( feeds == undefined ) {
+            feeds = new google.feeds.Feed(topic.url_feed);
+        }
+        
+        feeds.setNumEntries(100);
+        
+//        var blogPosts = [];
+//        var resultPromise = Promise.resolve(blogPosts);
+        
+        
+
+        
+        
+        
+        feeds.load(function(result){
+            console.log("Blogs.getPosts", result); // TODO REMOVE DEBUG LOG
+            
+//            blogPosts = Blogs.get_BlogPosts_From_GFeedEntries(result.feed.entries);
+            });  
+        
+        feeds.load(_callbackFunction);         
+        
+        
+        
+        
+//        return resultPromise;
+//        return Promise.resolve(blogPosts);
+        
+        return Blogs.get_BlogPosts_From_GFeedEntries(result.feed.entries);;
+
+        
+    }
     
     
     public static test(): void {

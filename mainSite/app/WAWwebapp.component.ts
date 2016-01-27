@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, ViewChild} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
 //import {DialogService} from './dialog.service';
@@ -10,12 +10,15 @@ import {BlogProperties_Component} from './blog/blogProperties.component';
 import {BlogPosts_Component} from './blog/blogPosts.component';
 import {BlogRecentPosts_Component} from './blog/blogRecentPosts.component';
 
+import {BackBoneService} from './core/backBone.service'
+import {BlogService} from './blog/blogs.service';
+
 
 
 @Component({
   selector: 'wawWeb-app',
   templateUrl: "res/templates/app_template2.html",
-//  providers:  [DialogService],
+  providers:  [BackBoneService, BlogService],
   directives: [ROUTER_DIRECTIVES,
     Header_Component, 
     WAW_Home__Component, 
@@ -45,10 +48,55 @@ import {BlogRecentPosts_Component} from './blog/blogRecentPosts.component';
 
 ])
     
-export class WAWwebAppComponent { 
+export class WAWwebAppComponent implements OnInit, AfterViewInit { 
+
+    
+    @ViewChild(Header_Component)
+    wawHeader: Header_Component;
+    
+    @ViewChild(WAW_Home__Component)
+    wawHome: WAW_Home__Component;
+    
+    @ViewChild(Subtopic_Component)
+    wawSubtopics: Subtopic_Component;
+    
+
+    constructor(private _BackBoneService: BackBoneService,
+        private _BlogService: BlogService) {
+        
+        
+        
+    }
+    
+    
+    /**
+     * ngOnInit
+     */
+    ngOnInit() {
 
 
-
+        
+    }
+    
+    /**
+     * ngAfterViewInit
+     */
+    ngAfterViewInit() {
+        // viewChild is set
+        
+        // Subscribe to _emitterPostsLoaded
+        this.wawHeader._emitterMainTopicSelected.subscribe((data) => {
+            console.log("WAWwebAppComponent.wawHeader{_emitterMainTopicSelected}", data);
+            this._BackBoneService.selectMainTopic(data);
+        });
+        
+        // Subscribe to _emitterPostsLoaded
+        this.wawSubtopics._emitterTopicSelected.subscribe((data) => {
+            console.log("WAWwebAppComponent.wawSubtopics{_emitterMainTopicSelected}", data);
+            this._BackBoneService.selectTopic(data);
+        });        
+        
+    }
 
 }
 
