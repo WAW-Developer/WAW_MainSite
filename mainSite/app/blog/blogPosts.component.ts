@@ -3,7 +3,11 @@
 import {NgIf, NgFor} from 'angular2/common';
 //import {Component, View, Directive} from 'angular2/core';
 
+<<<<<<< HEAD
 import {Component, View, bootstrap, ElementRef, Renderer, NgZone} from 'angular2/core';
+=======
+import {Component, View, bootstrap, Input, ElementRef, Renderer, NgZone} from 'angular2/core';
+>>>>>>> branch 'master' of ssh://gituser@repos.waw.net/WAWweb_MainSite.git
 
 
 import {RouterLink, RouteConfig, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';

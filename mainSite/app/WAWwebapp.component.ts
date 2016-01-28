@@ -1,5 +1,9 @@
 import {Component, ViewChild} from 'angular2/core';
+<<<<<<< HEAD
 import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
+=======
+import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
+>>>>>>> branch 'master' of ssh://gituser@repos.waw.net/WAWweb_MainSite.git
 
 //import {DialogService} from './dialog.service';
 
@@ -65,8 +69,12 @@ export class WAWwebAppComponent implements OnInit, AfterViewInit {
     constructor(private _BackBoneService: BackBoneService,
         private _BlogService: BlogService) {
         
+<<<<<<< HEAD
 //        console.log("WAWwebAppComponent._RouteParams", _RouteParams); // TODO REMOVE DEBUG LOG
 
+=======
+        
+>>>>>>> branch 'master' of ssh://gituser@repos.waw.net/WAWweb_MainSite.git
         
     }
     
@@ -88,6 +96,7 @@ export class WAWwebAppComponent implements OnInit, AfterViewInit {
         
         // Subscribe to _emitterPostsLoaded
         this.wawHeader._emitterMainTopicSelected.subscribe((data) => {
+<<<<<<< HEAD
 //            console.log("WAWwebAppComponent.wawHeader{_emitterMainTopicSelected}", data);   // TODO REMOVE DEBUG LOG
             this._BackBoneService.selectMainTopic(data);
         });
@@ -95,6 +104,15 @@ export class WAWwebAppComponent implements OnInit, AfterViewInit {
         // Subscribe to _emitterPostsLoaded
         this.wawSubtopics._emitterTopicSelected.subscribe((data) => {
 //            console.log("WAWwebAppComponent.wawSubtopics{_emitterMainTopicSelected}", data);    // TODO REMOVE DEBUG LOG
+=======
+            console.log("WAWwebAppComponent.wawHeader{_emitterMainTopicSelected}", data);
+            this._BackBoneService.selectMainTopic(data);
+        });
+        
+        // Subscribe to _emitterPostsLoaded
+        this.wawSubtopics._emitterTopicSelected.subscribe((data) => {
+            console.log("WAWwebAppComponent.wawSubtopics{_emitterMainTopicSelected}", data);
+>>>>>>> branch 'master' of ssh://gituser@repos.waw.net/WAWweb_MainSite.git
             this._BackBoneService.selectTopic(data);
         });        
         

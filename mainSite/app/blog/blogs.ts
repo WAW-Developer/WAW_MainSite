@@ -145,6 +145,7 @@ export class Blogs {
     } 
     
     /**
+<<<<<<< HEAD
     * get_BlogCategories_From_GFeedEntry
     */
     public static get_BlogCategories_From_BlogPost(blogPost: BlogPost, domain?: string): BlogCategory[] {
@@ -187,6 +188,44 @@ export class Blogs {
         });
     }
  
+=======
+     * getPosts
+     */
+    public static getPosts(topic: BlogTopic, feeds: google.feeds.Feed, _callbackFunction: any): Promise<BlogPost[]>{
+        
+        if ( feeds == undefined ) {
+            feeds = new google.feeds.Feed(topic.url_feed);
+        }
+        
+        feeds.setNumEntries(100);
+        
+//        var blogPosts = [];
+//        var resultPromise = Promise.resolve(blogPosts);
+        
+        
+
+        
+        
+        
+        feeds.load(function(result){
+            console.log("Blogs.getPosts", result); // TODO REMOVE DEBUG LOG
+            
+//            blogPosts = Blogs.get_BlogPosts_From_GFeedEntries(result.feed.entries);
+            });  
+        
+        feeds.load(_callbackFunction);         
+        
+        
+        
+        
+//        return resultPromise;
+//        return Promise.resolve(blogPosts);
+        
+        return Blogs.get_BlogPosts_From_GFeedEntries(result.feed.entries);;
+
+        
+    }
+>>>>>>> branch 'master' of ssh://gituser@repos.waw.net/WAWweb_MainSite.git
     
     
     public static test(): void {
