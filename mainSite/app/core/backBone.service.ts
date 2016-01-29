@@ -121,7 +121,9 @@ export class BackBoneService {
 //        console.log("BackBoneService.selectTopic");    // TODO REMOVE DEBUG LOG
 //        console.log(this.config.currentTopic);    // TODO REMOVE DEBUG LOG
 
+        
         this.deactivateSubTopics();
+
         
         var found = false;
         
@@ -129,13 +131,13 @@ export class BackBoneService {
         for (var _i = 0; _i < this.config.currentSubTopics.length; _i++) {
             var subTopic = this.config.currentSubTopics[_i];
             if (subTopic.ID == topicID) {
-                this.config.currentTopic = subTopic;
-                this.config.currentTopic.is_active = true;
+                this.config.currentSubTopics[_i].is_active = true;
+                this.config.currentTopic = this.config.currentSubTopics[_i];
                 
-                if (this.config.currentTopic.subtopics.length > 1) {
-                    this.config.currentSubTopics = this.config.currentTopic.subtopics
+                if (subTopic.subtopics.length > 1) {
+                    this.config.currentSubTopics = this.config.currentSubTopics[_i].subtopics
                     // Subtopics changued
-                    this.__emitterSubTopicsChanged.emit(this.config.currentSubTopics);
+                    this.__emitterSubTopicsChanged.emit(subTopic.subtopics);
                 }
                 
                 found = true;
@@ -146,7 +148,11 @@ export class BackBoneService {
 
                 break;
             }
-        }       
+        }
+        
+        if (!found) {
+            throw "Topic not found";
+        }
         
     }
     
@@ -157,8 +163,9 @@ export class BackBoneService {
      */
     public selectMainTopic(topicID) {
         
-//        console.log("BackBoneService.selectTopic");    // TODO REMOVE DEBUG LOG
+//        console.log("BackBoneService.selectMainTopic");    // TODO REMOVE DEBUG LOG
 //        console.log(this.config.currentTopic);    // TODO REMOVE DEBUG LOG
+//        console.log(this.config.topicStructure);    // TODO REMOVE DEBUG LOG
 
         this.deactivateSubTopics();
         this.deactivateMainTopics();
@@ -169,8 +176,13 @@ export class BackBoneService {
         for (var _i=0; _i < this.config.topicStructure.subtopics.length; _i++) {
             var subTopic = this.config.topicStructure.subtopics[_i];
             if (subTopic.ID == topicID) {
+                found = true;
+                
+                this.config.topicStructure.subtopics[_i].is_active = true;
                 this.config.currentTopic = subTopic;
-                this.config.currentTopic.is_active = true;
+                this.config.currentMainTopic subTopic;
+                
+                
                 
                 if (subTopic.subtopics.length > 1) {
                     this.config.currentSubTopics = subTopic.subtopics
@@ -178,14 +190,14 @@ export class BackBoneService {
                     this.__emitterSubTopicsChanged.emit(this.config.currentSubTopics);
                 }
                 
-                found = true;
+                
                 
 //                this.rxEmitter.next(data);
                 // Push the new list of todos into the Observable stream
 //                this._configObserver.next(this.config);
-//                this.__emitterMainTopicSelected.next(this.config.currentTopic);
-//                this.__emitterTopicSelected.next(this.config.currentTopic);
                 this.__emitterMainTopicSelected.emit(this.config.currentTopic);
+//                this.__emitterTopicSelected.next(this.config.currentTopic);
+//                this.__emitterMainTopicSelected.emit(this.config.currentTopic);
                 this.__emitterTopicSelected.emit(this.config.currentTopic);
 
                 
@@ -199,6 +211,43 @@ export class BackBoneService {
         
 //        console.log(this.config.currentTopic);    // TODO REMOVE DEBUG LOG
         
+    }
+    
+    /**
+     * inRootTopic
+     */
+    public inRootTopic(): boolean {
+        
+        var result = false;
+        
+        if (this.config.topicStructure.ID == this.config.currentTopic.ID) {
+            result = true;
+        }
+        
+        console.log("BackBoneService.inRootTopic", result);    // TODO REMOVE DEBUG LOG
+
+        return result;
+    }
+    
+    
+    /**
+     * inMainTopics
+     */
+    public inMainTopics(topicID): boolean {
+        var result = false;
+        
+        var mainTopics = this.config.topicStructure.subtopics;
+
+        for(var _i; _i < mainTopics.length; _i++){
+            if (mainTopics[_i].ID == topicID) {
+                result = true;
+                break;
+            } 
+        }
+        
+        console.log("BackBoneService.inMainTopics", result);    // TODO REMOVE DEBUG LOG
+
+        return result;
     }
     
     /**

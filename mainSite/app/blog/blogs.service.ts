@@ -65,7 +65,6 @@ export class BlogService {
 
         var blogService = this;
 
-<<<<<<< HEAD
         
         // StartOF _ngZone.runOutsideAngular
         this._ngZone.runOutsideAngular(() => {
@@ -98,76 +97,8 @@ export class BlogService {
     public getPosts(): Promise<BlogPost[]> {
         return Promise.resolve(this.posts);
     }
+
     
-    /**
-     * getPosts_OLD
-=======
-//        this.feeds.load(function(result) {
-//            console.log("BlogService.loadPosts", result); // TODO REMOVE DEBUG LOG
-//            
-//            blogService.posts = Blogs.get_BlogPosts_From_GFeedEntries(result.feed.entries);
-//            blogService._emitterPostsLoaded.next(blogService.posts);  // Notify _emitterPostsLoaded 
-//        });
-
-        
-        
-        
-        // NgZone.runOutsideAngular (do async processes "outside" AngularJS )
-        
-//        this._ngZone.runOutsideAngular(() => {
-//          this._increaseProgress(() => {
-//          // reenter the Angular zone and display done
-//          this._ngZone.run(() => {console.log('Outside Done!') });
-//          
-//        }}));
-        
-        
-        this._ngZone.runOutsideAngular(() => {
-
-
-            this._loadPosts((result) => {
-//                console.log('Outside Done 1!', result); // TODO REMOVE DEBUG LOG
-
-                
-                // reenter the Angular zone and display done
-                this._ngZone.run(() => {
-//                    console.log('Outside Done 2!', result); // TODO REMOVE DEBUG LOG
-                    this.posts = [];
-                    this.posts = Blogs.get_BlogPosts_From_GFeedEntries(result.feed.entries);
-                    this._emitterPostsLoaded.emit(this.posts);  // Notify _emitterPostsLoaded 
-
-                });
-
-            });
-
-        });
-        
-//        Blogs.getPosts(this.topic, this.feeds).then(posts => {
-//
-//            this.posts = posts;       
-//     
-//            this._emitterPostsLoaded.next(posts);  // Notify _emitterPostsLoaded 
-//
-//            console.log("BlogService.loadPosts");    // TODO REMOVE DEBUG LOG
-//            console.log(this.topic);    // TODO REMOVE DEBUG LOG
-//            console.log(this.posts);    // TODO REMOVE DEBUG LOG
-//
-//
-//        });
-
-    }
-
-    _loadPosts(doneCallback: () => void) {
-        
-        this.feeds.load(function(result) {
-                console.log("BlogService._loadPosts", result); // TODO REMOVE DEBUG LOG
-                
-                doneCallback(result);
-        });
-        
-        
-        
-    }
     
     
     
@@ -181,7 +112,6 @@ export class BlogService {
     
     /**
      * getPosts
->>>>>>> branch 'master' of ssh://gituser@repos.waw.net/WAWweb_MainSite.git
      */
     public getPosts_OLD(): BlogPost {
         return this.posts;

@@ -28,7 +28,8 @@ styleUrls: ["res/templates/subtopics/subtopics_component.css"]
 
 })
 export class Subtopic_Component implements OnInit {
-        
+    
+    public selectedMainTopic: BlogTopic;
     public selectedTopic: BlogTopic;
     public  subtopics: Object[] = [];
 
@@ -43,8 +44,8 @@ export class Subtopic_Component implements OnInit {
 
         // Subscribe to __emitterMainTopicSelected
         this._BackBoneService.__emitterMainTopicSelected.subscribe((data) => {
-//            this.selectedTopic = [];
-//            this.selectedTopic = data;
+            this.selectedMainTopic = data;
+            this.selectedTopic = data;
 //            this.subtopics = data.subtopics. slice(0);
 //            this.subtopics = data.subtopics;
             console.log("Subtopic_Component{__emitterMainTopicSelected}", data);
@@ -81,17 +82,22 @@ export class Subtopic_Component implements OnInit {
     
     protected load_subTopics() {
 
-        this._BackBoneService.getCurrentSubTopics().then(topics => {
+        
 
-            this.subtopics = [];
-            this.subtopics = topics;
-   
-   
-            console.log("Subtopic_Component.load_subTopics");    // TODO REMOVE DEBUG LOG
-            console.log(this.selectedTopic);    // TODO REMOVE DEBUG LOG
-            console.log(this.subtopics);    // TODO REMOVE DEBUG LOG
+            this._BackBoneService.getBackBoneConfig().then(config => {
+    
+//                this.subtopics = [];
+                this.subtopics = config.currentSubTopics;
+       
+       
+                console.log("Subtopic_Component.load_subTopics");    // TODO REMOVE DEBUG LOG
+                console.log(this.selectedTopic);    // TODO REMOVE DEBUG LOG
+                console.log(this.subtopics);    // TODO REMOVE DEBUG LOG
+    
+            });     
 
-        });
+        
+
 
     }
     
@@ -111,6 +117,12 @@ export class Subtopic_Component implements OnInit {
 //        this._BackBoneService.selectTopic(topicName);
         this._emitterTopicSelected.emit(topicName) ;
 
+        if (this.selectedMainTopic != null) {
+            this._router.navigate( ['SubTopic', { topicName: this.selectedMainTopic.ID, subTopicName:  topicName}] );
+
+        } else {
+             this._router.navigate( ['Topic', { topicName: topicName }] );
+        }
         
         
     }

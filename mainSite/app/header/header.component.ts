@@ -42,7 +42,8 @@ export class Header_Component implements OnInit {
         
         // Subscribe to _emitterTopicSelected
         this._BackBoneService.__emitterTopicSelected.subscribe((data) => {
-            this.selectedTopic = data;
+//            this.selectedTopic = data;
+            this.load_mainTopics()
             console.log("Header_Component{_emitterTopicSelected}", data);
             //            this.load_mainTopics();
         });
@@ -79,9 +80,10 @@ export class Header_Component implements OnInit {
     protected activateTopic(topicName: string) {
         console.log("Header_Component.activateTopic");    // TODO REMOVE DEBUG LOG
 
-//        this._BackBoneService.selectTopic(topicName);
-//        this._BackBoneService.selectMainTopic(topicName);
-        this._emitterMainTopicSelected.emit(topicName) ;
+
+//        this._emitterMainTopicSelected.emit(topicName) ;
+        
+        this._router.navigate( ['Topic', { topicName: topicName }] );
 
     }
 
