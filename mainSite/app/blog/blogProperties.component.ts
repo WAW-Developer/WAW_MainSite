@@ -67,16 +67,23 @@ export class BlogProperties_Component implements OnInit, AfterViewInit {
         this._BlogService._emitterPostsLoaded.subscribe((data) => {
 //            console.log("BlogPosts_Component{_emitterPostsLoaded}", data);
 //            this.posts = data;
-            this.loadPosts();
+            this.getPosts();
         });
         
+        // Subscribe to _emitterCategoriesLoaded
+        this._BlogService._emitterCategoriesLoaded.subscribe((data) => {
+//            console.log("BlogPosts_Component{_emitterPostsLoaded}", data);
+//            this.posts = data;
+            this.getCategories();
+        });
         
         // Subscribe to __emitterMainTopicSelected
         this._BackBoneService.__emitterTopicSelected.subscribe((data) => {
 //            console.log("BlogPosts_Component{__emitterTopicSelected}", data);
-            this.load_Topic();
+            this.get_Topic();
 
         }
+            
         
         
     }
@@ -118,7 +125,7 @@ export class BlogProperties_Component implements OnInit, AfterViewInit {
     /**
      * load_Topic
      */
-    protected load_Topic() {
+    protected get_Topic() {
         
         this._BackBoneService.getCurrentTopic().then(topic => {
 
@@ -126,7 +133,7 @@ export class BlogProperties_Component implements OnInit, AfterViewInit {
                 this.topic = topic;
 //                this._BlogService.setTopic(topic);
 //                this._BlogService.loadPosts();
-            }
+            } 
      
 //            console.log("BlogPosts_Component.load_selectedTopic");    // TODO REMOVE DEBUG LOG
 //            console.log(this.topic);    // TODO REMOVE DEBUG LOG
@@ -140,12 +147,15 @@ export class BlogProperties_Component implements OnInit, AfterViewInit {
     /**
      * loadPosts
      */
-    protected loadPosts() {
+    protected getPosts() {
 
         this.posts = [];
         this._BlogService.getPosts().then(posts => {
             this.posts = posts;
-            this.loadTags();
+            
+//            this.loadTags();
+            this._BlogService.loadCategories();
+            
 //            console.log("BlogPosts_Component.loadPosts");    // TODO REMOVE DEBUG LOG
 //            console.log(this.posts);    // TODO REMOVE DEBUG LOG
         });
@@ -153,80 +163,22 @@ export class BlogProperties_Component implements OnInit, AfterViewInit {
     }
     
     
-    
     /**
-     * loadTags
+     * loadPosts
      */
-    protected loadTags() {
-        
-        
-        this.categoriesRaw = [];
-        
-        for (var _i = 0; _i < this.posts.length; _i++) {
-            this.categoriesRaw = this.categoriesRaw.concat(Blogs.get_BlogCategories_From_BlogPost(this.posts[_i],this.topic.url_feed));
-        }
-        
-        
-        
-        /**
-         * Find the number of occurrences a given value has in an array
-         * http://stackoverflow.com/questions/17313268/find-the-number-of-occurrences-a-given-value-has-in-an-array
-         * 
-         */
-        var _count = function(ary, classifier) {
-            return ary.reduce(function(counter, item) {
-                var p = (classifier || String)(item);
-                counter[p] = counter.hasOwnProperty(p) ? counter[p] + 1 : 1;
-                return counter;
-            }, {})
-        };
-        
-        
-        // Order categories
-        this.categoriesRaw.sort(function(a, b) {
-            if (a.name < b.name) return -1;
-            if (a.name > b.name) return 1;
-            return 0;
-        });
+    protected getCategories() {
 
-        
-//        var numBoys = people.reduce(function(n, person) {
-//            return n + (person.gender == 'boy');
-//        }, 0);
-        
-//        homes.sort(function(a, b) {
-//            return parseFloat(a.price) - parseFloat(b.price);
-//        });
-        
-
-        
-        var countByName = _count(this.categoriesRaw, function(item) { return item.name })
-        
-        countByName_Object = Object();
-        
-        var countByName_Object = Object.getOwnPropertyNames(countByName).sort();
-
-        
-        // Prepare unique categories
         this.categoriesUnique = [];
-        
-        countByName_Object.forEach(function(_val, _index, _array) {
-            var blogCategoryUnique = new BlogCategory(_val, this.topic.url_feed);
-            blogCategoryUnique.count = countByName[_val];
-            this.categoriesUnique.push(blogCategoryUnique);
-        }, this);
-        
-        
-        
-//        console.log("BlogProperties_Component.loadTags", this.categoriesRaw);    // TODO REMOVE DEBUG LOG
-//        console.log("BlogProperties_Component.loadTags", this.categoriesUnique);    // TODO REMOVE DEBUG LOG
-        
-//        console.log("BlogProperties_Component.loadTags", countByName);    // TODO REMOVE DEBUG LOG
-//        console.log("BlogProperties_Component.loadTags", countByName_Object);    // TODO REMOVE DEBUG LOG
-//        console.log("BlogProperties_Component.loadTags", this.categoriesUnique);    // TODO REMOVE DEBUG LOG
-
-
+        this._BlogService.getCategories().then(categories => {
+            this.categoriesUnique = categories;
+            
+//            console.log("BlogPosts_Component.loadPosts");    // TODO REMOVE DEBUG LOG
+//            console.log(this.posts);    // TODO REMOVE DEBUG LOG
+        });
+    
     }
+    
+
     
 }
 

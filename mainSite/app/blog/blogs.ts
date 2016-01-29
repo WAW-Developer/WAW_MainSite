@@ -49,15 +49,20 @@ export interface blogCategory_ {
     
 }
 
-
+/**
+ * BlogCategory
+ */
 export class BlogCategory implements blogCategory_ {
     
     public name: string = "";
-    public domain  string = "";
+    public domain:  string = "";
+    
+    public count: number = 0;
+    public blogPosts: BlogPost[] = [];
     
     constructor(name: string, domain?: string) {
         
-        this.name = name;
+        this.name = name.toLowerCase();
         
         if (domain != null) {
             this.domain = domain;
@@ -69,7 +74,9 @@ export class BlogCategory implements blogCategory_ {
 
 
 
-
+/**
+ * blogPost_
+ */
 export interface blogPost_ {
     ID: string;
     name: string;
@@ -83,7 +90,9 @@ export interface blogPost_ {
     is_active: boolean;
 }
 
-
+/**
+ * BlogPost
+ */
 export class BlogPost implements blogPost_ {
     ID: string = "";
     name: string = "";
@@ -101,6 +110,34 @@ export class BlogPost implements blogPost_ {
     
 }
 
+
+/**
+ * Blog
+ */
+export class Blog {
+    
+    public ID: string = "";
+    public name: string = "";
+    public description: string = "";
+    
+    public blogTopic: BlogTopic;
+    public blogPosts: BlogPost[] = [];
+    public blogCategories: BlogCategory[] = [];
+    
+    constructor(blogTopic: BlogTopic){
+        this.blogTopic = blogTopic;
+    }
+   
+//    public loadPosts(blogService: BlogService) {
+//        this.blogService.getPosts().then(posts => {
+//            this.blogPosts = posts;
+////            console.log("BlogPosts_Component.loadPosts");    // TODO REMOVE DEBUG LOG
+////            console.log(this.posts);    // TODO REMOVE DEBUG LOG
+//        });
+//    }
+    
+    
+}
 
 
 /**
@@ -145,7 +182,6 @@ export class Blogs {
     } 
     
     /**
-<<<<<<< HEAD
     * get_BlogCategories_From_GFeedEntry
     */
     public static get_BlogCategories_From_BlogPost(blogPost: BlogPost, domain?: string): BlogCategory[] {
@@ -188,7 +224,7 @@ export class Blogs {
         });
     }
  
-=======
+    /**
      * getPosts
      */
     public static getPosts(topic: BlogTopic, feeds: google.feeds.Feed, _callbackFunction: any): Promise<BlogPost[]>{
@@ -225,7 +261,105 @@ export class Blogs {
 
         
     }
->>>>>>> branch 'master' of ssh://gituser@repos.waw.net/WAWweb_MainSite.git
+    
+    
+    
+    /**
+     * loadCategories
+     */
+    public static loadCategories(topic: BlogTopic, blogPosts: BlogPost[], doneCallback: () => void) {
+
+        var categoriesRaw = [];
+        
+        for (var _i = 0; _i < blogPosts.length; _i++) {
+            categoriesRaw = categoriesRaw.concat(
+                Blogs.get_BlogCategories_From_BlogPost( blogPosts[_i],topic.url_feed ));
+        }
+        
+        // Order categories
+        categoriesRaw.sort(function(a, b) {
+            if (a.name < b.name) return -1;
+            if (a.name > b.name) return 1;
+            return 0;
+        });
+
+        
+//        var numBoys = people.reduce(function(n, person) {
+//            return n + (person.gender == 'boy');
+//        }, 0);
+        
+//        homes.sort(function(a, b) {
+//            return parseFloat(a.price) - parseFloat(b.price);
+//        });
+        
+
+        
+        /**
+         * Find the number of occurrences a given value has in an array
+         * http://stackoverflow.com/questions/17313268/find-the-number-of-occurrences-a-given-value-has-in-an-array
+         * 
+         */
+        var _count = function(ary, classifier) {
+            return ary.reduce(function(counter, item) {
+                var p = (classifier || String)(item);
+                counter[p] = counter.hasOwnProperty(p) ? counter[p] + 1 : 1;
+                return counter;
+            }, {})
+        };
+        
+        var countByName_Object = _count(categoriesRaw, function(item) { return item.name })
+        
+//        var countByName = countByName_Object.getOwnPropertyNames().sort();
+        var countByName = Object.getOwnPropertyNames(countByName_Object).sort();
+        
+        // Prepare unique categories
+        var blogCategoriesUnique: BlogCategory[] = [];
+        
+        countByName.forEach(function(_val, _index, _array) {
+            var blogCategoryUnique = new BlogCategory(_val, topic.url_feed);
+            blogCategoryUnique.count = countByName_Object[_val];
+            blogCategoriesUnique.push(blogCategoryUnique);
+        });
+        
+        doneCallback(blogCategoriesUnique); // Callback
+
+    }
+
+    
+    public static detailForCategories(topic: BlogTopic, posts: BlogPost[], doneCallback: () => void){
+        
+        var categoriesRawObject = {};
+        
+        posts.forEach(function(_post, _i, _posts){
+        
+            _post.tasgs.forEach(function(_tag, __i, _tags){
+                
+                if (categoriesRawObject[_tag] == undefined) {
+                    categoriesRawObject[_tag] = {
+                        "posts" : [],
+                        "count" : 0
+                        };
+                }
+                categoriesRawObject[_tag].posts.push(_post);
+                categoriesRawObject[_tag].count++;
+            });
+            
+        });
+        
+        // Prepare unique categories
+        var countByName = Object.getOwnPropertyNames(categoriesRawObject).sort();
+        var blogCategoriesUnique: BlogCategory[] = [];
+        
+        countByName.forEach(function(_val, _index, _array) {
+            var blogCategoryUnique = new BlogCategory(_val, topic.url_feed);
+            blogCategoryUnique.count = categoriesRawObject[_val].posts.length;
+            blogCategoryUnique.blogPosts = categoriesRawObject[_val].posts;
+            blogCategoriesUnique.push(blogCategoryUnique);
+        });
+        
+        console.log("Blogs.detailForCategories", blogCategoriesUnique); // TODO REMOVE DEBUG LOG
+        doneCallback(blogCategoriesUnique); // Callback
+    }
     
     
     public static test(): void {
@@ -235,6 +369,75 @@ export class Blogs {
         
         
     }
+    
+}
+
+
+/**
+ * BlogsManager
+ */
+export class BlogsManager {
+
+    
+    protected blogs: Blog[] = [];
+    
+    /**
+     * constructor
+     */
+    constructor(){
+    }
+    
+    /**
+     * getBlog
+     */
+    public getBlog(topic: BlogTopic): Blog{
+    
+        var result = null;
+        
+        for (var _i=0; _i < this.blogs.length ; _i++) {
+            if (this.blogs[_i].blogTopic.ID == topic.ID){
+                result = this.blogs[_i];
+                break;
+            }
+        }
+        
+        if (result == null) {
+            result = new Blog(topic);
+            this.blogs.push(result);
+        }
+        
+        return result;
+    }   
+    
+    public getBlog_ByName(topicName: string): Blog{
+        
+        var result = null;
+        
+        for (var _i=0; _i < this.blogs.length ; _i++) {
+            if (this.blogs[_i].blogTopic.ID == topicName){
+                result = this.blogs[_i];
+                break;
+            }
+        }
+        
+//        
+//        try {
+//            this.blogTopics.forEach(function(_topic, _i, _topics) {
+//                if (_topic.ID == topicName) {
+//                    result = _topic;
+//                    throw BreakException;
+//                }
+//
+//            });
+//        } catch (e) {
+//            if (e !== BreakException) throw e;
+//        }
+        
+        return result;
+    }
+    
+
+    
     
 }
 

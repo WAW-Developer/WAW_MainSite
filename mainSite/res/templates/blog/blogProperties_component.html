@@ -46,8 +46,31 @@
 	
 			</ngtab>
 			
+			<!-- Search Tab 2 -->
 			<ngtab tabName="Search" isActive="false">
 				Search Form
+			</ngtab>
+			
+			<!-- Search Tab 2 -->
+			<ngtab tabName="Properties" isActive="false">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div *ngIf="topic != undefined">
+						<h4><b>Name</b></h4>
+						{{topic.name}}
+						<h4><b>Description</b></h4>
+						{{topic.description}}
+						<h4><b>Blog URL</b></h4>
+						{{topic.url_blog}}
+						<h4><b>Subtopics</b></h4>
+							<div class="btn-group text-justify" role="group" aria-label="...">
+							<span class="btn btn-info btn-link" *ngFor="#subtopic of topic.subtopics">
+								{{subtopic.name}}
+							</span>
+							</div>
+						</div>
+					</div>
+				</div>
 			</ngtab>
 		</ngtabs>
 	
