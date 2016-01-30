@@ -87,6 +87,23 @@ export class Header_Component implements OnInit {
 
     }
 
+    
+    protected testJSON() {
+//        var data = "{name: 'Bob', occupation: 'Plumber'}";
+        
+        this._BackBoneService.getConfig().then(config => {
+
+            var data = JSON.stringify(config,  null, "\t");
+            var url = 'data:text/json;charset=utf8,' + encodeURIComponent(data);
+            window.open(url, '_blank');
+            window.focus();
+            
+//            this.mainTopics = config.subtopics;
+        });
+        
+
+        
+    }
 
 }
 
