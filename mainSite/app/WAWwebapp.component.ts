@@ -45,8 +45,8 @@ import {BlogService} from './blog/blogs.service';
 //  {path: '/hero/:id', name: 'HeroDetail', component: HeroDetailComponent},
 //  {path: '/disaster', name: 'Asteroid', redirectTo: ['CrisisCenter', 'CrisisDetail', {id:3}]},
   
-
-  {path: '/home',   name: 'Home',  component: WAW_Home__Component, useAsDefault: true},
+  {path: '/',   name: 'Root',  component: WAW_Home__Component, useAsDefault: true},
+  {path: '/home',   name: 'Home',  component: WAW_Home__Component, useAsDefault: false},
   {path: '/topic/...',   name: 'Default',  component: WAW_Home__Component, useAsDefault: false}
   {path: '/topic/:topicName',   name: 'Topic',  component: WAW_Home__Component, useAsDefault: false}
   {path: '/topic/:topicName/:subTopicName',   name: 'SubTopic',  component: WAW_Home__Component, useAsDefault: false}
@@ -88,24 +88,19 @@ export class WAWwebAppComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
         // viewChild is set
         
-        // Subscribe to _emitterPostsLoaded
+        // Subscribe to _emitterMainTopicSelected
         this.wawHeader._emitterMainTopicSelected.subscribe((data) => {
             console.log("WAWwebAppComponent.wawHeader{_emitterMainTopicSelected}", data);   // TODO REMOVE DEBUG LOG
 //            this._BackBoneService.selectMainTopic(data);
         });
         
-        // Subscribe to _emitterPostsLoaded
+        // Subscribe to _emitterTopicSelected
         this.wawSubtopics._emitterTopicSelected.subscribe((data) => {
 
             console.log("WAWwebAppComponent.wawHeader{_emitterMainTopicSelected}", data);   // TODO REMOVE DEBUG LOG
 //            this._BackBoneService.selectMainTopic(data);
         });
         
-//        // Subscribe to _emitterPostsLoaded
-//        this.wawSubtopics._emitterTopicSelected.subscribe((data) => {
-//            console.log("WAWwebAppComponent.wawSubtopics{_emitterMainTopicSelected}", data);    // TODO REMOVE DEBUG LOG
-//            this._BackBoneService.selectTopic(data);
-//        });        
         
     }
 
