@@ -26,23 +26,36 @@
 	  	<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
 		<span class="nav-text">Posts: <span class="badge .small">{{posts.length}}</span> </span>
 		
-	  	<span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
-		<span class="nav-text">Post per page: <span class="badge .small">{{pagination.itemsForPage}}</span> </span>
-
-		  
-		<span class="btn btn-default navbar-btn" (click)="itemsForPage.stepDown(); pagination_SetItemsForPage(itemsForPage.value);">
-		  	<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-		</span>
-			<input type="range" #itemsForPage 
-				min="5" max="20" step="5" value="5"
-				style="max-width: 150px; display: inline;"
-				class="btn btn-default navbar-btn"
-				(change)="pagination_SetItemsForPage(itemsForPage.value)">
+		<br />
 		
-		<span class="btn btn-default navbar-btn" (click)="itemsForPage.stepUp(); pagination_SetItemsForPage(itemsForPage.value);">
-		  	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+	  	
+		<span class="nav-text" style="float: right;">
+			<span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
+			Post per page: 
+			<span class="badge .small">{{pagination.itemsForPage}}</span> 
 		</span>
+		
+		<br />
 
+		
+		<span style="float: right;">
+			<span class="btn btn-default navbar-btn" (click)="itemsForPage.stepDown(); pagination_SetItemsForPage(itemsForPage.value);">
+			  	<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+			</span>
+			<span>
+				<input type="range" #itemsForPage 
+					min="5" max="20" step="5" value="5"
+					style="max-width: 150px; display: inline;"
+					class="btn btn-default navbar-btn"
+					(value)="pagination_SetItemsForPage(itemsForPage.value)"
+					(change)="pagination_SetItemsForPage(itemsForPage.value)"
+					>
+			</span>
+			<span class="btn btn-default navbar-btn"
+				(click)="itemsForPage.stepUp(); pagination_SetItemsForPage(itemsForPage.value);">
+			  	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			</span>
+		</span>
 		  
 		</nav>
 	
@@ -93,7 +106,7 @@
 				<span class="glyphicon glyphicon-eye-open" aria-hidden="true"
 					[class.glyphicon-eye-open]="postProperties.hidden"
 					[class.glyphicon-eye-close]="!postProperties.hidden"></span> 
-				Show/Hide Properties
+				Properties
 				<span class="glyphicon glyphicon-info-sign" aria-hidden="true">
 					</span>
 			</button> 
@@ -128,13 +141,13 @@
 
 		  
 		  <!-- Button for show/hidde postDetail -->
-			<button type="button" class="btn btn-info" 
+			<button type="button" class="btn btn-success" 
 				(click)="postDetail.hidden = !postDetail.hidden"
 				[class.active]="!postDetail.hidden">
 				<span class="glyphicon glyphicon-eye-open" aria-hidden="true"
 					[class.glyphicon-eye-open]="postDetail.hidden"
 					[class.glyphicon-eye-close]="!postDetail.hidden"></span>
-				Show/Hide Content
+				Content
 				<span class="glyphicon glyphicon-file" aria-hidden="true">
 					</span>
 			</button>

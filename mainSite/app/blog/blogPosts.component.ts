@@ -280,6 +280,7 @@ export class BlogPosts_Component implements OnInit {
     protected pagination_Previous() {
         if (this.pagination.currentPage > 1) {
             this.pagination.set_currentPage(this.pagination.currentPage - 1);
+            this.paginated_Posts = [];
             this.paginated_Posts = this.pagination.get_CurrentItems(this.posts);
         }
     }
@@ -290,6 +291,7 @@ export class BlogPosts_Component implements OnInit {
     protected pagination_Next() {
         if (this.pagination.currentPage < this.pagination.pages.length) {
             this.pagination.set_currentPage(this.pagination.currentPage + 1);
+            this.paginated_Posts = [];
             this.paginated_Posts = this.pagination.get_CurrentItems(this.posts);
         }
     }
