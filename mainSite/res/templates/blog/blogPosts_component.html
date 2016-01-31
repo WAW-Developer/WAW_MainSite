@@ -2,20 +2,90 @@
 	<div class="panel-heading">
 		<h3 class="panel-title">Blog Posts</h3>
 	</div>
-	<div class="panel-body" style="max-height: 700px; overflow: overlay;">
+	
+	
+<!-- 	<div class="panel-body" style="max-height: 700px; overflow: overlay;"> -->
+	<div class="panel-body">
+	
+		<nav class="nav nav-pills">
+<!-- 					  <li role="presentation" class="disabled"><a href="#">Disabled link</a></li> -->
+			<span class="glyphicon glyphicon-inbox" aria-hidden="true" style="margin-right: 6px;"> </span>
+			
+		<span>	
+		  <button type="button" class="btn btn-default navbar-btn">
+		  	<span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+		  </button>
+		</span>
+
+		<span>
+		  <button type="button" class="btn btn-default navbar-btn">
+		  	<span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+		  </button>
+		</span>
+
+	  	<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+		<span class="nav-text">Posts: <span class="badge .small">{{posts.length}}</span> </span>
+		
+	  	<span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
+		<span class="nav-text">Post per page: <span class="badge .small">{{pagination.itemsForPage}}</span> </span>
+
+		  
+		<span class="btn btn-default navbar-btn" (click)="itemsForPage.stepDown(); pagination_SetItemsForPage(itemsForPage.value);">
+		  	<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+		</span>
+			<input type="range" #itemsForPage 
+				min="5" max="20" step="5" value="5"
+				style="max-width: 150px; display: inline;"
+				class="btn btn-default navbar-btn"
+				(change)="pagination_SetItemsForPage(itemsForPage.value)">
+		
+		<span class="btn btn-default navbar-btn" (click)="itemsForPage.stepUp(); pagination_SetItemsForPage(itemsForPage.value);">
+		  	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		</span>
+
+		  
+		</nav>
+	
+	
+		<!-- Pagination -->
+		<nav>
+		  <ul class="pager">
+		    <li *ngIf="pagination.currentPage > 1" class="previous" (click)="pagination_Previous()">
+		    	<a href="javascript:void(null);"><span aria-hidden="true">&larr;</span> Previous</a>
+	    	</li>
+	    	
+			<li>
+			<ul class="pagination">
+			    <li *ngFor="#page of pagination.pages" [class.active]="page.active">
+			    	<a href="javascript:void(null);"
+			    		[class.active]="page.active"
+			    		(click)="pagination_GotoPage(page.pageNum)">
+			    		{{page.pageNum}}
+			   		 </a>
+		    	</li>
+	    	</ul>
+	    	</li>
+
+		    <li *ngIf="pagination.currentPage < pagination.pages.length" class="next" (click)="pagination_Next()">
+		    	<a href="javascript:void(null);">Next <span aria-hidden="true">&rarr;</span></a>
+	    	</li>
+		  </ul>
+		</nav>
+		<!-- EndOf Pagination -->
+	
+	
 	
 		<ul class="list-group">
-		  <li class="list-group-item" *ngFor="#post of posts">
+		
+		<!-- Post Item -->
+		  <li class="list-group-item" *ngFor="#post of paginated_Posts">
 		  <h3>
 		  	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> {{post.name}}
-		  	
-
 		  </h3>
-		  
 
-		  
-		  
   		  <span class="h3"><small><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{post.publishedDate}} </small></span>
+  		  
+  		  
    		  <!-- Button for show/hidde postProperties -->
  		  	<button type="button" class="btn btn-info" 
 				(click)="postProperties.hidden = !postProperties.hidden"
@@ -68,12 +138,47 @@
 				<span class="glyphicon glyphicon-file" aria-hidden="true">
 					</span>
 			</button>
+			
  		  <!-- Layer for postDetail -->
 		  <div #postDetail hidden="true" class="panel panel-success">
 		  	<div class="panel-body" [innerHTML]="post.content"></div>
 		  </div>
+		  
+		  
 		  </li>
+		<!-- EndOf Post Item -->
+
+		  
+		  
 		</ul>
+
+
+
+		<!-- Pagination -->
+		<nav>
+		  <ul class="pager">
+		    <li *ngIf="pagination.currentPage > 1" class="previous" (click)="pagination_Previous()">
+		    	<a href="javascript:void(null);"><span aria-hidden="true">&larr;</span> Previous</a>
+	    	</li>
+	    	
+			<li>
+			<ul class="pagination">
+			    <li *ngFor="#page of pagination.pages" [class.active]="page.active">
+			    	<a href="javascript:void(null);"
+			    		[class.active]="page.active"
+			    		(click)="pagination_GotoPage(page.pageNum)">
+			    		{{page.pageNum}}
+			   		 </a>
+		    	</li>
+	    	</ul>
+	    	</li>
+
+		    <li *ngIf="pagination.currentPage < pagination.pages.length" class="next" (click)="pagination_Next()">
+		    	<a href="javascript:void(null);">Next <span aria-hidden="true">&rarr;</span></a>
+	    	</li>
+		  </ul>
+		</nav>
+		<!-- EndOf Pagination -->
 	
 	</div>
 	<div class="panel-footer">Panel footer</div>

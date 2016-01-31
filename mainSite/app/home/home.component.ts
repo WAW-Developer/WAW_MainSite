@@ -150,9 +150,12 @@ export class WAW_Home__Component implements OnInit{
         window.open(this.selectedTopic.url_main, "_blank");
     }
     
+<<<<<<< HEAD
     /**
      * showBlog
      */
+=======
+>>>>>>> branch 'master' of ssh://gituser@repos.waw.net/WAWweb_MainSite.git
     protected showBlog() {
         
         window.open(this.selectedTopic.url_blog, "_blank");

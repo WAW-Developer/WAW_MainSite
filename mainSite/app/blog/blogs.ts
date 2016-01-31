@@ -141,6 +141,92 @@ export class Blog {
 
 
 /**
+ * Pagination
+ */
+export class Pagination {
+    
+    protected totalItems: number = 0;
+    public itemsForPage: number = 0;
+    public currentPage: number = 1;
+    public pages = [];
+ 
+    /**
+     * contructor
+     */
+    contructor() {
+    }
+    
+    /**
+     * set_totalItems
+     */
+    public set_totalItems(totalItems){
+        
+        this.totalItems = totalItems;
+        this.recalculatePages();
+        
+    }
+    
+    /**
+     * set_itemsForPage
+     */
+    public set_itemsForPage(itemsForPage){
+        
+        this.itemsForPage = itemsForPage;
+        this.recalculatePages();
+    }
+    
+    /**
+     * set_currentPage
+     */
+    public set_currentPage(currentPage){
+        
+        this.currentPage = currentPage;
+        
+        this.pages.forEach(function(_page, _i, _pages){
+            _page.active = false;
+            });
+        
+        this.pages[this.currentPage - 1].active = true;
+        
+    }
+    
+    /**
+     * recalculatePages
+     */
+    protected recalculatePages() {
+        this.pages = [];
+        
+        if (this.itemsForPage == 0) {
+            this.itemsForPage = 1;
+        }
+        
+        var _pages = this.totalItems / this.itemsForPage;
+        
+        for (var _i = 0; _i < _pages; _i++) {
+            this.pages.push({
+                "pageNum": _i + 1,
+                "active": false
+                });
+        }
+        
+//        console.log("Pagination.recalculatePages", this); // TODO REMOVE DEBUG LOG
+        
+    }
+    
+    /**
+     * get_CurrentItems
+     */
+    public get_CurrentItems(_array: []) {
+        var _index = (this.currentPage - 1) * this.itemsForPage;
+        
+        return _array.slice(_index, _index + this.itemsForPage);
+        
+    }
+    
+}
+
+
+/**
  * Blogs
  */
 export class Blogs {
@@ -218,7 +304,7 @@ export class Blogs {
     public static loadPosts(topic: BlogTopic, feeds: google.feeds.Feed, doneCallback: () => void) {
         
         feeds.load(function(result) {
-                console.log("BlogService._loadPosts", result); // TODO REMOVE DEBUG LOG
+//                console.log("BlogService._loadPosts", result); // TODO REMOVE DEBUG LOG
                 
                 doneCallback(result);
         });
@@ -244,7 +330,7 @@ export class Blogs {
         
         
         feeds.load(function(result){
-            console.log("Blogs.getPosts", result); // TODO REMOVE DEBUG LOG
+//            console.log("Blogs.getPosts", result); // TODO REMOVE DEBUG LOG
             
 //            blogPosts = Blogs.get_BlogPosts_From_GFeedEntries(result.feed.entries);
             });  
@@ -357,7 +443,7 @@ export class Blogs {
             blogCategoriesUnique.push(blogCategoryUnique);
         });
         
-        console.log("Blogs.detailForCategories", blogCategoriesUnique); // TODO REMOVE DEBUG LOG
+//        console.log("Blogs.detailForCategories", blogCategoriesUnique); // TODO REMOVE DEBUG LOG
         doneCallback(blogCategoriesUnique); // Callback
     }
     

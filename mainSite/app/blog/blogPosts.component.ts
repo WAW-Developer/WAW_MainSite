@@ -3,11 +3,7 @@
 import {NgIf, NgFor} from 'angular2/common';
 //import {Component, View, Directive} from 'angular2/core';
 
-<<<<<<< HEAD
-import {Component, View, bootstrap, ElementRef, Renderer, NgZone} from 'angular2/core';
-=======
 import {Component, View, bootstrap, Input, ElementRef, Renderer, NgZone} from 'angular2/core';
->>>>>>> branch 'master' of ssh://gituser@repos.waw.net/WAWweb_MainSite.git
 
 
 import {RouterLink, RouteConfig, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
@@ -18,7 +14,7 @@ import {RouterLink, RouteConfig, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Lo
 /// <reference path="../../lib/google/google.feed.api.d.ts" />
 
 
-import {BlogTopic, BlogPost, Blogs} from './blogs';
+import {BlogTopic, BlogPost, Blogs, Pagination} from './blogs';
 import {BlogService} from './blogs.service';
 
 import {BackBoneService} from '../core/backBone.service'
@@ -34,7 +30,7 @@ import {BackBoneService} from '../core/backBone.service'
     }
 })
 @View({
-    directives: [NgFor, ROUTER_DIRECTIVES ],
+    directives: [NgFor, NgIf, ROUTER_DIRECTIVES ],
     templateUrl: "res/templates/blog/blogPosts_component.html"
 
 })
@@ -44,6 +40,12 @@ export class BlogPosts_Component implements OnInit {
     
     protected topic: BlogTopic;
     
+    
+    protected pagination: Pagination;
+    protected paginated_Posts: BlogPost[] = [];;
+    
+    
+    
     /**
      * constructor
      */
@@ -51,7 +53,9 @@ export class BlogPosts_Component implements OnInit {
         private _BackBoneService: BackBoneService,
         private _BlogService: BlogService) {
         
-
+        this.pagination = new Pagination();
+//        this.pagination.set_totalItems(100);
+        this.pagination.set_itemsForPage(5);
         
         // Subscribe to _emitterPostsLoaded
         this._BlogService._emitterPostsLoaded.subscribe((data) => {
@@ -242,8 +246,15 @@ export class BlogPosts_Component implements OnInit {
         this.posts = [];
         this._BlogService.getPosts().then(posts => {
             this.posts = posts;
+            this.pagination.set_totalItems(this.posts.length);
+            this.pagination.set_currentPage(1);
+            
+            this.paginated_Posts = this.pagination.get_CurrentItems(this.posts);
+            
+//            var currentItems = this.pagination.get_CurrentItems(this.posts);
+            
 //            console.log("BlogPosts_Component.loadPosts");    // TODO REMOVE DEBUG LOG
-//            console.log(this.posts);    // TODO REMOVE DEBUG LOG
+//            console.log(this.paginated_Posts);    // TODO REMOVE DEBUG LOG
         });
         
         
@@ -252,7 +263,50 @@ export class BlogPosts_Component implements OnInit {
     
     }
     
+    /**
+     * pagination_GotoPage
+     */
+    protected pagination_GotoPage(pageNumber: number) {
+        this.pagination.set_currentPage(pageNumber);
+        this.paginated_Posts = this.pagination.get_CurrentItems(this.posts);
+//        console.log("BlogPosts_Component.pagination_GotoPage");    // TODO REMOVE DEBUG LOG
+//        console.log(this.paginated_Posts);    // TODO REMOVE DEBUG LOG
+//        console.log(pageNumber);    // TODO REMOVE DEBUG LOG
+    }
     
+    /**
+     * pagination_Previous
+     */
+    protected pagination_Previous() {
+        if (this.pagination.currentPage > 1) {
+            this.pagination.set_currentPage(this.pagination.currentPage - 1);
+            this.paginated_Posts = this.pagination.get_CurrentItems(this.posts);
+        }
+    }
+    
+    /**
+     * pagination_Next
+     */
+    protected pagination_Next() {
+        if (this.pagination.currentPage < this.pagination.pages.length) {
+            this.pagination.set_currentPage(this.pagination.currentPage + 1);
+            this.paginated_Posts = this.pagination.get_CurrentItems(this.posts);
+        }
+    }
+    
+ 
+     /**
+     * pagination_GotoPage
+     */
+    protected pagination_SetItemsForPage(itemsForPage: number) {
+        
+        this.pagination.set_itemsForPage(itemsForPage);
+        this.pagination.set_currentPage(1);
+        this.paginated_Posts = this.pagination.get_CurrentItems(this.posts);
+//        console.log("BlogPosts_Component.pagination_SetItemsForPage");    // TODO REMOVE DEBUG LOG
+//        console.log(this.paginated_Posts);    // TODO REMOVE DEBUG LOG
+//        console.log(itemsForPage);    // TODO REMOVE DEBUG LOG
+    }
     
 }
 
