@@ -1,6 +1,10 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">WAW</h3>
+		<h3 class="panel-title">
+			What about... 
+			<span *ngIf="selectedTopic != undefined">{{selectedTopic.name}}</span>
+			
+		</h3>
 	</div>
 	<div class="panel-body">
 <!-- 		Home -->
@@ -19,9 +23,9 @@
 			  <div class="media-body">
 	  		  	<h2>{{selectedTopic.name}}</h2>
 	  			<h3>{{selectedTopic.description}}</h3>
-			  	<button type="button" class="btn btn-info" (click)="moreInfo()">
-					<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-			  		more information
+			  	<button type="button" class="btn btn-warning" (click)="showBlog()" *ngIf="selectedTopic.url_blog != undefined">
+					<span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+			  		Go to Blog
 			  	</button>
 			  </div>
 			</div> 

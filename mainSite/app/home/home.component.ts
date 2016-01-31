@@ -42,6 +42,9 @@ export class WAW_Home__Component implements OnInit{
 //    private _BackBoneService: BackBoneService;
     
     
+    /**
+     * constructor
+     */
     constructor(
         private _router: Router,
         private _routeParams: RouteParams,
@@ -110,7 +113,6 @@ export class WAW_Home__Component implements OnInit{
       this.load_selectedTopic();
       
       
-      
 //      console.log(config);    // TODO REMOVE DEBUG LOG
 //      console.log(this.topic);    // TODO REMOVE DEBUG LOG
 //      console.log(this.routeParams);    // TODO REMOVE DEBUG LOG
@@ -121,7 +123,9 @@ export class WAW_Home__Component implements OnInit{
     
     
     
-    
+    /**
+     * load_selectedTopic
+     */
     protected load_selectedTopic(isMainTopic?: boolean = false) {
      
         this._BackBoneService.getCurrentTopic().then(topic => {
@@ -138,10 +142,20 @@ export class WAW_Home__Component implements OnInit{
 
     }
     
-    
+    /**
+     * moreInfo
+     */
     protected moreInfo() {
         
         window.open(this.selectedTopic.url_main, "_blank");
+    }
+    
+    /**
+     * showBlog
+     */
+    protected showBlog() {
+        
+        window.open(this.selectedTopic.url_blog, "_blank");
     }
     
         

@@ -6,10 +6,58 @@
 	
 		<ul class="list-group">
 		  <li class="list-group-item" *ngFor="#post of posts">
-		  <h3><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> {{post.name}} </h3>
-		  <h3><small><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{post.publishedDate}} </small></h3>
-		  <p> {{post.summary}} </p>
-		  <!-- Button for show/hidde postDetai -->
+		  <h3>
+		  	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> {{post.name}}
+		  	
+
+		  </h3>
+		  
+
+		  
+		  
+  		  <span class="h3"><small><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{post.publishedDate}} </small></span>
+   		  <!-- Button for show/hidde postProperties -->
+ 		  	<button type="button" class="btn btn-info" 
+				(click)="postProperties.hidden = !postProperties.hidden"
+				[class.active]="!postProperties.hidden">
+				<span class="glyphicon glyphicon-eye-open" aria-hidden="true"
+					[class.glyphicon-eye-open]="postProperties.hidden"
+					[class.glyphicon-eye-close]="!postProperties.hidden"></span> 
+				Show/Hide Properties
+				<span class="glyphicon glyphicon-info-sign" aria-hidden="true">
+					</span>
+			</button> 
+			
+		  
+ 		  <!-- Layer for postProperties -->
+		  <div #postProperties hidden="true" class="panel panel-success">
+		  
+			<ul class="list-group">
+			  <li class="list-group-item">
+		  		<span class="glyphicon glyphicon-link" aria-hidden="true">&nbsp;</span>
+		  		<span class="h4">URL blog: </span>
+		  		<span class="h5"><a href="post.url_blog">{{post.url_blog}}</a></span>
+			  </li>
+			  <li class="list-group-item">
+				<div class="btn-group btn-group-sm text-justify" role="group" aria-label="...">
+				<p>
+				<span class="glyphicon glyphicon-tags" aria-hidden="true">&nbsp;</span>
+				<span class="h4"> Categories: </span>
+				</p>
+					<button class="btn btn-sm btn-link" type="button" *ngFor="#tag of post.tasgs">
+						{{tag}}
+					</button>
+				</div>			  
+			  </li>
+		  	</ul>
+		  
+		  </div>
+			
+			
+		  <p class="h4"> {{post.summary}} </p>
+
+		  
+		  <!-- Button for show/hidde postDetail -->
 			<button type="button" class="btn btn-info" 
 				(click)="postDetail.hidden = !postDetail.hidden"
 				[class.active]="!postDetail.hidden">
@@ -17,7 +65,10 @@
 					[class.glyphicon-eye-open]="postDetail.hidden"
 					[class.glyphicon-eye-close]="!postDetail.hidden"></span>
 				Show/Hide Content
+				<span class="glyphicon glyphicon-file" aria-hidden="true">
+					</span>
 			</button>
+ 		  <!-- Layer for postDetail -->
 		  <div #postDetail hidden="true" class="panel panel-success">
 		  	<div class="panel-body" [innerHTML]="post.content"></div>
 		  </div>
