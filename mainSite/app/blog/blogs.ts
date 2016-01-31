@@ -161,7 +161,7 @@ export class Pagination {
      */
     public set_totalItems(totalItems){
         
-        this.totalItems = totalItems;
+        this.totalItems = parseInt(totalItems);
         this.recalculatePages();
         
     }
@@ -171,7 +171,7 @@ export class Pagination {
      */
     public set_itemsForPage(itemsForPage){
         
-        this.itemsForPage = itemsForPage;
+        this.itemsForPage = parseInt(itemsForPage);
         this.recalculatePages();
     }
     
@@ -180,7 +180,7 @@ export class Pagination {
      */
     public set_currentPage(currentPage){
         
-        this.currentPage = currentPage;
+        this.currentPage = parseInt(currentPage);
         
         this.pages.forEach(function(_page, _i, _pages){
             _page.active = false;
@@ -218,8 +218,9 @@ export class Pagination {
      */
     public get_CurrentItems(_array: []) {
         var _index = (this.currentPage - 1) * this.itemsForPage;
+        var _indexEnd = _index + this.itemsForPage;
         
-        return _array.slice(_index, _index + this.itemsForPage);
+        return _array.slice(_index, _indexEnd);
         
     }
     
