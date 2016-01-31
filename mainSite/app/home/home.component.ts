@@ -110,7 +110,6 @@ export class WAW_Home__Component implements OnInit{
       this.load_selectedTopic();
       
       
-      
 //      console.log(config);    // TODO REMOVE DEBUG LOG
 //      console.log(this.topic);    // TODO REMOVE DEBUG LOG
 //      console.log(this.routeParams);    // TODO REMOVE DEBUG LOG
@@ -142,6 +141,11 @@ export class WAW_Home__Component implements OnInit{
     protected moreInfo() {
         
         window.open(this.selectedTopic.url_main, "_blank");
+    }
+    
+    protected showBlog() {
+        
+        window.open(this.selectedTopic.url_blog, "_blank");
     }
     
         
