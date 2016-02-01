@@ -230,7 +230,7 @@ export class BlogPosts_Component implements OnInit {
         this.pagination.set_currentPage(pageNumber);
         this.paginated_Posts = this.pagination.get_CurrentItems(this.posts);
         
-        window.scrollTo(0, this._ElementRef.nativeElement.parentElement.offsetTop);
+        window.scrollTo(0, this._ElementRef.nativeElement.parentElement.offsetTop - 53);
         
 //        console.log("BlogPosts_Component.pagination_GotoPage");    // TODO REMOVE DEBUG LOG
 //        console.log(this._ElementRef);    // TODO REMOVE DEBUG LOG

@@ -1,12 +1,20 @@
 <div class="panel panel-info">
+
+	<!-- Panel header -->
 	<div class="panel-heading">
 		<h3 class="panel-title">Blog Posts</h3>
 	</div>
+	<!-- EndOf Panel header -->
 	
 	
+	
+	<!-- Panel body -->
 <!-- 	<div class="panel-body" style="max-height: 700px; overflow: overlay;"> -->
 	<div class="panel-body">
 	
+	
+	
+		<!-- Toolbar -->
 		<nav class="nav nav-pills">
 <!-- 					  <li role="presentation" class="disabled"><a href="#">Disabled link</a></li> -->
 			<span class="glyphicon glyphicon-inbox" aria-hidden="true" style="margin-right: 6px;"> </span>
@@ -28,7 +36,8 @@
 		
 		<br />
 
-		
+
+		<!-- Pagination	Options	 -->
 		<span class="nav-text" style="float: right;">
 			<span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
 			Post per page: 
@@ -56,8 +65,11 @@
 			  	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 			</span>
 		</span>
+		<!-- EndOf Pagination Options	 -->
 		  
 		</nav>
+		<!-- EndOf Toolbar -->
+	
 	
 	
 		<!-- Pagination -->
@@ -119,7 +131,7 @@
 			  <li class="list-group-item">
 		  		<span class="glyphicon glyphicon-link" aria-hidden="true">&nbsp;</span>
 		  		<span class="h4">URL blog: </span>
-		  		<span class="h5"><a href="post.url_blog">{{post.url_blog}}</a></span>
+		  		<span class="h5"><a href="{{post.url_blog}}" target="_blank">{{post.url_blog}}</a></span>
 			  </li>
 			  <li class="list-group-item">
 				<div class="btn-group btn-group-sm text-justify" role="group" aria-label="...">
@@ -137,7 +149,7 @@
 		  </div>
 			
 			
-		  <p class="h4"> {{post.summary}} </p>
+		  <p class="h4" [innerHTML]="post.summary"></p>
 
 		  
 		  <!-- Button for show/hidde postDetail -->
@@ -194,5 +206,11 @@
 		<!-- EndOf Pagination -->
 	
 	</div>
-	<div class="panel-footer">Panel footer</div>
+	<!-- EndOf Panel body -->
+
+	<!-- Panel footer -->	
+	<div class="panel-footer">
+	</div>
+	<!-- EndOf Panel footer -->
+	
 </div>

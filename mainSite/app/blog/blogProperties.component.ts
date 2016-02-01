@@ -47,8 +47,8 @@ export class BlogProperties_Component implements OnInit, AfterViewInit {
     
     protected topic: BlogTopic;
     
-    protected categoriesRaw: BlogCategory[];
-    protected categoriesUnique: BlogCategory[];
+    protected categoriesRaw: BlogCategory[] = [];
+    protected categoriesUnique: BlogCategory[] = [];
     
     
         
@@ -102,11 +102,7 @@ export class BlogProperties_Component implements OnInit, AfterViewInit {
      */
     ngOnInit() {
 
-//        this._BackBoneService.getConfig().then(config => this.mainTopics = config.subtopics);
 
-//        this.tabs = this.tabsController.tabs;
-
-//        console.log(this.tabs);    // TODO REMOVE DEBUG LOG
     }
     
     
@@ -115,12 +111,8 @@ export class BlogProperties_Component implements OnInit, AfterViewInit {
      */
     ngAfterViewInit() {
         
-//        this.tabs = this.tabsController.tabs;
 
-//        console.log("BlogProperties_Component.ngAfterViewInit");    // TODO REMOVE DEBUG LOG
-//        console.log(this.tabs);    // TODO REMOVE DEBUG LOG
-        
-        }
+    }
     
     /**
      * load_Topic
@@ -164,7 +156,7 @@ export class BlogProperties_Component implements OnInit, AfterViewInit {
     
     
     /**
-     * loadPosts
+     * getCategories
      */
     protected getCategories() {
 

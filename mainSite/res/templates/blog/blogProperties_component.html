@@ -1,7 +1,12 @@
 <div class="panel panel-info">
+
+	<!-- Panel header -->
 	<div class="panel-heading">
 		<h3 class="panel-title">Blog Properties</h3>
 	</div>
+	<!-- EndOf Panel header -->
+	
+	<!-- Panel body -->
 	<div class="panel-body">
 	
         <ul class="nav nav-tabs" *ngIf="tabsController != undefined">
@@ -15,43 +20,53 @@
 	
 		<ngtabs> 
 		
-<!-- 		Labels Tab 1 -->
-			<ngtab tabName="Labels" isActive="true">
+			<!-- Categories Tab -->
+			<ngtab tabName="Categories" isActive="true">
 	
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<nav class="nav nav-pills">
-<!-- 					  <li role="presentation" class="disabled"><a href="#">Disabled link</a></li> -->
-						<span class="glyphicon glyphicon-tags" aria-hidden="true" style="margin-right: 6px;"> </span>
+				<div class="panel panel-default">
+					<div class="panel-body">
+					
+					
+						<!-- Panel Toolbar -->
+						<nav class="nav nav-pills">
+	<!-- 					  <li role="presentation" class="disabled"><a href="#">Disabled link</a></li> -->
+							<span class="glyphicon glyphicon-tags" aria-hidden="true" style="margin-right: 6px;"> </span>
+							<span>Categories <span class="badge small">{{categoriesUnique.length}}</span></span>
+							
+							
+						  <button type="button" class="btn btn-default navbar-btn">
+						  	<span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+						  </button>
+	
+						  <button type="button" class="btn btn-default navbar-btn">
+						  	<span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+						  </button>
+						  
+						</nav>
+						<!-- EnfOf Panel Toolbar -->
 						
-						
-					  <button type="button" class="btn btn-default navbar-btn">
-					  	<span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
-					  </button>
-
-					  <button type="button" class="btn btn-default navbar-btn">
-					  	<span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
-					  </button>
-					  
-					</nav>
-
-					<div class="btn-group btn-group-sm text-justify" role="group" aria-label="...">
-						<button class="btn btn-sm btn-link" type="button" *ngFor="#category of categoriesUnique">
-							{{category.name}} <span class="badge .small">{{category.count}}</span>
-						</button>
+	
+						<div class="btn-group btn-group-sm text-justify" role="group" aria-label="...">
+							<button class="btn btn-sm btn-link" type="button" *ngFor="#category of categoriesUnique">
+								{{category.name}} <span class="badge small">{{category.count}}</span>
+							</button>
+						</div>
+	
 					</div>
-
 				</div>
-			</div>
 	
 			</ngtab>
+			<!-- EndOf Categories Tab -->
+
 			
-			<!-- Search Tab 2 -->
+			<!-- Search Tab -->
 			<ngtab tabName="Search" isActive="false">
 				Search Form
 			</ngtab>
+			<!-- EndOf Search Tab -->
+
 			
-			<!-- Search Tab 2 -->
+			<!-- Properties Tab -->
 			<ngtab tabName="Properties" isActive="false">
 				<div class="panel panel-default">
 					<div class="panel-body">
@@ -72,9 +87,18 @@
 					</div>
 				</div>
 			</ngtab>
+			<!-- EndOf Properties Tab -->
+
+			
 		</ngtabs>
 	
 	
 	</div>
-	<div class="panel-footer">Panel footer</div>
+	<!-- EndOf Panel body -->
+	
+	<!-- Panel footer -->
+	<div class="panel-footer">
+	</div>
+	<!-- EndOf Panel footer -->
+	
 </div>

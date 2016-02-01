@@ -4,7 +4,7 @@
 /// <reference path="../../lib/x3d_Tools/x3d_Tools.d.ts" />
 
 import {NgIf, NgFor} from 'angular2/common';
-import {Component, View, Directive, EventEmitter} from 'angular2/core';
+import {Component, View, Directive, EventEmitter, ElementRef} from 'angular2/core';
 
 //import { RouterLink, ROUTER_DIRECTIVES } from 'angular2/router';
 import {RouterLink, RouteConfig, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
@@ -36,7 +36,10 @@ export class Header_Component implements OnInit {
     public _emitterMainTopicSelected: EventEmitter = new EventEmitter();
 
 
-    constructor(private _BackBoneService: BackBoneService, private _router: Router) {
+    constructor(
+        private _BackBoneService: BackBoneService, 
+        private _router: Router,
+        private _ElementRef: ElementRef) {
         //..get the data
         
         
@@ -78,11 +81,12 @@ export class Header_Component implements OnInit {
      * activateTopic
      */
     protected activateTopic(topicName: string) {
-        console.log("Header_Component.activateTopic");    // TODO REMOVE DEBUG LOG
-
+//        console.log("Header_Component.activateTopic");    // TODO REMOVE DEBUG LOG
 
 //        this._emitterMainTopicSelected.emit(topicName) ;
         
+        jQuery('#bs-navbar-collapse-1').collapse('hide');
+       
         this._router.navigate( ['Topic', { topicName: topicName }] );
 
     }
