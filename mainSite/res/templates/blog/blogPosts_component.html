@@ -27,6 +27,23 @@
 		<span class="nav-text">Posts: <span class="badge .small">{{posts.length}}</span> </span>
 		
 		<br />
+<<<<<<< HEAD
+=======
+		
+	  	<span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
+		<span class="nav-text">Post per page: <span class="badge .small">{{pagination.itemsForPage}}</span> </span>
+
+		  
+		<span class="btn btn-default navbar-btn" (click)="itemsForPage.stepDown(); pagination_SetItemsForPage(itemsForPage.value);">
+		  	<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+		</span>
+			<input type="range" #itemsForPage 
+				min="5" max="20" step="5" value="5"
+				style="max-width: 150px; display: inline;"
+				class="btn btn-default navbar-btn"
+				(value)="pagination_SetItemsForPage(itemsForPage.value)"
+				(change)="pagination_SetItemsForPage(itemsForPage.value)">
+>>>>>>> branch 'master' of ssh://gituser@repos.waw.net/WAWweb_MainSite.git
 		
 	  	
 		<span class="nav-text" style="float: right;">
