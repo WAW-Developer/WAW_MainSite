@@ -1,14 +1,10 @@
 import {Component, ViewChild} from 'angular2/core';
-<<<<<<< HEAD
 import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
-=======
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
->>>>>>> branch 'master' of ssh://gituser@repos.waw.net/WAWweb_MainSite.git
 
-//import {DialogService} from './dialog.service';
 
 import {Header_Component} from './header/header.component';
 import {WAW_Home__Component} from './home/home.component';
+import {WAW_Topics__Component} from './topics/topics.component';
 import {Subtopic_Component} from './subtopics/subtopics.component';
 import {BlogProperties_Component} from './blog/blogProperties.component';
 import {BlogPosts_Component} from './blog/blogPosts.component';
@@ -47,9 +43,9 @@ import {BlogService} from './blog/blogs.service';
   
   {path: '/',   name: 'Root',  component: WAW_Home__Component, useAsDefault: true},
   {path: '/home',   name: 'Home',  component: WAW_Home__Component, useAsDefault: false},
-  {path: '/topic/...',   name: 'Default',  component: WAW_Home__Component, useAsDefault: false}
-  {path: '/topic/:topicName',   name: 'Topic',  component: WAW_Home__Component, useAsDefault: false}
-  {path: '/topic/:topicName/:subTopicName',   name: 'SubTopic',  component: WAW_Home__Component, useAsDefault: false}
+  {path: '/topic/...',   name: 'Default',  component: WAW_Topics__Component, useAsDefault: false}
+  {path: '/topic/:topicName',   name: 'Topic',  component: WAW_Topics__Component, useAsDefault: false}
+  {path: '/topic/:topicName/:subTopicName',   name: 'SubTopic',  component: WAW_Topics__Component, useAsDefault: false}
 
 ])
     
@@ -66,6 +62,9 @@ export class WAWwebAppComponent implements OnInit, AfterViewInit {
     wawSubtopics: Subtopic_Component;
     
 
+    /**
+     * constructor
+     */
     constructor(private _BackBoneService: BackBoneService,
         private _BlogService: BlogService) {
         

@@ -40,7 +40,7 @@ import {BackBoneService} from '../core/backBone.service'
     directives: [NgIf, NgFor, NgTab_Component, NgTabs_Component]
 
 })
-export class BlogProperties_Component implements OnInit, AfterViewInit {
+export class BlogProperties_Component implements OnInit, AfterViewInit, OnChanges, AfterViewChecked {
         
     
     protected posts: BlogPost[] = [];
@@ -50,7 +50,8 @@ export class BlogProperties_Component implements OnInit, AfterViewInit {
     protected categoriesRaw: BlogCategory[] = [];
     protected categoriesUnique: BlogCategory[] = [];
     
-    
+    protected _categoriesPieChart: any;
+    protected _painting = false;
         
     @ViewChild(NgTabs_Component)
     tabsController: NgTabs_Component;
@@ -59,7 +60,9 @@ export class BlogProperties_Component implements OnInit, AfterViewInit {
     
     constructor(private _router: Router,
         private _BackBoneService: BackBoneService,
-        private _BlogService: BlogService) {
+        private _BlogService: BlogService,
+        private _ElementRef : ElementRef
+        ) {
         //..get the data
         
         
@@ -110,8 +113,27 @@ export class BlogProperties_Component implements OnInit, AfterViewInit {
      * ngAfterViewInit
      */
     ngAfterViewInit() {
-        
 
+    }
+    
+    /**
+     * ngAfterViewInit
+     */
+    ngAfterViewChecked() {
+
+    }
+    
+    /**
+     * ngOnChanges
+     */
+    ngOnChanges() {
+        
+        
+        if (!this._painting) {
+            this.paintChart();
+        }
+        
+        
     }
     
     /**
@@ -163,13 +185,218 @@ export class BlogProperties_Component implements OnInit, AfterViewInit {
         this.categoriesUnique = [];
         this._BlogService.getCategories().then(categories => {
             this.categoriesUnique = categories;
-            
+       
+            this.paintChart();
 //            console.log("BlogPosts_Component.loadPosts");    // TODO REMOVE DEBUG LOG
 //            console.log(this.posts);    // TODO REMOVE DEBUG LOG
         });
     
     }
     
+    
+    /**
+     * orderCategories
+     */
+    protected orderCategories(orderType: string) {
+        
+        
+        switch(orderType) {
+            
+            case "name":
+            this.categoriesUnique.sort(function(a, b) {
+                if (a.name < b.name) return -1;
+                if (a.name > b.name) return 1;
+                return 0;
+            });
+            break;
+                
+            case "count":
+            this.categoriesUnique.sort(function(a, b) {
+                if (a.count > b.count) return -1;
+                if (a.count < b.count) return 1;
+                return 0;
+            });
+            break;
+                
+            default:
+            break;
+        }
+        
+
+    }
+    
+    
+    /**
+     * paintChart
+     */
+    protected paintChart() {
+//        console.log("BlogPosts_Component.paintChart");    // TODO REMOVE DEBUG LOG
+//        console.log(this._ElementRef);    // TODO REMOVE DEBUG LOG
+
+        // Get the context of the canvas element we want to select
+        var canvasParentLayer = jQuery(this._ElementRef.nativeElement).find("div.panel.panel-default.Chart");
+        var canvasLayer = jQuery(this._ElementRef.nativeElement).find("div.panel.panel-default.Chart canvas");
+        var ctx = canvasLayer.get(0).getContext("2d");
+
+
+        
+        canvasLayer.get(0).width = canvasParentLayer.get(0).clientWidth;
+        canvasLayer.get(0).height = canvasParentLayer.get(0).clientHeight;
+
+        
+//        if (canvasLayer.get(0).width < 250) {
+//            canvasLayer.get(0).width = 250;
+//        }
+        
+        this._painting = true;
+        
+//        console.log(canvasParentLayer);    // TODO REMOVE DEBUG LOG
+//        console.log(canvasLayer);    // TODO REMOVE DEBUG LOG
+//        console.log(ctx);    // TODO REMOVE DEBUG LOG
+        
+        
+        
+        // For a pie chart
+        
+        this.orderCategories("count");
+        
+        var charColors = [
+                { 
+                    color:  "#F7464A", 
+                    highlight: "#FF5A5E" 
+                },  
+                { 
+                    color:  "#CDDC39", 
+                    highlight: "#E6EE9C" 
+                },
+                { 
+                    color:  "#00897B", 
+                    highlight: "#4DB6AC" 
+                },
+                { 
+                    color:  "#46BFBD", 
+                    highlight: "#5AD3D1" 
+                },
+                { 
+                    color:  "#FDB45C", 
+                    highlight: "#FFC870" 
+                },
+                { 
+                    color:  "#4D5360", 
+                    highlight: "#616774" 
+                },
+            
+            ];
+        
+        
+        var catInFire = 5;
+        var chartData = [];
+        var currentCategoriesCount = 0;
+        
+        for (var _i= 0; _i < catInFire ; _i++) {
+            
+            var charItemtData = {
+                value: this.categoriesUnique[_i].count,
+                color: charColors[_i].color,
+                highlight: charColors[_i].highlight,
+                label: this.categoriesUnique[_i].name
+                };
+            
+            chartData.push(charItemtData);
+            currentCategoriesCount++;
+        }
+        
+        chartData.push({
+            value: this.categoriesUnique.length - currentCategoriesCount,
+            color: charColors[catInFire].color,
+            highlight: charColors[catInFire].highlight,
+            label: "Others"
+        });
+        
+        
+//        var chartData = [
+//            {
+//                value: 300,
+//                color: "#F7464A",
+//                highlight: "#FF5A5E",
+//                label: "Red"
+//            },
+//            {
+//                value: 50,
+//                color: "#46BFBD",
+//                highlight: "#5AD3D1",
+//                label: "Green"
+//            },
+//            {
+//                value: 100,
+//                color: "#FDB45C",
+//                highlight: "#FFC870",
+//                label: "Yellow"
+//            }
+//        ];
+        
+
+        var chartOptions = {
+            //Boolean - Whether we should show a stroke on each segment
+            segmentShowStroke: true,
+
+            //String - The colour of each segment stroke
+            segmentStrokeColor: "#fff",
+
+            //Number - The width of each segment stroke
+            segmentStrokeWidth: 2,
+
+            //Number - The percentage of the chart that we cut out of the middle
+            percentageInnerCutout: 50, // This is 0 for Pie charts
+
+            //Number - Amount of animation steps
+            animationSteps: 100,
+
+            //String - Animation easing effect
+            animationEasing: "easeOutBounce",
+
+            //Boolean - Whether we animate the rotation of the Doughnut
+            animateRotate: true,
+
+            //Boolean - Whether we animate scaling the Doughnut from the centre
+            animateScale: false,
+
+            //String - A legend template
+            legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+
+        };
+        
+        
+        // Update Chart
+        if (this._categoriesPieChart == undefined) {
+            this._categoriesPieChart = new Chart(ctx).Pie(chartData,chartOptions);
+        } else {
+            
+//            this._categoriesPieChart.clear();
+            this._categoriesPieChart.destroy();
+            
+//            for (var _i= 0; _i < this._categoriesPieChart.segments.length + 1 ; _i++) {
+//                this._categoriesPieChart.removeData();
+//            }
+//            for (var _i= 0; _i < chartData.length ; _i++) {
+//                this._categoriesPieChart.addData(chartData[_i]);
+//            }
+            
+            this._categoriesPieChart = new Chart(ctx).Pie(chartData,chartOptions);
+            
+//            this._categoriesPieChart.segments = chartData;
+            // Would update the first dataset's value of 'Green' to be 10
+//            this._categoriesPieChart.update();
+            
+        }
+        
+        
+//        var categoriesPieChart = new Chart(ctx).Pie(chartData,chartOptions);
+        
+        
+        this._painting = false;
+        
+    }
 
     
 }

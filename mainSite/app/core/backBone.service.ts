@@ -34,6 +34,9 @@ export class BackBoneService {
     
     //    rxEmitter: any;
     
+    /**
+     * constructor
+     */
     constructor() {
         //        this.rxEmitter = this._emitter.toRx();
         
@@ -111,6 +114,9 @@ export class BackBoneService {
             this.config.topicStructure.subtopics[_i].is_active = false;
         }
     }
+    
+    
+    
     
     
     /**
@@ -212,6 +218,32 @@ export class BackBoneService {
 //        console.log(this.config.currentTopic);    // TODO REMOVE DEBUG LOG
         
     }
+    
+    
+    /**
+     * selectRootTopic
+     */
+    public selectRootTopic() {
+        
+        this.deactivateSubTopics();
+        this.deactivateMainTopics();
+        
+        
+        this.config.currentTopic = this.config.topicStructure;
+        this.config.currentMainTopic = this.config.topicStructure;
+        this.config.currentSubTopics = this.config.topicStructure.subtopics;
+        
+        // __emitterSubTopicsChanged
+        this.__emitterSubTopicsChanged.emit(this.config.currentSubTopics);
+        
+        // __emitterMainTopicSelected        
+        this.__emitterMainTopicSelected.emit(this.config.currentTopic);
+        // __emitterTopicSelected
+        this.__emitterTopicSelected.emit(this.config.currentTopic);
+        
+    }
+    
+    
     
     /**
      * inRootTopic

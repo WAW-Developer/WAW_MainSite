@@ -33,7 +33,7 @@ import {BlogTopic} from '../blog/blogs'
 
 })
 
-export class WAW_Home__Component implements OnInit{
+export class WAW_Topics__Component implements OnInit{
 
 
     public topic: BlogTopic;
@@ -61,7 +61,7 @@ export class WAW_Home__Component implements OnInit{
 //        console.log("WAW_Home__Component._router", _router);    // TODO REMOVE DEBUG LOG
 //        console.log("WAW_Home__Component._routeParams", _routeParams);    // TODO REMOVE DEBUG LOG
 //        console.log("WAW_Home__Component._Location", _Location);    // TODO REMOVE DEBUG LOG
-        console.log("WAW_Home__Component._Location", _Location.path());    // TODO REMOVE DEBUG LOG
+        console.log("WAW_Topics__Component._Location", _Location.path());    // TODO REMOVE DEBUG LOG
 //        
 //        console.log("WAW_Home__Component.param_TopicName", param_TopicName);    // TODO REMOVE DEBUG LOG
 //        console.log("WAW_Home__Component.param_SubTopicName", param_SubTopicName);    // TODO REMOVE DEBUG LOG
@@ -82,10 +82,22 @@ export class WAW_Home__Component implements OnInit{
         
         
         
-        
-        if (!this._BackBoneService.inRootTopic()) {
-            this._BackBoneService.selectRootTopic();
+        if (param_TopicName != null && param_SubTopicName != null) {
+            if ( (!this.topic) || (param_SubTopicName != this.topic.ID)) {
+
+                this._BackBoneService.selectTopic(param_SubTopicName);
+
+            }
+        } else if (param_TopicName != null) {
+            if ((!this.topic) || (param_TopicName != this.topic.ID)) {
+
+                this._BackBoneService.selectMainTopic(param_TopicName);
+
+            }
+        } else {
+            
         }
+       
 
         
 
@@ -121,7 +133,7 @@ export class WAW_Home__Component implements OnInit{
             
             window.scrollTo(0, 0);
             
-            console.log("WAW_Home__Component.load_selectedTopic");    // TODO REMOVE DEBUG LOG
+            console.log("WAW_Topics__Component.load_selectedTopic");    // TODO REMOVE DEBUG LOG
             console.log(this.selectedTopic);    // TODO REMOVE DEBUG LOG
 
         });
@@ -135,7 +147,6 @@ export class WAW_Home__Component implements OnInit{
         
         window.open(this.selectedTopic.url_main, "_blank");
     }
-    
 
     /**
      * showBlog

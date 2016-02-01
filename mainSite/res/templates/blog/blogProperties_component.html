@@ -34,11 +34,15 @@
 							<span>Categories <span class="badge small">{{categoriesUnique.length}}</span></span>
 							
 							
-						  <button type="button" class="btn btn-default navbar-btn">
+						  <button type="button" 
+						  	class="btn btn-default navbar-btn"
+						  	(click)="orderCategories('name')">
 						  	<span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
 						  </button>
 	
-						  <button type="button" class="btn btn-default navbar-btn">
+						  <button type="button" 
+						  	class="btn btn-default navbar-btn"
+						  	(click)="orderCategories('count')">
 						  	<span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
 						  </button>
 						  
@@ -54,6 +58,18 @@
 	
 					</div>
 				</div>
+				
+				
+				<!-- Chart -->
+				<div class="panel panel-default Chart">
+					<div class="panel-body">
+					
+						<canvas width="100%" height="300px"></canvas>
+					
+					</div>
+				</div>
+				<!-- EndOf Chart -->
+				
 	
 			</ngtab>
 			<!-- EndOf Categories Tab -->
