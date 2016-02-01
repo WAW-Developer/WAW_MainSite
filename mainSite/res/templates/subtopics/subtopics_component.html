@@ -10,6 +10,25 @@
 	<div class="panel-body">
 
 
+		<!-- Panel Toolbar -->
+		<nav class="nav nav-pills">
+<!-- 					  <li role="presentation" class="disabled"><a href="#">Disabled link</a></li> -->
+			<span class="glyphicon glyphicon-list" aria-hidden="true" style="margin-right: 6px;"> </span>
+			<span>Subtopics <span class="badge small">{{subtopics.length}}</span></span>
+			
+		  <button type="button"
+		  	*ngIf="selectedMainTopic != undefined" 
+		  	(click)="selectMainTopic(selectedMainTopic.ID)"
+		  	class="btn btn-default navbar-btn btn-info">
+		  	<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+		  	{{selectedMainTopic.name}}
+		  	<span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
+		  </button>			
+
+		</nav>
+		<!-- EnfOf Panel Toolbar -->
+
+
 		<div class="list-group">
 		
 	       <a href="javascript:void(null);" *ngFor="#topic of subtopics"

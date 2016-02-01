@@ -70,13 +70,6 @@ export class BlogPosts_Component implements OnInit {
         this._BackBoneService.__emitterTopicSelected.subscribe((data) => {
 //            console.log("BlogPosts_Component{__emitterTopicSelected}", data);
             this.load_Topic();
-           
-//            if (data.url_feed != null) {
-//                this.topic = data;
-//                this._BlogService.setTopic(data);
-//                this._BlogService.loadPosts();
-//            }
-            
 
         }
         

@@ -111,6 +111,11 @@ export class Subtopic_Component implements OnInit {
     }
     
     
+    protected selectMainTopic(topicName) {
+        this._router.navigate( ['Topic', { topicName: topicName }] );
+    }
+    
+    
     protected selectTopic(topicName) {
         
         
