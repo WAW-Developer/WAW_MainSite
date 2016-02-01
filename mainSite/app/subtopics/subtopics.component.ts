@@ -37,15 +37,22 @@ export class Subtopic_Component implements OnInit {
     public _emitterTopicSelected: EventEmitter = new EventEmitter();
 
     
-    
+    /**
+     * constructor
+     */
     constructor(private _router: Router,
         private _BackBoneService: BackBoneService) {
         
 
         // Subscribe to __emitterMainTopicSelected
         this._BackBoneService.__emitterMainTopicSelected.subscribe((data) => {
-            this.selectedMainTopic = data;
-            this.selectedTopic = data;
+            
+            if (!this._BackBoneService.inRootTopic()) {
+                this.selectedMainTopic = data;
+                this.selectedTopic = data;
+            }
+            
+
 //            this.subtopics = data.subtopics. slice(0);
 //            this.subtopics = data.subtopics;
             console.log("Subtopic_Component{__emitterMainTopicSelected}", data);
@@ -68,21 +75,10 @@ export class Subtopic_Component implements OnInit {
     }
     
     
-    protected addSubtopics(subtopics: BlogTopic[]) {
-        this.subtopics = this.subtopics.slice(subtopics.length-1);
-        for (var _i = 0; _i < subtopics.length; _i++) {
-            this.addSubtopic(subtopics[_i]);
-        }
-        
-    }    
-    protected addSubtopic(subtopic: BlogTopic) {
-        this.subtopics.push(subtopic);
-    }
-    
-    
+    /**
+     * load_subTopics
+     */
     protected load_subTopics() {
-
-        
 
             this._BackBoneService.getBackBoneConfig().then(config => {
     
@@ -90,14 +86,11 @@ export class Subtopic_Component implements OnInit {
                 this.subtopics = config.currentSubTopics;
        
        
-                console.log("Subtopic_Component.load_subTopics");    // TODO REMOVE DEBUG LOG
-                console.log(this.selectedTopic);    // TODO REMOVE DEBUG LOG
-                console.log(this.subtopics);    // TODO REMOVE DEBUG LOG
+//                console.log("Subtopic_Component.load_subTopics");    // TODO REMOVE DEBUG LOG
+//                console.log(this.selectedTopic);    // TODO REMOVE DEBUG LOG
+//                console.log(this.subtopics);    // TODO REMOVE DEBUG LOG
     
             });     
-
-        
-
 
     }
     
@@ -109,13 +102,27 @@ export class Subtopic_Component implements OnInit {
         this.load_subTopics();
 
     }
+
+    /**
+     * selectRoot
+     */
+    protected selectRoot() {
+        this.selectedTopic = null;
+        this.selectedMainTopic = null;
+        this._router.navigate( ['Home'] );
+        
+    }
     
-    
+    /**
+     * selectMainTopic
+     */
     protected selectMainTopic(topicName) {
         this._router.navigate( ['Topic', { topicName: topicName }] );
     }
     
-    
+    /**
+     * selectTopic
+     */
     protected selectTopic(topicName) {
         
         
