@@ -50,6 +50,7 @@ export class BlogPosts_Component implements OnInit {
      * constructor
      */
     constructor(private _router: Router,
+        private _ElementRef: ElementRef,
         private _BackBoneService: BackBoneService,
         private _BlogService: BlogService) {
         
@@ -81,47 +82,6 @@ export class BlogPosts_Component implements OnInit {
         
         
     }
-    
-    
-
-    
-    
-    protected loadPosts__OLD() {
-        
-        if (this.topic.url_feed.length == 0) {
-            return;
-        }
-        
-        
-        var feeds = new google.feeds.Feed(this.topic.url_feed);
-        feeds.setNumEntries(100);
-        
-        var blogPosts = this;
-        
-        feeds.load(function(result){
-//            console.log("BlogPosts_Component.loadPosts", result); // TODO REMOVE DEBUG LOG
-            blogPosts.setPostsFrom_GFeeds(result.feed.entries);
-
-            });  
-        
-    }
-    
-    
-    protected setPostsFrom_GFeeds(feeds: Object[]) {
-        
-        this.posts = [];
-        
-        for(var _i = 0; _i < feeds.length; _i++) {
-           
-            this.posts.push(Blogs.get_BlogPost_From_GFeedEntry(feeds[_i]));
-            
-        }
-        
-
-        
-    }
-    
-    
     
     
     protected test() {
@@ -269,8 +229,11 @@ export class BlogPosts_Component implements OnInit {
     protected pagination_GotoPage(pageNumber: number) {
         this.pagination.set_currentPage(pageNumber);
         this.paginated_Posts = this.pagination.get_CurrentItems(this.posts);
+        
+        window.scrollTo(0, this._ElementRef.nativeElement.parentElement.offsetTop);
+        
 //        console.log("BlogPosts_Component.pagination_GotoPage");    // TODO REMOVE DEBUG LOG
-//        console.log(this.paginated_Posts);    // TODO REMOVE DEBUG LOG
+//        console.log(this._ElementRef);    // TODO REMOVE DEBUG LOG
 //        console.log(pageNumber);    // TODO REMOVE DEBUG LOG
     }
     
@@ -279,9 +242,7 @@ export class BlogPosts_Component implements OnInit {
      */
     protected pagination_Previous() {
         if (this.pagination.currentPage > 1) {
-            this.pagination.set_currentPage(this.pagination.currentPage - 1);
-            this.paginated_Posts = [];
-            this.paginated_Posts = this.pagination.get_CurrentItems(this.posts);
+            this.pagination_GotoPage(this.pagination.currentPage - 1);
         }
     }
     
@@ -290,15 +251,13 @@ export class BlogPosts_Component implements OnInit {
      */
     protected pagination_Next() {
         if (this.pagination.currentPage < this.pagination.pages.length) {
-            this.pagination.set_currentPage(this.pagination.currentPage + 1);
-            this.paginated_Posts = [];
-            this.paginated_Posts = this.pagination.get_CurrentItems(this.posts);
+            this.pagination_GotoPage(this.pagination.currentPage + 1);
         }
     }
     
  
-     /**
-     * pagination_GotoPage
+    /**
+     * pagination_SetItemsForPage
      */
     protected pagination_SetItemsForPage(itemsForPage: number) {
         

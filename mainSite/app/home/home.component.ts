@@ -1,5 +1,5 @@
 import {NgIf, NgFor} from 'angular2/common';
-import {Component,View, Directive, ViewChild, ViewChildren} from 'angular2/core';
+import {Component,View, Directive, ViewChild, ViewChildren, ElementRef} from 'angular2/core';
 import {
 //  OnChanges, SimpleChange,
   OnInit,
@@ -49,7 +49,8 @@ export class WAW_Home__Component implements OnInit{
         private _router: Router,
         private _routeParams: RouteParams,
         private _BackBoneService: BackBoneService,
-        private _Location : Location
+        private _Location : Location,
+        private _ElementRef: ElementRef
     ) {
         
 //        this._BackBoneService = BackBoneService.getInstance();
@@ -57,33 +58,30 @@ export class WAW_Home__Component implements OnInit{
         var param_TopicName = _routeParams.get("topicName");
         var param_SubTopicName = _routeParams.get("subTopicName");
         
-        console.log("WAW_Home__Component._router", _router);    // TODO REMOVE DEBUG LOG
-        console.log("WAW_Home__Component._routeParams", _routeParams);    // TODO REMOVE DEBUG LOG
-        console.log("WAW_Home__Component._Location", _Location);    // TODO REMOVE DEBUG LOG
-        console.log("WAW_Home__Component._Location", _Location.path());    // TODO REMOVE DEBUG LOG
-        
-        console.log("WAW_Home__Component.param_TopicName", param_TopicName);    // TODO REMOVE DEBUG LOG
-        console.log("WAW_Home__Component.param_SubTopicName", param_SubTopicName);    // TODO REMOVE DEBUG LOG
-        
+//        console.log("WAW_Home__Component._router", _router);    // TODO REMOVE DEBUG LOG
+//        console.log("WAW_Home__Component._routeParams", _routeParams);    // TODO REMOVE DEBUG LOG
+//        console.log("WAW_Home__Component._Location", _Location);    // TODO REMOVE DEBUG LOG
+//        console.log("WAW_Home__Component._Location", _Location.path());    // TODO REMOVE DEBUG LOG
+//        
+//        console.log("WAW_Home__Component.param_TopicName", param_TopicName);    // TODO REMOVE DEBUG LOG
+//        console.log("WAW_Home__Component.param_SubTopicName", param_SubTopicName);    // TODO REMOVE DEBUG LOG
+//        
         this._BackBoneService.getConfig().then(config => this.topic = config);
 
       
         // Subscribe to __emitterMainTopicSelected
         this._BackBoneService.__emitterMainTopicSelected.subscribe((data) => {
             this.load_selectedTopic(true);
-
-            
-            //            this.load_mainTopics();
         });
 
           // Subscribe to _emitterTopicSelected
         this._BackBoneService.__emitterTopicSelected.subscribe((data) => {
             this.load_selectedTopic();
-
-            
-            //            this.load_mainTopics();
         });
             
+        
+        
+        
         if (param_TopicName != null && param_SubTopicName != null) {
             if ( (!this.topic) || (param_SubTopicName != this.topic.ID)) {
 
@@ -105,10 +103,6 @@ export class WAW_Home__Component implements OnInit{
 
 
   ngOnInit() {
-
-
-      
-      
       
       this.load_selectedTopic();
       
@@ -116,11 +110,8 @@ export class WAW_Home__Component implements OnInit{
 //      console.log(config);    // TODO REMOVE DEBUG LOG
 //      console.log(this.topic);    // TODO REMOVE DEBUG LOG
 //      console.log(this.routeParams);    // TODO REMOVE DEBUG LOG
-      
-      
+
   }
-    
-    
     
     
     /**
@@ -134,6 +125,8 @@ export class WAW_Home__Component implements OnInit{
             if (isMainTopic) {
                 this.selectedMainTopic = topic;
             }
+            
+            window.scrollTo(0, 0);
             
             console.log("WAW_Home__Component.load_selectedTopic");    // TODO REMOVE DEBUG LOG
             console.log(this.selectedTopic);    // TODO REMOVE DEBUG LOG
@@ -150,12 +143,10 @@ export class WAW_Home__Component implements OnInit{
         window.open(this.selectedTopic.url_main, "_blank");
     }
     
-<<<<<<< HEAD
+
     /**
      * showBlog
      */
-=======
->>>>>>> branch 'master' of ssh://gituser@repos.waw.net/WAWweb_MainSite.git
     protected showBlog() {
         
         window.open(this.selectedTopic.url_blog, "_blank");
