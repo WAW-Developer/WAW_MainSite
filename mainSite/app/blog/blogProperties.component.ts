@@ -255,8 +255,8 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
         var ctx = canvasLayer.get(0).getContext("2d");
 
 
-        canvasLayer.get(0).width = canvasParentLayer.get(0).offsetWidth - 20;
-        canvasLayer.get(0).width = canvasParentLayer.get(0).offsetHeight - 20;
+        canvasLayer.get(0).width = canvasParentLayer.get(0).offsetWidth - 30;
+        canvasLayer.get(0).Height = canvasParentLayer.get(0).offsetHeight - 30;
 //        canvasLayer.get(0).width = canvasParentLayer.get(0).clientWidth;
 //        canvasLayer.get(0).height = canvasParentLayer.get(0).clientHeight;
         
