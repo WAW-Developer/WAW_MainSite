@@ -284,7 +284,7 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
                 { 
                     color:  "#4D5360", 
                     highlight: "#616774" 
-                },
+                }
             
             ];
         
@@ -368,28 +368,14 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
         
         
         // Update Chart
-        if (this._categoriesPieChart == undefined) {
-            this._categoriesPieChart = new Chart(ctx).Pie(chartData,chartOptions);
-        } else {
-            
-//            this._categoriesPieChart.clear();
+        if (this._categoriesPieChart != undefined) {
             this._categoriesPieChart.destroy();
-            
-//            for (var _i= 0; _i < this._categoriesPieChart.segments.length + 1 ; _i++) {
-//                this._categoriesPieChart.removeData();
-//            }
-//            for (var _i= 0; _i < chartData.length ; _i++) {
-//                this._categoriesPieChart.addData(chartData[_i]);
-//            }
-            
-            this._categoriesPieChart = new Chart(ctx).Pie(chartData,chartOptions);
-            
-//            this._categoriesPieChart.segments = chartData;
-            // Would update the first dataset's value of 'Green' to be 10
-//            this._categoriesPieChart.update();
-            
         }
         
+        
+            
+        
+        this._categoriesPieChart = new Chart(ctx).Pie(chartData,chartOptions);
         
 //        var categoriesPieChart = new Chart(ctx).Pie(chartData,chartOptions);
         
