@@ -39,7 +39,7 @@ export class NgTabs_Component {
     public tabs: NgTab_Component[];
     public tab_Activated = {
         ID: "",
-        tab: ConsoleTab = null
+        tab: null
         
         };
     
