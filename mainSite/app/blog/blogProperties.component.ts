@@ -85,26 +85,18 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
 //            console.log("BlogPosts_Component{__emitterTopicSelected}", data);
             this.get_Topic();
 
-        }
-            
-        
+        };
+       
         
     }
     
-       
-    protected activateTab(event, tabName) {
+    
 
-//        console.log("activateTab");     // TODO REMOVE DEBUG LOG
-//    
-        this.tabsController.activateTab(tabName);
-
-    }
     
     /**
      * ngOnInit
      */
     ngOnInit() {
-
 
     }
     
@@ -114,6 +106,16 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
      */
     ngAfterViewInit() {
 
+        // Subscribe to _emitterTabChangued
+        this.tabsController._emitterTabChangued.subscribe((data) => {
+//            console.log("BlogPosts_Component.tabsController{_emitterTabChangued}", data);
+            
+            if (data == "Categories") {
+                 this.paintChart();
+            }
+
+        }
+        
     }
     
     /**
@@ -135,6 +137,17 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
         
         
     }
+    
+    
+    /**
+     * activateTab
+     */
+    protected activateTab(event, tabName) {
+
+        //        console.log("activateTab");     // TODO REMOVE DEBUG LOG
+        this.tabsController.activateTab(tabName);
+    }
+    
     
     /**
      * load_Topic
@@ -185,8 +198,11 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
         this.categoriesUnique = [];
         this._BlogService.getCategories().then(categories => {
             this.categoriesUnique = categories;
+            
+            this.activateTab(null, "Categories");
        
-            this.paintChart();
+//            setTimeout(this.paintChart(), 3000);
+//            this.paintChart();
 //            console.log("BlogPosts_Component.loadPosts");    // TODO REMOVE DEBUG LOG
 //            console.log(this.posts);    // TODO REMOVE DEBUG LOG
         });
@@ -239,18 +255,24 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
         var ctx = canvasLayer.get(0).getContext("2d");
 
 
+        canvasLayer.get(0).width = canvasParentLayer.get(0).offsetWidth - 20;
+        canvasLayer.get(0).width = canvasParentLayer.get(0).offsetHeight - 20;
+//        canvasLayer.get(0).width = canvasParentLayer.get(0).clientWidth;
+//        canvasLayer.get(0).height = canvasParentLayer.get(0).clientHeight;
         
-        canvasLayer.get(0).width = canvasParentLayer.get(0).clientWidth;
-        canvasLayer.get(0).height = canvasParentLayer.get(0).clientHeight;
 
         
 //        if (canvasLayer.get(0).width < 250) {
 //            canvasLayer.get(0).width = 250;
 //        }
+//        
+//        if (canvasLayer.get(0).height < 250) {
+//            canvasLayer.get(0).height = 250;
+//        }
         
         this._painting = true;
         
-//        console.log(canvasParentLayer);    // TODO REMOVE DEBUG LOG
+        console.log(canvasParentLayer);    // TODO REMOVE DEBUG LOG
 //        console.log(canvasLayer);    // TODO REMOVE DEBUG LOG
 //        console.log(ctx);    // TODO REMOVE DEBUG LOG
         
@@ -368,7 +390,7 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
         
         
         // Update Chart
-        if (this._categoriesPieChart != undefined) {
+        if (this._categoriesPieChart != null) {
             this._categoriesPieChart.destroy();
         }
         

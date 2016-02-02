@@ -2,7 +2,7 @@
  * Provides Tabs facility for angular
  */
 
-import {Component,View, Input, QueryList} from 'angular2/core';
+import {Component,View, Input, QueryList, EventEmitter} from 'angular2/core';
 
 import { NgTab_Component } from './ngTab.component';
 
@@ -36,6 +36,9 @@ export class NgTabs_Component {
     
 //    protected tabs: QueryList<ConsoleTab>;
     
+    public _emitterTabChangued: EventEmitter = new EventEmitter();
+
+    
     public tabs: NgTab_Component[];
     public tab_Activated = {
         ID: "",
@@ -60,10 +63,17 @@ export class NgTabs_Component {
             if (this.tabs[_i].ID == tabName) {
                 
                 this.selectTab(this.tabs[_i]);
+                
+                this._emitterTabChangued.emit(tabName);  // Notify _emitterTopicChangued
+
+                
                 break;
             }
 
         }
+        
+
+        
 
     };
 
