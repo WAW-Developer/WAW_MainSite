@@ -57,10 +57,12 @@
 							<span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
 							Settings <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li class="disabled"><a href="javascript:void(null);" class="disabled">
+							<li class="disabled">
+								<a href="javascript:void(null);" class="disabled">
 								Blogs Activated <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
-							</a></li>
-							<li><a href="javascript:void(null);">Another action</a></li>
+								</a>
+							</li>
+<!-- 							<li><a href="javascript:void(null);">Another action</a></li> -->
 							<li>
 								<a href="javascript:void(null);" (click)="testJSON()">
 								<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
@@ -68,9 +70,19 @@
 								</a>
 							</li>
 							<li role="separator" class="divider"></li>
-							<li><a href="#">Separated link</a></li>
+							<li>
+								<a href="javascript:void(null);" (click)="aboutThisWeb()">
+								<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+								About this web
+								</a>
+							</li>
 							<li role="separator" class="divider"></li>
-							<li><a href="#">One more separated link</a></li>
+							<li>
+								<a href="javascript:void(null);" (click)="aboutWAW()">
+								<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+								About WAW
+								</a>
+							</li>
 						</ul>
 					</li>
 				</ul>
@@ -84,3 +96,50 @@
 	</nav>
  <!-- / NavBar \ ---------------------------------------------------------------------------------------------------- -->
 
+
+
+<!-- Modal aboutThisWeb -->
+<div class="modal fade aboutThisWeb" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content panel-info">
+      <div class="modal-header panel-heading">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title warning">About this web</h4>
+      </div>
+      <div class="modal-body">
+        <p>This web is a HTML5 application prototype.</p>
+        <p>All the information is stored on remote servers. This application only has a configuration file for access all the data by the client browser.</p>
+      </div>
+      <div class="modal-footer panel-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- EndOf Modal aboutThisWeb -->
+
+<!-- Modal aboutWAW -->
+<div class="modal fade aboutWAW" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content panel-info">
+      <div class="modal-header panel-heading">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title warning">About WAW</h4>
+      </div>
+      <div class="modal-body">
+        <p>What about World? (WAW).</p>
+        <p>Is a project that unifies information technologies and the mosts importants topics in life. Of course is only a point of view.</p>
+      </div>
+      <div class="modal-footer panel-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- EndOf Modal aboutWAW -->

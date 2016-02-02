@@ -4,6 +4,7 @@ import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router'
 
 import {Header_Component} from './header/header.component';
 import {WAW_Home__Component} from './home/home.component';
+import {Footer_Component} from './footer/footer.component';
 import {WAW_Topics__Component} from './topics/topics.component';
 import {Subtopic_Component} from './subtopics/subtopics.component';
 import {BlogProperties_Component} from './blog/blogProperties.component';
@@ -21,7 +22,8 @@ import {BlogService} from './blog/blogs.service';
   providers:  [BackBoneService, BlogService],
   directives: [ROUTER_DIRECTIVES,
     Header_Component, 
-    WAW_Home__Component, 
+    WAW_Home__Component,
+    Footer_Component, 
     Subtopic_Component, 
     BlogProperties_Component, 
     BlogPosts_Component, 

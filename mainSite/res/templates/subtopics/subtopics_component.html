@@ -13,25 +13,31 @@
 		<!-- Panel Toolbar -->
 		<nav class="nav nav-pills">
 <!-- 					  <li role="presentation" class="disabled"><a href="#">Disabled link</a></li> -->
+		  
+		  <div *ngIf="selectedMainTopic != undefined">
+			  <button   
+			  	type="button"
+			  	(click)="selectMainTopic(selectedMainTopic.ID)"
+			  	class="btn btn-default navbar-btn btn-info">
+			  	<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+			  	{{selectedMainTopic.name}}
+			  	<span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
+			  </button>
+			  
+			  <button
+			  	type="button"
+			  	(click)="selectRoot(); selectedMainTopic = null;"
+			  	class="btn btn-default navbar-btn btn-info">
+			  	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+			  	Home
+			  </button>
+		  </div>
+		  
+
 			<span class="glyphicon glyphicon-list" aria-hidden="true" style="margin-right: 6px;"> </span>
 			<span>Subtopics <span class="badge small">{{subtopics.length}}</span></span>
 			
-		  <button *ngIf="selectedMainTopic != undefined"  
-		  	type="button"
-		  	(click)="selectMainTopic(selectedMainTopic.ID)"
-		  	class="btn btn-default navbar-btn btn-info">
-		  	<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-		  	{{selectedMainTopic.name}}
-		  	<span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
-		  </button>
-		  
-		  <button *ngIf="selectedMainTopic != undefined"  
-		  	type="button"
-		  	(click)="selectRoot(); selectedMainTopic = null;"
-		  	class="btn btn-default navbar-btn btn-info">
-		  	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-		  	Home
-		  </button>
+
 		  
 
 		</nav>

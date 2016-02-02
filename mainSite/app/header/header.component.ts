@@ -90,7 +90,33 @@ export class Header_Component implements OnInit {
         this._router.navigate( ['Topic', { topicName: topicName }] );
 
     }
+    
+    /**
+     * aboutThisWeb
+     */
+    protected aboutThisWeb() {
+        
+        // Get the context of the canvas element we want to select
+        var modalPanel = jQuery(this._ElementRef.nativeElement).find("div.modal.aboutThisWeb");
+        jQuery('#bs-navbar-collapse-1').collapse('hide');
+        
+        modalPanel.modal();
+        
+    }
 
+    
+    /**
+     * aboutWAW
+     */
+    protected aboutWAW() {
+        
+        // Get the context of the canvas element we want to select
+        var modalPanel = jQuery(this._ElementRef.nativeElement).find("div.modal.aboutWAW");
+        jQuery('#bs-navbar-collapse-1').collapse('hide');
+        
+        modalPanel.modal();
+        
+    }
     
     protected testJSON() {
 //        var data = "{name: 'Bob', occupation: 'Plumber'}";
