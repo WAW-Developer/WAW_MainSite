@@ -17,55 +17,65 @@
 		<!-- Toolbar -->
 		<nav class="nav nav-pills">
 <!-- 					  <li role="presentation" class="disabled"><a href="#">Disabled link</a></li> -->
-			<span class="glyphicon glyphicon-inbox" aria-hidden="true" style="margin-right: 6px;"> </span>
+		
+			<span class="glyphicon glyphicon-inbox" aria-hidden="true" 
+				style="margin-right: 6px; display: none;"> 
+			</span>
+				
+			<span style="display: none;">	
+			  <button type="button" class="btn btn-default navbar-btn">
+			  	<span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+			  </button>
+			</span>
+	
+			<span style="display: none;">
+			  <button type="button" class="btn btn-default navbar-btn">
+			  	<span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+			  </button>
+			</span>
+	
+			<!-- Number of Posts -->
+		  	<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+			<span class="nav-text">Posts: <span class="badge .small">{{posts.length}}</span> </span>
 			
-		<span>	
-		  <button type="button" class="btn btn-default navbar-btn">
-		  	<span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
-		  </button>
-		</span>
-
-		<span>
-		  <button type="button" class="btn btn-default navbar-btn">
-		  	<span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
-		  </button>
-		</span>
-
-	  	<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-		<span class="nav-text">Posts: <span class="badge .small">{{posts.length}}</span> </span>
-		
-		<br />
-
-
-		<!-- Pagination	Options	 -->
-		<span class="nav-text" style="float: right;">
-			<span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
-			Post per page: 
-			<span class="badge .small">{{pagination.itemsForPage}}</span> 
-		</span>
-		
-		<br />
-
-		
-		<span style="float: right;">
-			<span class="btn btn-default navbar-btn" (click)="itemsForPage.stepDown(); pagination_SetItemsForPage(itemsForPage.value);">
-			  	<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+			<span class="glyphicon glyphicon-cog cogLoading"
+				style="display:none;" 
+				aria-hidden="true">
 			</span>
-			<span>
-				<input type="range" #itemsForPage 
-					min="5" max="20" step="5" value="5"
-					style="max-width: 150px; display: inline;"
-					class="btn btn-default navbar-btn"
-					(value)="pagination_SetItemsForPage(itemsForPage.value)"
-					(change)="pagination_SetItemsForPage(itemsForPage.value)"
-					>
+			
+			<br />
+
+
+			<!-- Pagination	Options	 -->
+			<span class="nav-text" style="float: right;">
+				<span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
+				Post per page: 
+				<span class="badge .small">{{pagination.itemsForPage}}</span> 
 			</span>
-			<span class="btn btn-default navbar-btn"
-				(click)="itemsForPage.stepUp(); pagination_SetItemsForPage(itemsForPage.value);">
-			  	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			
+			<br />
+	
+			
+			<span style="float: right;">
+				<span class="btn btn-default navbar-btn" (click)="itemsForPage.stepDown(); pagination_SetItemsForPage(itemsForPage.value);">
+				  	<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+				</span>
+				<span>
+					<input type="range" #itemsForPage 
+						min="5" max="20" step="5" value="5"
+						style="max-width: 150px; display: inline;"
+						class="btn btn-default navbar-btn"
+						(value)="pagination_SetItemsForPage(itemsForPage.value)"
+						(change)="pagination_SetItemsForPage(itemsForPage.value)"
+						>
+				</span>
+				<span class="btn btn-default navbar-btn"
+					(click)="itemsForPage.stepUp(); pagination_SetItemsForPage(itemsForPage.value);">
+				  	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</span>
 			</span>
-		</span>
-		<!-- EndOf Pagination Options	 -->
+			<!-- EndOf Pagination Options	 -->
+			
 		  
 		</nav>
 		<!-- EndOf Toolbar -->
@@ -146,6 +156,7 @@
 		  	</ul>
 		  
 		  </div>
+		  <!-- Endof Layer for postProperties -->
 			
 			
 		  <p class="h4" [innerHTML]="post.summary"></p>

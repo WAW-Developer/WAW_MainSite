@@ -502,6 +502,7 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
             }, 5300);
         
     }
+
     
     
 }
