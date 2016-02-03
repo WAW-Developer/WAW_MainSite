@@ -20,6 +20,7 @@ import {BlogService}     from './blog/blogs.service';
 //bootstrap(BlogPosts_Component, [ROUTER_PROVIDERS, BackBoneService]);
 //bootstrap(BlogRecentPosts_Component, [ROUTER_PROVIDERS, BackBoneService]);
 
+// Init application
 bootstrap(WAWwebAppComponent, [ROUTER_PROVIDERS,BackBoneService,BlogService]);
 
 

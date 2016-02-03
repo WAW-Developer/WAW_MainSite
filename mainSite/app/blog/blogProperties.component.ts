@@ -21,7 +21,7 @@ import { Router} from 'angular2/router';
 import {NgTab, NgTab_Component} from '../ngTabs/ngTab.component';
 import {NgTabs_Component} from '../ngTabs/ngTabs.component';
 
-import {BlogTopic, BlogCategory, Blogs} from './blogs';
+import {BlogTopic, BlogCategory, Blogs, Pagination} from './blogs';
 import {BlogService} from './blogs.service';
 
 import {BackBoneService} from '../core/backBone.service'
@@ -52,6 +52,11 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
     
     protected _categoriesPieChart: any;
     protected _painting = false;
+    
+    
+    protected paginationSearch: Pagination;
+    protected searchResponses: BlogPost[] = [];;
+    protected paginated_SearchResponses: BlogPost[] = [];;
         
     @ViewChild(NgTabs_Component)
     tabsController: NgTabs_Component;
@@ -81,6 +86,12 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
             this.getCategories();
         });
         
+        // Subscribe to _emitterSearchResponse
+        this._BlogService._emitterSearchResponse.subscribe((data) => {
+//            console.log("BlogPosts_Component{_emitterSearchResponse}", data);
+            this.loadSearchResponse();
+        });
+        
         // Subscribe to __emitterMainTopicSelected
         this._BackBoneService.__emitterTopicSelected.subscribe((data) => {
 //            console.log("BlogPosts_Component{__emitterTopicSelected}", data);
@@ -88,6 +99,11 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
 
         };
        
+        
+        this.paginationSearch = new Pagination();
+        this.paginationSearch.set_itemsForPage(5);
+        
+        
         
     }
     
@@ -179,10 +195,10 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
 
         this.posts = [];
         this._BlogService.getPosts().then(posts => {
-            this.posts = posts;
             
-//            this.loadTags();
+            this.posts = posts;
             this._BlogService.loadCategories();
+            this.searchResponses_Reset();
             
 //            console.log("BlogPosts_Component.loadPosts");    // TODO REMOVE DEBUG LOG
 //            console.log(this.posts);    // TODO REMOVE DEBUG LOG
@@ -198,14 +214,10 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
 
         this.categoriesUnique = [];
         this._BlogService.getCategories().then(categories => {
-            this.categoriesUnique = categories;
             
+            this.categoriesUnique = categories;
             this.activateTab(null, "Categories");
-       
-//            setTimeout(this.paintChart(), 3000);
-//            this.paintChart();
-//            console.log("BlogPosts_Component.loadPosts");    // TODO REMOVE DEBUG LOG
-//            console.log(this.posts);    // TODO REMOVE DEBUG LOG
+
         });
     
     }
@@ -279,7 +291,7 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
             
             this._painting = true;
             
-            console.log(canvasParentLayer);    // TODO REMOVE DEBUG LOG
+//            console.log(canvasParentLayer);    // TODO REMOVE DEBUG LOG
     //        console.log(canvasLayer);    // TODO REMOVE DEBUG LOG
     //        console.log(ctx);    // TODO REMOVE DEBUG LOG
             
@@ -343,28 +355,6 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
             });
             
             
-    //        var chartData = [
-    //            {
-    //                value: 300,
-    //                color: "#F7464A",
-    //                highlight: "#FF5A5E",
-    //                label: "Red"
-    //            },
-    //            {
-    //                value: 50,
-    //                color: "#46BFBD",
-    //                highlight: "#5AD3D1",
-    //                label: "Green"
-    //            },
-    //            {
-    //                value: 100,
-    //                color: "#FDB45C",
-    //                highlight: "#FFC870",
-    //                label: "Yellow"
-    //            }
-    //        ];
-            
-    
             var chartOptions = {
                 //Boolean - Whether we should show a stroke on each segment
                 segmentShowStroke: true,
@@ -401,14 +391,10 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
                 this._categoriesPieChart.destroy();
             }
             
-            
                 
-            
+            // Create Chart object
             this._categoriesPieChart = new Chart(ctx).Pie(chartData,chartOptions);
-            
-    //        var categoriesPieChart = new Chart(ctx).Pie(chartData,chartOptions);
-                
-                
+
                 
             // reenter the Angular zone and display done
             this._ngZone.run(() => {
@@ -422,6 +408,101 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
         
     }
 
+    /**
+     * searchPosts
+     */
+    protected searchPosts(searchQuery: string) {
+        
+        
+        searchQuery = "site:" + this.topic.url_blog + " " + searchQuery;
+        this._BlogService.searchPosts(searchQuery);
+        
+    }
+    
+    /**
+     * loadSearchResponse
+     */
+    protected loadSearchResponse(){
+        
+        this._BlogService.getSearchPosts().then(posts => {
+            this.searchResponses = posts;
+            this.paginationSearch.set_totalItems(this.searchResponses.length);
+            this.paginationSearch_GotoPage(1);
+      
+            if (this.searchResponses.length == 0) {
+                this.alert_ItemsNotFound();
+            }
+           
+        });
+    }
+    
+    /**
+     * searchResponses_Reset
+     */
+    protected searchResponses_Reset() {
+        
+        this.searchResponses = [];
+        this.paginated_SearchResponses = [];
+        this.paginationSearch.set_totalItems(this.searchResponses.length);
+        this.paginationSearch_GotoPage(1, false);
+    }
+    
+    /**
+     * paginationSearchGotoPage
+     */
+    protected paginationSearch_GotoPage(pageNumber: number, scrollUP: boolean = true) {
+        
+        var pagination = this.paginationSearch;
+        
+        pagination.set_currentPage(pageNumber);
+        this.paginated_SearchResponses = pagination.get_CurrentItems(this.searchResponses);
+        
+        if (scrollUP) {
+            window.scrollTo(0, this._ElementRef.nativeElement.parentElement.offsetTop - 53);
+        }
+        
+
+    }
+    
+    /**
+     * paginationSearchPrevious
+     */
+    protected paginationSearch_Previous() {
+        
+        var pagination = this.paginationSearch;
+        
+        if (pagination.currentPage > 1) {
+            this.paginationSearch_GotoPage(pagination.currentPage - 1);
+        }
+    }
+    
+    /**
+     * paginationSearchNext
+     */
+    protected paginationSearch_Next() {
+        
+        var pagination = this.paginationSearch;
+
+        if (pagination.currentPage < pagination.pages.length) {
+            this.paginationSearch_GotoPage(pagination.currentPage + 1);
+        }
+    }
+    
+    /**
+     * alert_ItemsNotFound
+     */
+    protected alert_ItemsNotFound() {
+        
+        var layerAlert = jQuery(this._ElementRef.nativeElement).find("div.alert.ItemsNotFound")[0];
+        jQuery(layerAlert).show();
+        
+        
+        setTimeout(function(){
+            jQuery(layerAlert).hide();
+            }, 5300);
+        
+    }
+    
     
 }
 
