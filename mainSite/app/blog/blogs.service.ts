@@ -19,9 +19,12 @@ export class BlogService {
     protected blogsManager: BlogsManager;
     protected currentBlog: Blog;
     
+    protected currentSearchResponse: BlogPost[] = [];
+    
     public _emitterTopicChangued: EventEmitter = new EventEmitter();
     public _emitterPostsLoaded: EventEmitter = new EventEmitter();
     public _emitterCategoriesLoaded: EventEmitter = new EventEmitter();
+    public _emitterSearchResponse: EventEmitter = new EventEmitter();
     
     
     
@@ -53,25 +56,33 @@ export class BlogService {
     }
     
     /**
+     * checkTopicAndFeeds
+     */
+    protected checkTopicAndFeeds() {
+        if (this.topic == null ||
+            this.topic.url_feed == null ||
+            this.topic.url_feed.length == 0) {
+            return;
+        }
+
+
+        if (this.currentBlog.feeds == undefined) {
+            this.currentBlog.feeds = new google.feeds.Feed(this.topic.url_feed);
+
+        }
+        
+        this.feeds = this.currentBlog.feeds;
+
+    }
+    
+    /**
      * Load posts
      */
     public loadPosts() {
         
 //        this.posts = Blogs.getPosts(this.topic, this.feeds);
         
-        if (this.topic == null ||
-            this.topic.url_feed == null  || 
-            this.topic.url_feed.length == 0) {
-            return;
-        }
-        
-        
-        if (this.currentBlog.feeds == undefined) {
-            this.currentBlog.feeds = new google.feeds.Feed(this.topic.url_feed);
-            
-        }
-        this.feeds = this.currentBlog.feeds;
-        
+        this.checkTopicAndFeeds();
 
         if (this.currentBlog.blogPosts.length > 1) {
             this.posts = this.currentBlog.blogPosts;
@@ -81,7 +92,6 @@ export class BlogService {
         }
 
 
-        var blogService = this;
 //        this.posts = [];
         
         // StartOF _ngZone.runOutsideAngular
@@ -177,11 +187,59 @@ export class BlogService {
     
     
     /**
-     * getPosts
+     * getCategories
      */
     public getCategories(): Promise<BlogCategory[]> {
         return Promise.resolve(this.categories);
     }
+    
+    
+    /**
+     * searchPosts
+     */
+    public searchPosts(searchQuery: string) {
+        
+        this.checkTopicAndFeeds();
+        
+        
+        // StartOF _ngZone.runOutsideAngular
+        this._ngZone.runOutsideAngular(() => {
+            
+//            this.feeds = new google.feeds.Feed(this.topic.url_feed);
+//            this.feeds.setNumEntries(100);
+            
+            Blogs.findPosts(this.topic, searchQuery, (result) => {
+//                console.log('Outside Done 1!', result); // TODO REMOVE DEBUG LOG
+                this.currentSearchResponse = Blogs.get_BlogPosts_From_GFeedResult(result.entries);
+                
+//                this.posts = this.currentBlog.blogPosts;
+                
+//                this.posts = Blogs.get_BlogPosts_From_GFeedEntries(result.feed.entries);
+                
+                // reenter the Angular zone and display done
+                this._ngZone.run(() => {
+//                    console.log('Outside Done 2!', result); // TODO REMOVE DEBUG LOG
+                    this._emitterSearchResponse.emit(this.currentSearchResponse);  // Notify _emitterSearchResponse 
+                });
+
+            });
+            
+            
+        }); // EndOF _ngZone.runOutsideAngular
+        
+        
+    }
+    
+    
+    /**
+     * getSearchPosts
+     */
+    public getSearchPosts(): Promise<BlogPost[]> {
+        return Promise.resolve(this.currentSearchResponse);
+    }
+    
+
+    
 }
 
 

@@ -69,8 +69,6 @@
 	
 	
 					</div>
-
-					
 				</div>
 				
 				
@@ -83,7 +81,162 @@
 			
 			<!-- Search Tab -->
 			<ngtab tabName="Search" isActive="false">
-				Search Form
+				<div class="panel panel-default">
+				
+					<!-- Panel Toolbar -->
+					<nav class="nav nav-pills">
+			<!-- 	  <li role="presentation" class="disabled"><a href="#">Disabled link</a></li> -->
+
+				      <form class="navbar-form" role="search">
+				        <div class="form-group">
+				          <input #searchQuery type="text" 
+				          	class="form-control" 
+				          	placeholder="Search">
+				        </div>
+				        <button type="submit" 
+				        	class="btn btn-default" 
+				        	(click)="searchPosts(searchQuery.value)"
+				        	[disabled]="topic == undefined">
+				        	Submit
+				        	</button>
+				      </form>
+				    
+				    <br />  
+					<span class="nav">
+						<span class="glyphicon glyphicon-search" aria-hidden="true" style="margin-left: 11px;"> </span>
+						<span>Results <span class="badge small">{{searchResponses.length}}</span></span>
+						
+						  <button type="button" 
+						  	class="btn btn-default navbar-btn"
+						  	(click)="searchResponses_Reset()"
+						  	*ngIf="searchResponses.length > 0">
+						  	<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+						  </button>
+					</span>
+					
+						
+					</nav>
+					<!-- EnfOf Panel Toolbar -->
+					
+	
+					<!-- Alert Itoms no found -->
+					<div class="alert alert-warning fade in ItemsNotFound" 
+						style="display:none;">
+					  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					  <strong>No results!</strong> Your query has no response.
+					</div>
+					<!-- Endof Alert Itoms no found -->
+
+					
+					
+					<!-- Pagination -->
+					<nav>
+					  <ul class="pager">
+					    <li *ngIf="paginationSearch.currentPage > 1" class="previous" (click)="paginationSearch_Previous()">
+					    	<a href="javascript:void(null);"><span aria-hidden="true">&larr;</span> Previous</a>
+				    	</li>
+				    	
+						<li>
+						<ul class="pagination">
+						    <li *ngFor="#page of paginationSearch.pages" [class.active]="page.active">
+						    	<a href="javascript:void(null);"
+						    		[class.active]="page.active"
+						    		(click)="paginationSearch_GotoPage(page.pageNum)">
+						    		{{page.pageNum}}
+						   		 </a>
+					    	</li>
+				    	</ul>
+				    	</li>
+			
+					    <li *ngIf="paginationSearch.currentPage < paginationSearch.pages.length" class="next" (click)="paginationSearch_Next()">
+					    	<a href="javascript:void(null);">Next <span aria-hidden="true">&rarr;</span></a>
+				    	</li>
+					  </ul>
+					</nav>
+					<!-- EndOf Pagination -->
+					
+					
+
+					<ul class="list-group">
+					
+					<!-- SearchResult Item -->
+					  <li class="list-group-item" *ngFor="#sResult of paginated_SearchResponses">
+					  <h3>
+					  	<span class="glyphicon glyphicon-search" aria-hidden="true"></span> 
+					  	<span [innerHTML]="sResult.name"></span>
+					  </h3>
+			
+			  		  
+			   		  <!-- Button for show/hidde postProperties -->
+			 		  	<button type="button" class="btn btn-info" 
+							(click)="postProperties.hidden = !postProperties.hidden"
+							[class.active]="!postProperties.hidden">
+							<span class="glyphicon glyphicon-eye-open" aria-hidden="true"
+								[class.glyphicon-eye-open]="postProperties.hidden"
+								[class.glyphicon-eye-close]="!postProperties.hidden"></span> 
+							Properties
+							<span class="glyphicon glyphicon-info-sign" aria-hidden="true">
+								</span>
+						</button> 
+						
+					  
+			 		  <!-- Layer for postProperties -->
+					  <div #postProperties hidden="true" class="panel panel-info">
+					  
+						<ul class="list-group">
+						  <li class="list-group-item">
+					  		<span class="glyphicon glyphicon-link" aria-hidden="true">&nbsp;</span>
+					  		<span class="h4">URL blog: </span>
+					  		<span class="h5"><a href="{{sResult.url_blog}}" target="_blank">{{sResult.url_blog}}</a></span>
+						  </li>
+						  <li class="list-group-item">
+					  		<span class="glyphicon glyphicon-link" aria-hidden="true">&nbsp;</span>
+					  		<span class="h4">URL main: </span>
+					  		<span class="h5"><a href="{{sResult.ID}}" target="_blank">{{sResult.ID}}</a></span>
+						  </li>
+					  	</ul>
+					  </div>
+						
+						
+					  <p class="h4" [innerHTML]="sResult.summary"></p>
+			
+					  
+					  </li>
+					<!-- EndOf SearchResult Item -->
+					  
+					</ul>
+					
+					
+					
+					<!-- Pagination -->
+					<nav>
+					  <ul class="pager">
+					    <li *ngIf="paginationSearch.currentPage > 1" class="previous" (click)="paginationSearch_Previous()">
+					    	<a href="javascript:void(null);"><span aria-hidden="true">&larr;</span> Previous</a>
+				    	</li>
+				    	
+						<li>
+						<ul class="pagination">
+						    <li *ngFor="#page of paginationSearch.pages" [class.active]="page.active">
+						    	<a href="javascript:void(null);"
+						    		[class.active]="page.active"
+						    		(click)="paginationSearch_GotoPage(page.pageNum)">
+						    		{{page.pageNum}}
+						   		 </a>
+					    	</li>
+				    	</ul>
+				    	</li>
+			
+					    <li *ngIf="paginationSearch.currentPage < paginationSearch.pages.length" class="next" (click)="paginationSearch_Next()">
+					    	<a href="javascript:void(null);">Next <span aria-hidden="true">&rarr;</span></a>
+				    	</li>
+					  </ul>
+					</nav>
+					<!-- EndOf Pagination -->
+					
+					
+				
+				</div>
 			</ngtab>
 			<!-- EndOf Search Tab -->
 
@@ -93,18 +246,35 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div *ngIf="topic != undefined">
-						<h4><b>Name</b></h4>
+						<h4>
+							<span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
+							<b>Name</b>
+						</h4>
 						{{topic.name}}
-						<h4><b>Description</b></h4>
+						
+						<h4>
+							<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+							<b>Description</b>
+						</h4>
 						{{topic.description}}
-						<h4><b>Blog URL</b></h4>
+						
+						<h4>
+							<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+							<b>Blog URL</b>
+						</h4>
 						{{topic.url_blog}}
-						<h4><b>Subtopics</b></h4>
-							<div class="btn-group text-justify" role="group" aria-label="...">
-							<span class="btn btn-info btn-link" *ngFor="#subtopic of topic.subtopics">
-								{{subtopic.name}}
-							</span>
-							</div>
+						
+						<h4>
+							<span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+							<b>Subtopics</b>
+						</h4>
+						<div class="btn-group text-justify" role="group" aria-label="...">
+						<span class="btn btn-info btn-link" *ngFor="#subtopic of topic.subtopics">
+							{{subtopic.name}}
+						</span>
+						</div>
+							
+							
 						</div>
 					</div>
 				</div>

@@ -182,6 +182,10 @@ export class Pagination {
         
         this.currentPage = parseInt(currentPage);
         
+        if (this.pages.length == 0) {
+            return;
+        }
+        
         this.pages.forEach(function(_page, _i, _pages){
             _page.active = false;
             });
@@ -268,6 +272,42 @@ export class Blogs {
 
     } 
     
+    
+    /**
+     * get_BlogPosts_From_GFeedResult
+     */
+    public static get_BlogPosts_From_GFeedResult(entries: Object[]): BlogPost[] {
+        
+        var blogPosts = [];
+
+        entries.forEach(function(_entry, _index, _entries){
+            blogPosts.push(Blogs.get_BlogPost_From_GFeedResult(_entry));
+            });
+        
+        return blogPosts;
+
+    }   
+    
+    
+    /**
+     * get_BlogPost_From_GFeedResult
+     */
+    public static get_BlogPost_From_GFeedResult(entry: Object): BlogPost {
+        
+        var blogPost = new BlogPost();
+        blogPost.ID = entry.link;
+        blogPost.name = entry.title;
+        blogPost.summary = entry.contentSnippet;
+        blogPost.tasgs = entry.categories;
+        blogPost.url_blog = entry.url
+        
+        //        console.log("Blogs.get_BlogPost_From_GFeedEntry", blogPost); // TODO REMOVE DEBUG LOG
+        //        console.log(entry); // TODO REMOVE DEBUG LOG
+
+        return blogPost;
+    }
+    
+    
     /**
     * get_BlogCategories_From_GFeedEntry
     */
@@ -299,6 +339,7 @@ export class Blogs {
         
     }
     
+    
     /**
      * loadPosts
      */
@@ -310,6 +351,20 @@ export class Blogs {
                 doneCallback(result);
         });
     }
+    
+    
+    /**
+     * findPosts
+     */
+    public static findPosts(topic: BlogTopic, searchQuery: string, doneCallback: () => void) {
+        google.feeds.findFeeds(searchQuery, function(result) {
+                console.log("BlogService._loadPosts", result); // TODO REMOVE DEBUG LOG
+                
+                doneCallback(result);
+        });
+    }   
+    
+    
  
     /**
      * getPosts
