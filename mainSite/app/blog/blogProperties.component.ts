@@ -513,6 +513,11 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
      * selectSubtopic
      */
     protected selectSubtopic(topicName) {
+       
+        
+        if (this._BackBoneService.inRootTopic()) {
+            return;
+        }
         
         this._router.navigate( ['SubTopic', { topicName: this.topic.ID, subTopicName:  topicName}] );
         

@@ -1,5 +1,5 @@
 import {NgIf, NgFor} from 'angular2/common';
-import {Component,View, Directive, ViewChild, ViewChildren, ElementRef} from 'angular2/core';
+import {Component,View, Directive, ViewChild, ViewChildren, ElementRef, NgZone} from 'angular2/core';
 import {
 //  OnChanges, SimpleChange,
   OnInit,
@@ -36,10 +36,14 @@ import {BlogTopic} from '../blog/blogs'
 export class WAW_Home__Component implements OnInit{
 
 
+    private _topicLoading: boolean = false;
+    
     public topic: BlogTopic;
     public selectedMainTopic: BlogTopic;
     public selectedTopic: BlogTopic;
 //    private _BackBoneService: BackBoneService;
+    
+    private _aniationScroll: boolean = false;
     
     
     /**
@@ -50,7 +54,8 @@ export class WAW_Home__Component implements OnInit{
         private _routeParams: RouteParams,
         private _BackBoneService: BackBoneService,
         private _Location : Location,
-        private _ElementRef: ElementRef
+        private _ElementRef: ElementRef,
+        private _ngZone: NgZone
     ) {
         
 //        this._BackBoneService = BackBoneService.getInstance();
@@ -81,7 +86,7 @@ export class WAW_Home__Component implements OnInit{
             
         
         
-        
+      
         
         if (!this._BackBoneService.inRootTopic()) {
             this._BackBoneService.selectRootTopic();
@@ -112,6 +117,14 @@ export class WAW_Home__Component implements OnInit{
      */
     protected load_selectedTopic(isMainTopic?: boolean = false) {
      
+        
+        if (this._topicLoading) {
+            return;
+        } else {
+            this._topicLoading = true;
+        }
+        
+        
         this._BackBoneService.getCurrentTopic().then(topic => {
             this.selectedTopic = topic;
             
@@ -119,10 +132,38 @@ export class WAW_Home__Component implements OnInit{
                 this.selectedMainTopic = topic;
             }
             
-            window.scrollTo(0, 0);
             
-            console.log("WAW_Home__Component.load_selectedTopic");    // TODO REMOVE DEBUG LOG
-            console.log(this.selectedTopic);    // TODO REMOVE DEBUG LOG
+            
+            if (!this._aniationScroll) {
+                
+                this._aniationScroll = true;
+                
+                // StartOF _ngZone.runOutsideAngular
+                this._ngZone.runOutsideAngular(() => {
+                    
+                    var body_scrollTop = jQuery('body').get(0).scrollTop;
+                    var element_scrollTop = 0;
+                    var offset = 250;
+                    var offsetMargin = -3;
+                    
+                    this._topicLoading = false;
+                    
+                    if (body_scrollTop > element_scrollTop + offset) {
+                        jQuery('body').animate({scrollTop: element_scrollTop + offsetMargin}, 75);
+                    }
+                    
+                    this._aniationScroll = false;
+                    
+                }); // EndOF _ngZone.runOutsideAngular
+
+            }
+            
+
+            
+//            window.scrollTo(0, 0);
+            
+//            console.log("WAW_Home__Component.load_selectedTopic");    // TODO REMOVE DEBUG LOG
+//            console.log(this.selectedTopic);    // TODO REMOVE DEBUG LOG
 
         });
 
