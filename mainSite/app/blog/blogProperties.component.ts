@@ -54,6 +54,7 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
     protected _painting = false;
     
     
+    protected _searching: boolean = false;
     protected paginationSearch: Pagination;
     protected searchResponses: BlogPost[] = [];;
     protected paginated_SearchResponses: BlogPost[] = [];;
@@ -415,7 +416,11 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
         
         
         searchQuery = "site:" + this.topic.url_blog + " " + searchQuery;
+        this._searching = true;
         this._BlogService.searchPosts(searchQuery);
+        
+        this.animation_Search_LoadingShow();
+        this.searchResponses_Reset();
         
     }
     
@@ -429,6 +434,9 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
             this.paginationSearch.set_totalItems(this.searchResponses.length);
             this.paginationSearch_GotoPage(1);
       
+            this.animation_Search_LoadingHide();
+            this._searching = false;
+            
             if (this.searchResponses.length == 0) {
                 this.alert_ItemsNotFound();
             }
@@ -458,7 +466,19 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
         this.paginated_SearchResponses = pagination.get_CurrentItems(this.searchResponses);
         
         if (scrollUP) {
-            window.scrollTo(0, this._ElementRef.nativeElement.parentElement.offsetTop - 53);
+            
+            var body_scrollTop = jQuery('body').get(0).scrollTop;
+            var element_scrollTop = jQuery(this._ElementRef.nativeElement.parentElement).offset().top;
+            var offset = 250;
+            var offsetMargin = -53;
+            
+            
+            if (body_scrollTop > element_scrollTop + offset) {
+                jQuery('html, body').animate({scrollTop: element_scrollTop + offsetMargin}, 633);
+            }
+            
+
+//            window.scrollTo(0, this._ElementRef.nativeElement.parentElement.offsetTop - 53);
         }
         
 
@@ -488,6 +508,18 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
         }
     }
     
+    
+    /** 
+     * selectSubtopic
+     */
+    protected selectSubtopic(topicName) {
+        
+        this._router.navigate( ['SubTopic', { topicName: this.topic.ID, subTopicName:  topicName}] );
+        
+    }
+    
+    
+    
     /**
      * alert_ItemsNotFound
      */
@@ -503,6 +535,28 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
         
     }
 
+    
+    
+    
+    /**
+     * animation_LoadingShow
+     */
+    protected animation_Search_LoadingShow() {
+        
+        var canvasParentLayer = jQuery(this._ElementRef.nativeElement).find("nav span.glyphicon.cogLoading");
+        canvasParentLayer.fadeIn(900);
+
+    }
+    
+    /**
+     * animation_LoadingHide
+     */
+    protected animation_Search_LoadingHide() {
+        
+        var canvasParentLayer = jQuery(this._ElementRef.nativeElement).find("nav span.glyphicon.cogLoading");
+        canvasParentLayer.fadeOut(900);
+
+    }
     
     
 }

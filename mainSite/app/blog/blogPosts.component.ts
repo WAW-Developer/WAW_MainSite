@@ -253,11 +253,10 @@ export class BlogPosts_Component implements OnInit {
             if (body_scrollTop > element_scrollTop + offset) {
                 jQuery('html, body').animate({scrollTop: element_scrollTop + offsetMargin}, 633);
             }
-            
-            
 //            window.scrollTo(0, this._ElementRef.nativeElement.parentElement.offsetTop - 53);
-            
         }
+        
+        
 //        
         console.log("BlogPosts_Component.pagination_GotoPage");    // TODO REMOVE DEBUG LOG
 //        console.log(this._ElementRef);    // TODO REMOVE DEBUG LOG
