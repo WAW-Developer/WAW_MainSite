@@ -43,7 +43,7 @@ export class WAW_Home__Component implements OnInit{
     public selectedTopic: BlogTopic;
 //    private _BackBoneService: BackBoneService;
     
-    private _aniationScroll: boolean = false;
+    private _animationScroll: boolean = false;
     
     
     /**
@@ -106,8 +106,8 @@ export class WAW_Home__Component implements OnInit{
       
       
         //      console.log(config);    // TODO REMOVE DEBUG LOG
-        //      console.log(this.topic);    // TODO REMOVE DEBUG LOG
-        //      console.log(this.routeParams);    // TODO REMOVE DEBUG LOG
+//        //      console.log(this.topic);    // TODO REMOVE DEBUG LOG
+        console.log("WAW_Home__Component.ngOnInit", this.routeParams);    // TODO REMOVE DEBUG LOG
 
     }
     
@@ -118,11 +118,11 @@ export class WAW_Home__Component implements OnInit{
     protected load_selectedTopic(isMainTopic?: boolean = false) {
      
         
-        if (this._topicLoading) {
-            return;
-        } else {
-            this._topicLoading = true;
-        }
+//        if (this._topicLoading) {
+//            return;
+//        } else {
+//            this._topicLoading = true;
+//        }
         
         
         this._BackBoneService.getCurrentTopic().then(topic => {
@@ -134,25 +134,25 @@ export class WAW_Home__Component implements OnInit{
             
             
             
-            if (!this._aniationScroll) {
+            if (!this._animationScroll) {
                 
-                this._aniationScroll = true;
+                this._animationScroll = true;
                 
                 // StartOF _ngZone.runOutsideAngular
                 this._ngZone.runOutsideAngular(() => {
                     
                     var body_scrollTop = jQuery('body').get(0).scrollTop;
-                    var element_scrollTop = 0;
-                    var offset = 250;
-                    var offsetMargin = -3;
+                    var element_scrollTop = 15;
+                    var offset = 200;
+                    var offsetMargin = -13;
                     
                     this._topicLoading = false;
                     
                     if (body_scrollTop > element_scrollTop + offset) {
-                        jQuery('body').animate({scrollTop: element_scrollTop + offsetMargin}, 75);
+                        jQuery('html,body').stop().animate({scrollTop: element_scrollTop + offsetMargin}, 611);
                     }
                     
-                    this._aniationScroll = false;
+                    this._animationScroll = false;
                     
                 }); // EndOF _ngZone.runOutsideAngular
 
@@ -162,8 +162,8 @@ export class WAW_Home__Component implements OnInit{
             
 //            window.scrollTo(0, 0);
             
-//            console.log("WAW_Home__Component.load_selectedTopic");    // TODO REMOVE DEBUG LOG
-//            console.log(this.selectedTopic);    // TODO REMOVE DEBUG LOG
+            console.log("WAW_Home__Component.load_selectedTopic");    // TODO REMOVE DEBUG LOG
+            console.log(this.selectedTopic);    // TODO REMOVE DEBUG LOG
 
         });
 

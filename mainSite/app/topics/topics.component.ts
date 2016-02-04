@@ -125,7 +125,8 @@ export class WAW_Topics__Component implements OnInit{
 
         this.load_selectedTopic();
       
-      
+      console.log("WAW_Topics__Component.ngOnInit", this.routeParams);    // TODO REMOVE DEBUG LOG
+
         //      console.log(config);    // TODO REMOVE DEBUG LOG
         //      console.log(this.topic);    // TODO REMOVE DEBUG LOG
         //      console.log(this.routeParams);    // TODO REMOVE DEBUG LOG
@@ -170,15 +171,17 @@ export class WAW_Topics__Component implements OnInit{
                    this._aniationScroll = true;
                 
                     var body_scrollTop = jQuery('body').get(0).scrollTop;
-                    var element_scrollTop = 0;
-                    var offset = 250;
-                    var offsetMargin = -3;
+                    var element_scrollTop = 15;
+                    var offset = 200;
+                    var offsetMargin = -13;
     
                     this._topicLoading = false;
     
                     if (body_scrollTop > element_scrollTop + offset) {
-                        jQuery('body').animate({ scrollTop: element_scrollTop + offsetMargin }, 75);
+                        jQuery('html,body').stop().animate({ scrollTop: element_scrollTop + offsetMargin }, 611);
                     }
+                    
+                    // ('html,body').stop().delay(500).
                     
                     this._aniationScroll = false;
                     
