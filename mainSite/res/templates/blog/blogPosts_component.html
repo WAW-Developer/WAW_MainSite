@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel panel-info _panelBlogPosts">
 
 	<!-- Panel header -->
 	<div class="panel-heading">
@@ -15,28 +15,19 @@
 	
 	
 		<!-- Toolbar -->
-		<nav class="nav nav-pills">
+		<nav class="nav nav-pills _layer_Toolbar">
 <!-- 					  <li role="presentation" class="disabled"><a href="#">Disabled link</a></li> -->
 		
 			<span class="glyphicon glyphicon-inbox" aria-hidden="true" 
 				style="margin-right: 6px; display: none;"> 
 			</span>
 				
-			<span style="display: none;">	
-			  <button type="button" class="btn btn-default navbar-btn">
-			  	<span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
-			  </button>
-			</span>
-	
-			<span style="display: none;">
-			  <button type="button" class="btn btn-default navbar-btn">
-			  	<span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
-			  </button>
-			</span>
-	
 			<!-- Number of Posts -->
 		  	<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
 			<span class="nav-text">Posts: <span class="badge .small">{{posts.length}}</span> </span>
+			<span *ngIf="showFiltered">
+				<span class="nav-text"> of <span class="badge .small">{{post_NotFiltered.length}}</span> </span>
+			</span>
 			
 			<span class="glyphicon glyphicon-cog cogLoading"
 				style="display:none;" 
@@ -46,7 +37,65 @@
 			<br />
 
 
+			<!-- Filter by Categories -->
+			<div *ngIf="categoriesSelected.length > 0"
+				class="panel panel-info _layer_FilterByCategories">
+			
+			
+				<div class="nav nav-pills">
+					  <button type="button" 
+					  	class="btn btn-default navbar-btn"
+					  	[class.active]="showFiltered"
+					  	[class.btn-success]="showFiltered"
+					  	(click)="click_FilterPosts()">
+					  	
+						<span class="glyphicon glyphicon-inbox" aria-hidden="true"> 
+						</span>
+					  	
+					  	<span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+					  	
+					  	
+					  	
+					  </button>
+					<span class="glyphicon glyphicon-tags" aria-hidden="true" style="margin-right: 6px;"> </span>
+					<span>Categories <span class="badge small">{{categoriesSelected.length}}</span></span>
+					<span>of <span class="badge small">{{categoriesUnique.length}}</span></span>
+					
+					  <button type="button" 
+					  	class="btn btn-default navbar-btn"
+					  	(click)="categoriesSelected_Reset()">
+					  	<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+					  </button>
+					
+				</div>
+							
+			
+
+				<div class="btn-group btn-group-sm text-justify" 
+					role="group" 
+					aria-label="...">
+					
+					
+					<span *ngFor="#category of categoriesUnique">
+						<button type="button"
+							*ngIf="category && category.is_selected"
+							(click)="clickCategory(category)"
+							class="btn btn-sm btn-link">
+							{{category.name}} <span class="badge small">{{category.count}}</span>
+						</button>
+					</span>
+					
+				</div>
+			
+			</div>
+			<!-- EndOf Filter by Categories -->
+			
+
+			
+
+
 			<!-- Pagination	Options	 -->
+			<div>
 			<span class="nav-text" style="float: right;">
 				<span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
 				Post per page: 
@@ -74,6 +123,7 @@
 				  	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 				</span>
 			</span>
+			</div>
 			<!-- EndOf Pagination Options	 -->
 			
 		  

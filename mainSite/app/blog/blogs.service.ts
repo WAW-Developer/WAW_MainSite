@@ -24,6 +24,7 @@ export class BlogService {
     public _emitterTopicChangued: EventEmitter = new EventEmitter();
     public _emitterPostsLoaded: EventEmitter = new EventEmitter();
     public _emitterCategoriesLoaded: EventEmitter = new EventEmitter();
+    public _emitterCategoriesUpdated: EventEmitter = new EventEmitter();
     public _emitterSearchResponse: EventEmitter = new EventEmitter();
     
     
@@ -191,6 +192,29 @@ export class BlogService {
      */
     public getCategories(): Promise<BlogCategory[]> {
         return Promise.resolve(this.categories);
+    }
+    
+    /**
+     * updateCategory
+     */
+    public updateCategory(category: BlogCategory) {
+        
+        var found = false;
+        for (var _i=0; _i < this.categories.length; _i++) {
+            
+            if (this.categories[_i].name == category.name) {
+                
+                this.categories[_i] = category;
+                found = true;
+                this._emitterCategoriesUpdated.emit(this.categories);  // Notify _emitterCategoriesUpdated 
+                break;
+            }
+        }
+        
+        if (!found) {
+            throw "Category not found.";
+        }
+        
     }
     
     

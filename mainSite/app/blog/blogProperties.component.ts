@@ -87,6 +87,13 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
             this.getCategories();
         });
         
+        // Subscribe to _emitterCategoriesUpdated
+        this._BlogService._emitterCategoriesUpdated.subscribe((data) => {
+//            console.log("BlogPosts_Component{_emitterPostsLoaded}", data);
+//            this.posts = data;
+//            this.getCategories();
+        });
+        
         // Subscribe to _emitterSearchResponse
         this._BlogService._emitterSearchResponse.subscribe((data) => {
 //            console.log("BlogPosts_Component{_emitterSearchResponse}", data);
@@ -149,9 +156,9 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
     ngOnChanges() {
         
         
-        if (!this._painting) {
-            this.paintChart();
-        }
+//        if (!this._painting) {
+//            this.paintChart();
+//        }
         
         
     }
@@ -162,6 +169,10 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
      */
     protected activateTab(event, tabName) {
 
+        if (this.tabsController.tab_Activated.ID == tabName) {
+            return;
+        }
+        
         //        console.log("activateTab");     // TODO REMOVE DEBUG LOG
         this.tabsController.activateTab(tabName);
     }
@@ -254,6 +265,24 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
         
 
     }
+    
+    /**
+     * clickCategory
+     */
+    protected clickCategory(category: BlogCategory) {
+        
+        if (category.is_selected == undefined) {
+            category.is_selected = true;
+        } else {
+            category.is_selected = !category.is_selected;
+        }
+        
+        this._BlogService.updateCategory(category);
+//        console.log("BlogPosts_Component.clickCategory");    // TODO REMOVE DEBUG LOG
+//        console.log(category);    // TODO REMOVE DEBUG LOG
+        
+    }
+    
     
     
     /**

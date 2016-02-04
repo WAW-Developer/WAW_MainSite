@@ -31,7 +31,8 @@ import {BackBoneService} from '../core/backBone.service'
 })
 @View({
     directives: [NgFor, NgIf, ROUTER_DIRECTIVES ],
-    templateUrl: "res/templates/blog/blogPosts_component.html"
+    templateUrl: "res/templates/blog/blogPosts_component.html",
+    styleUrls: ["res/templates/blog/blogPosts_component.css"]
 
 })
 export class BlogPosts_Component implements OnInit {
@@ -42,8 +43,17 @@ export class BlogPosts_Component implements OnInit {
     
     
     protected pagination: Pagination;
-    protected paginated_Posts: BlogPost[] = [];;
+    protected paginated_Posts: BlogPost[] = [];
     
+    
+    protected categoriesUnique: BlogCategory[] = [];
+    protected categoriesSelected: BlogCategory[] = [];
+    
+    protected showFiltered: boolean = false;
+    
+    protected post_NumberNotFiltered: number = 0;
+    protected post_NotFiltered: BlogPost[] = [];
+    protected post_Filtered: BlogPost[] = [];
     
     
     /**
@@ -64,6 +74,18 @@ export class BlogPosts_Component implements OnInit {
 //            this.posts = data;
             
             this.loadPosts();
+        });
+        
+        // Subscribe to _emitterCategoriesLoaded
+        this._BlogService._emitterCategoriesLoaded.subscribe((data) => {
+            this.loadCategories();
+        });
+        
+        // Subscribe to _emitterCategoriesUpdated
+        this._BlogService._emitterCategoriesUpdated.subscribe((data) => {
+//            console.log("BlogPosts_Component{_emitterPostsLoaded}", data);
+//            this.posts = data;
+            this.loadCategories();
         });
         
         
@@ -203,6 +225,7 @@ export class BlogPosts_Component implements OnInit {
         this.posts = [];
         this._BlogService.getPosts().then(posts => {
             this.posts = posts;
+            this.post_NotFiltered = this.posts;
             this.pagination.set_totalItems(this.posts.length);
             this.pagination.set_currentPage(1);
             
@@ -222,6 +245,130 @@ export class BlogPosts_Component implements OnInit {
     
     }
     
+    /**
+     * click_FilterPosts
+     */
+    protected click_FilterPosts() {
+        
+        if (this.showFiltered) {
+            this.filterPostsOff();
+        }else{
+            this.filterPosts();
+        }
+    }
+    
+    /**
+     * categoriesSelected_Reset
+     */
+    protected categoriesSelected_Reset() {
+        this.categoriesSelected.forEach(function(category, _i, _array){
+            category.is_selected = false;
+        });
+        
+        this.categoriesSelected = [];
+        this.filterPostsOff();
+        
+    }
+    
+    /**
+     * clickCategory
+     */
+    protected clickCategory(category: BlogCategory) {
+        
+        if (category.is_selected == undefined) {
+            category.is_selected = true;
+        } else {
+            category.is_selected = !category.is_selected;
+        }
+        
+        this._BlogService.updateCategory(category);
+        
+    }
+    
+    /**
+     * filterPosts
+     */
+    protected filterPosts() {
+        
+        var _filteredPosts = [];
+        
+        this.categoriesSelected.forEach(function(category, _i_category, _array_category) {
+            category.blogPosts.forEach(function(blogPost, _i_blogPosts, _array_blogPosts){
+                _filteredPosts.push(blogPost);
+            });
+        });
+        
+        
+        function _onlyUnique(value, index, self) { 
+            return self.indexOf(value) === index;
+        }
+        
+        _filteredPosts = _filteredPosts.filter(_onlyUnique);
+        this.post_Filtered = _filteredPosts;
+        if (this.post_NotFiltered.length == 0) {
+            this.post_NotFiltered = this.posts;    
+        }
+        
+        this.posts = this.post_Filtered;
+        this.showFiltered = true;
+        
+        this.postsList_Page1();
+        
+        
+//        this.post_Filtered = this.posts.reduce(function(n, post, _i, _array){
+//            if (post.tasgs.indexOf()) {
+//            }
+//            return n;
+//            },[]);
+
+        
+    }
+    
+    /**
+     * filterPostsOff
+     */
+    protected filterPostsOff() {
+        
+        this.posts = this.post_NotFiltered;
+        this.postsList_Page1();
+        
+        this.showFiltered = false;
+//        this.loadPosts();
+        
+        
+    }
+    
+    
+    /**
+     * loadCategories
+     */
+    protected loadCategories() {
+
+        this.categoriesUnique = [];
+        this._BlogService.getCategories().then(categories => {
+            
+            this.categoriesUnique = categories;
+            
+            this.categoriesSelected = this.categoriesUnique.reduce(function(n, category, _i, _array){
+                if (category.is_selected) {
+                    n.push(category);
+                }
+                return n;
+                
+            }, []);
+   
+            if (this.showFiltered) {
+                if (this.categoriesSelected.length == 0) {
+                    this.filterPostsOff();
+                }else {
+                    this.filterPosts();
+                }
+            }
+            
+        });
+    
+    }
+    
     
     /**
      * postsList_Reset
@@ -234,6 +381,16 @@ export class BlogPosts_Component implements OnInit {
         this.pagination_GotoPage(1, false);
     }
     
+    
+    /**
+     * postsList_Reset
+     */
+    protected postsList_Page1() {
+        this.pagination.set_totalItems(this.posts.length);
+        this.pagination.set_currentPage(1);
+        
+        this.paginated_Posts = this.pagination.get_CurrentItems(this.posts);
+    }
     
     /**
      * pagination_GotoPage

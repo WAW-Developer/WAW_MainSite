@@ -9,6 +9,7 @@
 	<!-- Panel body -->
 	<div class="panel-body">
 	
+		<!-- Tabs navigation -->
         <ul class="nav nav-tabs" *ngIf="tabsController != undefined">
            <li role="presentation" *ngFor="#tab of tabsController.tabs" 
            (click)="activateTab($event, tab.ID)"
@@ -17,6 +18,7 @@
            </li>
 
        </ul>
+       <!-- EndOf Tabs navigation -->
 	
 		<ngtabs> 
 		
@@ -51,9 +53,17 @@
 						
 	
 						<div class="btn-group btn-group-sm text-justify" role="group" aria-label="...">
-							<button class="btn btn-sm btn-link" type="button" *ngFor="#category of categoriesUnique">
+						
+							<button *ngFor="#category of categoriesUnique" 
+								type="button"
+								class="btn btn-sm btn-link" 
+								(click)="clickCategory(category)"
+								[class.bg-success]="category.is_selected"
+								[class.btn-link]="!category.is_selected">
+								
 								{{category.name}} <span class="badge small">{{category.count}}</span>
 							</button>
+							
 						</div>
 	
 	
@@ -268,19 +278,30 @@
 							<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
 							<b>Blog URL</b>
 						</h4>
+						<a href="{{topic.url_blog}}" target="_blank">
 						{{topic.url_blog}}
+						</a>
 						
+						
+						
+						<!-- Subtopics List -->
 						<h4>
 							<span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
 							<b>Subtopics</b>
 						</h4>
 						<div class="btn-group text-justify" role="group" aria-label="...">
-						<span class="btn btn-info btn-link" 
-							*ngFor="#subtopic of topic.subtopics"
-							(click)="selectSubtopic(subtopic.ID)">
-							{{subtopic.name}}
-						</span>
+						
+<!-- 						class="btn btn-link text-info" -->
+							<span *ngFor="#subtopic of topic.subtopics" 
+								class="btn btn-link" 
+								[class.text-warning]="subtopic.is_active"
+								[class.bg-success]="subtopic.is_active"
+								[class.btn-link]="!subtopic.is_active"
+								(click)="selectSubtopic(subtopic.ID)">
+								{{subtopic.name}}
+							</span>
 						</div>
+						<!-- Endof Subtopics List -->
 							
 							
 						</div>

@@ -59,10 +59,12 @@ export class BlogCategory implements blogCategory_ {
     
     public count: number = 0;
     public blogPosts: BlogPost[] = [];
+    public is_selected: boolean = false;
     
     constructor(name: string, domain?: string) {
         
         this.name = name.toLowerCase();
+        this.is_selected = false;
         
         if (domain != null) {
             this.domain = domain;
