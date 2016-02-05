@@ -27,7 +27,7 @@
 			  <button
 			  	type="button"
 			  	(click)="selectRoot(); selectedMainTopic = null;"
-			  	class="btn btn-default navbar-btn btn-info">
+			  	class="btn btn-default navbar-btn btn-warning">
 			  	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 			  	Home
 			  </button>
@@ -52,8 +52,10 @@
 	        [class.active]="topic.is_active">
 	        
 			<div class="media">
-			  <div class="media-left media-middle">
-			      <img src="res/images/{{topic.iconImage}}" class="Subtopic_Icon">
+			  <div class="media-left media-middle"
+			  	[class.iconSelected]="topic.is_active">
+			      <img src="res/images/{{topic.iconImage}}" 
+			      	class="Subtopic_Icon">
 			  </div>
 			  <div class="media-body">
 			    <h4 class="media-heading list-group-item-heading">{{topic.name}}</h4>

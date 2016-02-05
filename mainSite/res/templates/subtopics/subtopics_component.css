@@ -52,4 +52,55 @@
 
 
 
+.iconSelected {
+	
+	opacity: 1.0;
+	
+	-webkit-animation: 2.33s linear 0s infinite move_iconSelected;
+		-moz-animation: 2.33s linear 0s infinite move_iconSelected;
+			-o-animation: 2.33s linear 0s infinite move_iconSelected;
+				-ms-animation: 2.33s linear 0s infinite move_iconSelected;
+					animation: 2.33s linear 0s infinite move_iconSelected;
+	
+}
+
+			
+/* Keyframes move_iconSelected  -------------------------- */
+@-webkit-keyframes move_iconSelected {
+  0% { opacity: 1.0; }
+  25% { opacity: 0.65; }
+  60% { opacity: 0.35; }
+  100% { opacity: 1.0; }
+}
+
+@-moz-keyframes move_iconSelected {
+  0% { opacity: 1.0; }
+  25% { opacity: 0.65; }
+  60% { opacity: 0.35; }
+  100% { opacity: 1.0; }
+}
+
+@-o-keyframes move_iconSelected {
+  0% { opacity: 1.0; }
+  25% { opacity: 0.65; }
+  60% { opacity: 0.35; }
+  100% { opacity: 1.0; }
+}
+
+@-ms-keyframes move_iconSelected {
+  0% { opacity: 1.0; }
+  25% { opacity: 0.65; }
+  60% { opacity: 0.35; }
+  100% { opacity: 1.0; }
+}
+
+@keyframes move_iconSelected {
+  0% { opacity: 1.0; }
+  25% { opacity: 0.65; }
+  60% { opacity: 0.35; }
+  100% { opacity: 1.0; }
+}
+
+
+/* EndOf Keyframes move_iconSelected  -------------------------- */
 

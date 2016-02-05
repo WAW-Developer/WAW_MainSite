@@ -137,50 +137,8 @@ export class BlogPosts_Component implements OnInit {
      */
     ngOnInit() {
 
-        
-//        this._BlogService.setTopic(this.topic);
-
-//        
-//        // Subscribe to _emitterPostsLoaded
-//        this._BlogService._emitterPostsLoaded.subscribe((data) => {
-//            console.log("BlogPosts_Component{_emitterPostsLoaded}", data);
-////            this.posts = data;
-//            this.loadPosts();
-//        });
-//        
-//        
-//        // Subscribe to __emitterMainTopicSelected
-//        this._BackBoneService.__emitterTopicSelected.subscribe((data) => {
-//            console.log("BlogPosts_Component{__emitterTopicSelected}", data);
-//            this.load_Topic();
-//           
-////            if (data.url_feed != null) {
-////                this.topic = data;
-////                this._BlogService.setTopic(data);
-////                this._BlogService.loadPosts();
-////            }
-//            
-//
-//        }
-//        
-//        // Subscribe to __emitterMainTopicSelected
-//        this._BackBoneService.__emitterMainTopicSelected.subscribe((data) => {
-//            console.log("BlogPosts_Component{__emitterMainTopicSelected}", data);
-//            this.load_Topic();
-//        
-////            if (data.url_feed != null) {
-////                this.topic = data;
-////                this._BlogService.setTopic(data);
-////                this._BlogService.loadPosts();
-////            }
-//            
-//
-//        }
-        
-        
         this.load_Topic();
 //        this.loadPosts();
-
 
     }
     
@@ -304,6 +262,12 @@ export class BlogPosts_Component implements OnInit {
         }
         
         _filteredPosts = _filteredPosts.filter(_onlyUnique);
+        
+        _filteredPosts.sort(function(a,b) { 
+            return new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime() 
+        });
+        
+        
         this.post_Filtered = _filteredPosts;
         if (this.post_NotFiltered.length == 0) {
             this.post_NotFiltered = this.posts;    
