@@ -496,18 +496,18 @@ export class BlogProperties_Component implements OnInit, AfterViewInit, OnChange
         
         if (scrollUP) {
             
-            var body_scrollTop = jQuery('body').get(0).scrollTop;
+          
             var element_scrollTop = jQuery(this._ElementRef.nativeElement.parentElement).offset().top;
-            var offset = 250;
-            var offsetMargin = -53;
+//            var offset = 250;
+//            var offsetMargin = -53;
             
-            
-            if (body_scrollTop > element_scrollTop + offset) {
-                jQuery('html, body').animate({scrollTop: element_scrollTop + offsetMargin}, 633);
-            }
-            
+            this._BackBoneService.scrollToY(
+                element_scrollTop, 
+                250, // offset
+                -53, // offsetMargin
+                633 // time
+                );
 
-//            window.scrollTo(0, this._ElementRef.nativeElement.parentElement.offsetTop - 53);
         }
         
 

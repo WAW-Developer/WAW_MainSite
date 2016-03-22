@@ -169,19 +169,20 @@ export class WAW_Topics__Component implements OnInit{
                 this._ngZone.runOutsideAngular(() => {
                     
                    this._aniationScroll = true;
-                
-                    var body_scrollTop = jQuery('body').get(0).scrollTop;
+                    
                     var element_scrollTop = 15;
                     var offset = 200;
                     var offsetMargin = -13;
     
                     this._topicLoading = false;
-    
-                    if (body_scrollTop > element_scrollTop + offset) {
-                        jQuery('html,body').stop().animate({ scrollTop: element_scrollTop + offsetMargin }, 611);
-                    }
-                    
-                    // ('html,body').stop().delay(500).
+ 
+
+                    this._BackBoneService.scrollToY(
+                        element_scrollTop, 
+                        200, // offset
+                        -13, // offsetMargin
+                        633 // time
+                        );
                     
                     this._aniationScroll = false;
                     
@@ -191,10 +192,6 @@ export class WAW_Topics__Component implements OnInit{
             }
             
 
-//            window.scrollTo(0, 0);
-            
-//            console.log("WAW_Topics__Component.load_selectedTopic");    // TODO REMOVE DEBUG LOG
-//            console.log(this.selectedTopic);    // TODO REMOVE DEBUG LOG
 
         });
 

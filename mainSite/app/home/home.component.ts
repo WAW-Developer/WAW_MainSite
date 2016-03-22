@@ -28,7 +28,7 @@ import {BlogTopic} from '../blog/blogs'
 })  
 @View({
     templateUrl: "res/templates/home/home_component.html",
-    styleUrls: ["res/templates/home/home_component.css"]
+    styleUrls: ["res/templates/home/home_component.css"],
     directives: [NgIf, NgFor, ROUTER_DIRECTIVES]
 
 })
@@ -140,27 +140,25 @@ export class WAW_Home__Component implements OnInit{
                 
                 // StartOF _ngZone.runOutsideAngular
                 this._ngZone.runOutsideAngular(() => {
-                    
-                    var body_scrollTop = jQuery('body').get(0).scrollTop;
+
                     var element_scrollTop = 15;
-                    var offset = 200;
-                    var offsetMargin = -13;
+//                    var offset = 200;
+//                    var offsetMargin = -13;
                     
                     this._topicLoading = false;
-                    
-                    if (body_scrollTop > element_scrollTop + offset) {
-                        jQuery('html,body').stop().animate({scrollTop: element_scrollTop + offsetMargin}, 611);
-                    }
+ 
+                    this._BackBoneService.scrollToY(
+                        element_scrollTop, 
+                        200, // offset
+                        -13, // offsetMargin
+                        633 // time
+                        );
                     
                     this._animationScroll = false;
-                    
+
                 }); // EndOF _ngZone.runOutsideAngular
 
             }
-            
-
-            
-//            window.scrollTo(0, 0);
             
             console.log("WAW_Home__Component.load_selectedTopic");    // TODO REMOVE DEBUG LOG
             console.log(this.selectedTopic);    // TODO REMOVE DEBUG LOG

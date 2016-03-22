@@ -364,25 +364,29 @@ export class BlogPosts_Component implements OnInit {
         this.paginated_Posts = this.pagination.get_CurrentItems(this.posts);
         
         if (scrollUP) {
+
+//            var body_scrollTop = jQuery('body').get(0).scrollTop;
+            var body_scrollTop = window.pageYOffset;
+
             
-            var body_scrollTop = jQuery('body').get(0).scrollTop;
             var element_scrollTop = jQuery(this._ElementRef.nativeElement.parentElement).offset().top;
-            var offset = 250;
-            var offsetMargin = -53;
+//            var offset = 250;
+//            var offsetMargin = -53;
             
             
-            if (body_scrollTop > element_scrollTop + offset) {
-                jQuery('html, body').animate({scrollTop: element_scrollTop + offsetMargin}, 633);
-            }
+            this._BackBoneService.scrollToY(
+                element_scrollTop, 
+                250, // offset
+                -53, // offsetMargin
+                633 // time
+                );
+            
+//            if (body_scrollTop > element_scrollTop + offset) {
+//                jQuery('html, body').animate({scrollTop: element_scrollTop + offsetMargin}, 633);
+//            }
 //            window.scrollTo(0, this._ElementRef.nativeElement.parentElement.offsetTop - 53);
         }
-        
-        
-//        
-        console.log("BlogPosts_Component.pagination_GotoPage");    // TODO REMOVE DEBUG LOG
-//        console.log(this._ElementRef);    // TODO REMOVE DEBUG LOG
-        console.log(body_scrollTop);    // TODO REMOVE DEBUG LOG
-        console.log(element_scrollTop);    // TODO REMOVE DEBUG LOG
+
     }
     
     /**

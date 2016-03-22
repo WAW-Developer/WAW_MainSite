@@ -1,4 +1,4 @@
-import {Injectable, EventEmitter} from 'angular2/core';
+import {Injectable, EventEmitter, NgZone} from 'angular2/core';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/share';
@@ -37,7 +37,9 @@ export class BackBoneService {
     /**
      * constructor
      */
-    constructor() {
+    constructor(
+        private _ngZone: NgZone
+        ) {
         //        this.rxEmitter = this._emitter.toRx();
         
 //        if (!BackBoneService.isCreating) {
@@ -302,6 +304,43 @@ export class BackBoneService {
     public getCurrentSubTopics(): Promise<BlogTopic[]> {
         return Promise.resolve(this.config.currentSubTopics);
 
+        
+    }
+    
+    
+    /**
+     * 
+     */
+    public scrollToY(
+        element_scrollTop: number,
+        offset: number,
+        offsetMargin: number,
+        timeAnimation: number
+        ){
+        
+//        console.log("BackBoneService.scrollToY");    // TODO REMOVE DEBUG LOG
+
+//            this._animationScroll = true;
+                
+                // StartOF _ngZone.runOutsideAngular
+                this._ngZone.runOutsideAngular(() => {
+                    
+//                    var body_scrollTop = jQuery('body').get(0).scrollTop;
+                    var body_scrollTop = window.pageYOffset;
+                    
+//                    var element_scrollTop = 15;
+//                    var offset = 200;
+//                    var offsetMargin = -13;
+                    
+                    this._topicLoading = false;
+                    
+                    if (body_scrollTop > element_scrollTop + offset) {
+                        jQuery('html,body').stop().animate({scrollTop: element_scrollTop + offsetMargin}, timeAnimation);
+                    }
+                    
+//                    this._animationScroll = false;
+                    
+                }); // EndOF _ngZone.runOutsideAngular
         
     }
     
